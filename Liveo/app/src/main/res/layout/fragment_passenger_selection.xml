@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.PassengerSelection"
+    android:id="@+id/choice_grid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    grid:columnCount="2"
+    grid:rowCount="3"
+    grid:alignmentMode="alignBounds"
+    grid:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/passenger0TextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="#FF33B5E5"
+        android:gravity="center"
+        android:text="0" />
+    <TextView
+        android:id="@+id/passenger1TextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="#FF33B5E5"
+        android:gravity="center"
+        android:text="1" />
+    <TextView
+        android:id="@+id/passenger2TextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="#FF33B5E5"
+        android:gravity="center"
+        android:text="2" />
+    <TextView
+        android:id="@+id/passenger3TextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="#FF33B5E5"
+        android:gravity="center"
+        android:text="3" />
+    <TextView
+        android:id="@+id/passenger4TextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="#FF33B5E5"
+        android:gravity="center"
+        android:text="4" />
+
+    <TextView
+        android:id="@+id/passenger5TextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="#FF33B5E5"
+        android:gravity="center"
+        android:text="4+" />
+
+</android.support.v7.widget.GridLayout>

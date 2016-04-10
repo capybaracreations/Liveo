@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.PassengerSelection"
+    android:id="@+id/menuLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    grid:columnCount="1"
+    grid:rowCount="4"
+    grid:alignmentMode="alignBounds"
+    grid:orientation="vertical">
+
+    <TextView
+        android:id="@+id/driverTextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="@color/colorActive"
+        android:gravity="center"
+        android:text="DRIVER" />
+    <TextView
+        android:id="@+id/iceTextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="@color/colorInactive"
+        android:gravity="center"
+        android:text="ICE" />
+    <TextView
+        android:id="@+id/passengersTextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="@color/colorSecondary"
+        android:gravity="center"
+        android:text="PASSENGERS" />
+    <TextView
+        android:id="@+id/triggerTextView"
+        grid:layout_rowWeight="1"
+        grid:layout_columnWeight="1"
+        grid:layout_gravity="fill"
+        android:background="@color/colorDisabled"
+        android:gravity="center"
+        android:text="START" />
+</android.support.v7.widget.GridLayout>

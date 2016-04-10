@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Liveo</string>
+    <string name="APP_TAG">LIVEO</string>
+    <string name="LIVEO_INFORMATIONS">liveoInformations</string>
+    <string name="PASSENGERS_COUNT">passengersCount</string>
 </resources>
