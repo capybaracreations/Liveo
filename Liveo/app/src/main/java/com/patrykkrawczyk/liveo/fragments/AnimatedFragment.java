@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
@@ -26,6 +28,7 @@ import it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator;
  */
 public class AnimatedFragment extends Fragment {
 
+    protected final int ANIMATION_SPEED = 500;
 
     public enum Page {
         MENU(0), PASSENGERS(1), DRIVER(2), ICE(3);
@@ -35,9 +38,10 @@ public class AnimatedFragment extends Fragment {
     }
 
     protected FragmentManager fragmentManager;
-    protected MenuPagerAdapter adapter;
-    protected MyViewPager mainViewPager;
-    private int layoutId;
+    protected static MenuPagerAdapter adapter;
+    protected static MyViewPager mainViewPager;
+    protected MaterialRippleLayout ripple;
+    protected int layoutId;
 
     public AnimatedFragment() {}
     public AnimatedFragment(int layoutId) {
@@ -57,30 +61,36 @@ public class AnimatedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(layoutId, container, false);
         ButterKnife.bind(this, view);
 
-       // ViewGroup viewGroup = (ViewGroup) view;
-        //for (int k = 0; k < viewGroup.getChildCount(); k++)
-        //    addRippleEffect(view);
+        ArrayList<View> viewList = getAllChildren(view);
+        for (View v:viewList) {
+            if (v.getId() == R.id.rippleView) {
+                addRippleEffect(v);
+                break;
+            }
+        }
 
         return view;
     }
 
     protected void switchPage(Page page) {
-     //   mainViewPager.setScrollSpeed(page.getValue());
-    //    mainViewPager.setCurrentItem(page.getValue(), true);
+        mainViewPager.setScrollSpeed(page.getValue());
+        mainViewPager.setCurrentItem(page.getValue(), true);
     }
 
 
     protected void addRippleEffect(View view) {
-        MaterialRippleLayout.on(view)
-                .rippleOverlay(true)
-                .rippleAlpha((float)0.5)
-                .rippleDuration(350)
-                .rippleDelayClick(false)
-                .rippleFadeDuration(100)
-                .create();
+        ripple = MaterialRippleLayout.on(view)
+                    .rippleOverlay(true)
+                    .rippleAlpha((float)0.75)
+                    .ripplePersistent(true)
+                    .rippleDuration((int)(ANIMATION_SPEED*0.75))
+                    .rippleDelayClick(false)
+                    .rippleFadeDuration(100)
+                    .create();
     }
 //    protected void addRippleEffect(ArrayList<View> list) {
 //        for (View view:list) {

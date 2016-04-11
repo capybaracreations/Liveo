@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.BaseInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -48,7 +49,6 @@ public class MyViewPager extends ViewPager {
     public void setScrollSpeed(int destination) {
         int pageCount = Math.abs(getCurrentItem() - destination);
         myScroller.speed = myScroller.BASE_SPEED * pageCount;
-        Logger.d(Integer.toString(myScroller.speed));
     }
 
     @Override

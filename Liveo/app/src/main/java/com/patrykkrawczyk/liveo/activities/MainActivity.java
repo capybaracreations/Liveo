@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.ToxicBakery.viewpager.transforms.StackTransformer;
+import com.ToxicBakery.viewpager.transforms.ZoomOutTranformer;
 import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mPagerAdapter);
-        mainViewPager.setPageTransformer(true, new CubeOutTransformer());
+        //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());
+        mainViewPager.setPageTransformer(true, new StackTransformer());
+        //mainViewPager.setPageTransformer(true, new StackTransformer());
 
         menuFragment = new MenuFragment();
         passengerFragment = new PassengerSelection();

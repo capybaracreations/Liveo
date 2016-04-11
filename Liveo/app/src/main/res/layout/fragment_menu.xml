@@ -1,95 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TableLayout
-    android:id="@+id/menuLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<FrameLayout
     android:layout_height="match_parent"
-    android:background="@color/mainColor"
-    android:stretchColumns="*" >
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <TableRow
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
+        <View
+            android:background="@color/mainColor"
+            android:id="@+id/rippleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TableLayout
+            android:id="@+id/menuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*" >
+
                 <TableRow
-                    android:layout_weight="10"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-                    <net.steamcrafted.materialiconlib.MaterialIconView
-                        app:materialIcon="car"
-                        app:materialIconColor="#fff"
-                        android:scaleType="center"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:id="@+id/driverButton" />
-                </TableRow>
-                <TableRow
+                    android:id="@+id/driverButton"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent">
-
-                    <TextView
-                        android:text="DRIVER"
-                        android:textColor="@color/BLACK"
-                        android:textAlignment="center"
-                        android:layout_gravity="center"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:gravity="center_vertical"/>
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                                <TableRow
+                                    android:layout_weight="10"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <net.steamcrafted.materialiconlib.MaterialIconView
+                                            app:materialIcon="car"
+                                            app:materialIconColor="#fff"
+                                            android:scaleType="center"
+                                            android:layout_height="match_parent"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginBottom="-20dp"/>
+                                </TableRow>
+                                <TableRow
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <TextView android:text="DRIVER"
+                                        android:textColor="@color/WHITE"
+                                        android:textAlignment="center"
+                                        android:layout_height="match_parent"
+                                        android:layout_width="match_parent"
+                                        android:gravity="top"
+                                        android:textStyle="bold"
+                                        android:textSize="30dp"
+                                        />
+                                </TableRow>
+                        </LinearLayout>
                 </TableRow>
-            </LinearLayout>
+
+                <TableRow
+                    android:id="@+id/iceButton"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                                <TableRow
+                                    android:layout_weight="10"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <net.steamcrafted.materialiconlib.MaterialIconView
+                                            app:materialIcon="contact_mail"
+                                            app:materialIconColor="#fff"
+                                            android:scaleType="center"
+                                            android:layout_height="match_parent"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginBottom="-20dp" />
+                                </TableRow>
+                                <TableRow
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <TextView android:text="ICE"
+                                              android:textColor="@color/WHITE"
+                                              android:textAlignment="center"
+                                              android:layout_height="match_parent"
+                                              android:layout_width="match_parent"
+                                              android:gravity="top"
+                                              android:textStyle="bold"
+                                              android:textSize="30dp"
+                                        />
+                                </TableRow>
+                        </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/passengersButton"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                                <TableRow
+                                    android:layout_weight="10"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <net.steamcrafted.materialiconlib.MaterialIconView
+                                            app:materialIcon="account_multiple"
+                                            app:materialIconColor="#fff"
+                                            android:scaleType="center"
+                                            android:layout_height="match_parent"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginBottom="-20dp" />
+                                </TableRow>
+                                <TableRow
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <TextView android:text="PASSENGERS"
+                                              android:textColor="@color/WHITE"
+                                              android:textAlignment="center"
+                                              android:layout_height="match_parent"
+                                              android:layout_width="match_parent"
+                                              android:gravity="top"
+                                              android:textStyle="bold"
+                                              android:textSize="30dp"
+                                        />
+                                </TableRow>
+                        </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/triggerButton"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                                <TableRow
+                                    android:layout_weight="10"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <net.steamcrafted.materialiconlib.MaterialIconView
+                                            app:materialIcon="play"
+                                            app:materialIconColor="#fff"
+                                            android:scaleType="center"
+                                            android:layout_height="match_parent"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginBottom="-20dp" />
+                                </TableRow>
+                                <TableRow
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent">
+                                        <TextView android:text="START"
+                                              android:id="@+id/triggerTextView"
+                                              android:textColor="@color/WHITE"
+                                              android:textAlignment="center"
+                                              android:layout_height="match_parent"
+                                              android:layout_width="match_parent"
+                                              android:gravity="top"
+                                              android:textStyle="bold"
+                                              android:textSize="30dp"
+                                        />
+                                </TableRow>
+                        </LinearLayout>
+                </TableRow>
 
 
 
-    </TableRow>
+        </TableLayout>
 
-    <TableRow
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-        <net.steamcrafted.materialiconlib.MaterialIconView
-            app:materialIcon="contact_mail"
-            app:materialIconColor="#fff"
-            android:scaleType="center"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/iceButton" />
-    </TableRow>
-
-    <TableRow
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-        <net.steamcrafted.materialiconlib.MaterialIconView
-            app:materialIcon="account_multiple"
-            app:materialIconColor="#fff"
-            android:scaleType="center"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/passengersButton" />
-    </TableRow>
-
-    <TableRow
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-        <net.steamcrafted.materialiconlib.MaterialIconView
-            app:materialIcon="play"
-            app:materialIconColor="#fff"
-            android:scaleType="center"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/triggerButton" />
-    </TableRow>
-
-</TableLayout>
-
+</FrameLayout>
 <!--
 <it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator
 android:id="@+id/animator"
