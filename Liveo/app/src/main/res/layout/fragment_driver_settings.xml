@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/WHITE"
     android:stretchColumns="*" >
 
 
@@ -19,18 +20,17 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@color/colorDefault"
-            android:text=""
-            android:hint="First Name"/>
+            android:hint="First Name"
+            android:text=""/>
         <EditText
             android:id="@+id/lastNameEditText"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@color/colorDefault"
-            android:text=""
-            android:hint="Last Name"/>
+            android:hint="Last Name"
+            android:text=""/>
+
     </TableRow>
 
 
@@ -46,7 +46,6 @@
             android:layout_span="3"
             android:padding="20dip"
             android:gravity="center"
-            android:background="@color/colorDefault"
             android:text=""
             android:hint="Registration Number"/>
     </TableRow>
@@ -64,7 +63,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="20dip"
-            android:background="@color/colorInactive"
             android:text="MALE" />
         <TextView
             android:id="@+id/femaleSelection"
@@ -73,7 +71,6 @@
             android:layout_weight="1"
             android:padding="20dip"
             android:gravity="center"
-            android:background="@color/colorInactive"
             android:text="FEMALE"/>
     </TableRow>
 
@@ -89,7 +86,6 @@
             android:layout_height="fill_parent"
             android:padding="20dip"
             android:gravity="center"
-            android:background="@color/colorInactive"
             android:text="TEEN" />
         <TextView
             android:id="@+id/adultSelection"
@@ -97,7 +93,6 @@
             android:layout_height="fill_parent"
             android:padding="20dip"
             android:gravity="center"
-            android:background="@color/colorInactive"
             android:text="ADULT"/>
         <TextView
             android:id="@+id/seniorSelection"
@@ -105,7 +100,6 @@
             android:layout_height="fill_parent"
             android:padding="20dip"
             android:gravity="center"
-            android:background="@color/colorInactive"
             android:text="SENIOR"/>
     </TableRow>
 

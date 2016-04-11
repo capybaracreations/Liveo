@@ -1,47 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:grid="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.PassengerSelection"
+
+<TableLayout
     android:id="@+id/menuLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    grid:columnCount="1"
-    grid:rowCount="4"
-    grid:alignmentMode="alignBounds"
-    grid:orientation="vertical">
+    android:background="@color/mainColor"
+    android:stretchColumns="*" >
 
-    <TextView
-        android:id="@+id/driverTextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="@color/colorActive"
-        android:gravity="center"
-        android:text="DRIVER" />
-    <TextView
-        android:id="@+id/iceTextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="@color/colorInactive"
-        android:gravity="center"
-        android:text="ICE" />
-    <TextView
-        android:id="@+id/passengersTextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="@color/colorSecondary"
-        android:gravity="center"
-        android:text="PASSENGERS" />
-    <TextView
-        android:id="@+id/triggerTextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="@color/colorDisabled"
-        android:gravity="center"
-        android:text="START" />
-</android.support.v7.widget.GridLayout>
+    <TableRow
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <TableRow
+                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:id="@+id/driverButton" />
+                </TableRow>
+                <TableRow
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:text="DRIVER"
+                        android:textColor="@color/BLACK"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"/>
+                </TableRow>
+            </LinearLayout>
+
+
+
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            app:materialIcon="contact_mail"
+            app:materialIconColor="#fff"
+            android:scaleType="center"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/iceButton" />
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            app:materialIcon="account_multiple"
+            app:materialIconColor="#fff"
+            android:scaleType="center"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/passengersButton" />
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            app:materialIcon="play"
+            app:materialIconColor="#fff"
+            android:scaleType="center"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/triggerButton" />
+    </TableRow>
+
+</TableLayout>
+
+<!--
+<it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator
+android:id="@+id/animator"
+android:animationDuration="@android:integer/config_longAnimTime"
+android:measureAllChildren="true"
+android:animateFirstView="true"
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+android:outAnimation="@anim/out_animation"
+android:inAnimation="@anim/in_animation"
+android:interpolator="@android:interpolator/accelerate_decelerate" >
+
+</it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator>
+-->
+

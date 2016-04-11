@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.mainViewPager)
     MyViewPager mainViewPager;
 
+
+    static private MenuFragment menuFragment;
+    static private DriverSettings driverFragment;
+    static private PassengerSelection passengerFragment;
+    static private IceSettings iceFragment;
+
     private MenuPagerAdapter mPagerAdapter;
 
     @Override
@@ -39,8 +45,17 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mPagerAdapter);
         mainViewPager.setPageTransformer(true, new CubeOutTransformer());
-    }
 
+        menuFragment = new MenuFragment();
+        passengerFragment = new PassengerSelection();
+        driverFragment = new DriverSettings();
+        iceFragment = new IceSettings();
+
+        mPagerAdapter.add(menuFragment);
+        mPagerAdapter.add(passengerFragment);
+        mPagerAdapter.add(driverFragment);
+        mPagerAdapter.add(iceFragment);
+    }
 
     @Override
     public void onBackPressed() {

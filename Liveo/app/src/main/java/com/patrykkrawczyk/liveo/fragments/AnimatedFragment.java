@@ -3,9 +3,8 @@ package com.patrykkrawczyk.liveo.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,11 @@ import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
 
+import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import java.util.ArrayList;
 import butterknife.ButterKnife;
+import it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator;
 
 /**
  * Created by Patryk Krawczyk on 10.04.2016.
@@ -28,7 +31,6 @@ public class AnimatedFragment extends Fragment {
         MENU(0), PASSENGERS(1), DRIVER(2), ICE(3);
         private final int value;
         private Page(int value) { this.value = value; }
-
         public int getValue() { return value; }
     }
 
@@ -46,10 +48,10 @@ public class AnimatedFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentManager = getFragmentManager();
-        mainViewPager = (MyViewPager) getActivity().findViewById(R.id.mainViewPager);
+        FragmentActivity activiity = getActivity();
+        mainViewPager = (MyViewPager) activiity.findViewById(R.id.mainViewPager);
         adapter = (MenuPagerAdapter) mainViewPager.getAdapter();
     }
-
 
 
     @Override
@@ -58,41 +60,62 @@ public class AnimatedFragment extends Fragment {
         View view = inflater.inflate(layoutId, container, false);
         ButterKnife.bind(this, view);
 
-        ViewGroup viewGroup = (ViewGroup) view;
-        TextView tv;
-        for (int k = 0; k < viewGroup.getChildCount(); k++) {
-            try {
-                tv = (TextView) viewGroup.getChildAt(k);
-            } catch (ClassCastException e) {
-                tv = null;
-            }
-            if (tv != null)
-                addRippleEffect(tv);
-        }
+       // ViewGroup viewGroup = (ViewGroup) view;
+        //for (int k = 0; k < viewGroup.getChildCount(); k++)
+        //    addRippleEffect(view);
 
         return view;
     }
 
     protected void switchPage(Page page) {
-        switch (page) {
-            case MENU:
-                            mainViewPager.setCurrentItem(0, true);
-                            break;
-            default:
-                            adapter.switchState(page);
-                            mainViewPager.setCurrentItem(1, true);
-                            return;
-        }
+     //   mainViewPager.setScrollSpeed(page.getValue());
+    //    mainViewPager.setCurrentItem(page.getValue(), true);
     }
 
 
     protected void addRippleEffect(View view) {
-            MaterialRippleLayout.on(view)
-                    .rippleOverlay(true)
-                    .rippleAlpha((float)0.2)
-                    .rippleDuration(350)
-                    .rippleDelayClick(false)
-                    .rippleFadeDuration(100)
-                    .create();
+        MaterialRippleLayout.on(view)
+                .rippleOverlay(true)
+                .rippleAlpha((float)0.5)
+                .rippleDuration(350)
+                .rippleDelayClick(false)
+                .rippleFadeDuration(100)
+                .create();
+    }
+//    protected void addRippleEffect(ArrayList<View> list) {
+//        for (View view:list) {
+//            if (view instanceof TextView || view instanceof MaterialIconView)
+//            MaterialRippleLayout.on(view)
+//                    .rippleOverlay(true)
+//                    .rippleAlpha((float)0.5)
+//                    .rippleDuration(350)
+//                    .rippleDelayClick(false)
+//                    .rippleFadeDuration(100)
+//                    .create();
+//        }
+//    }
+
+    private ArrayList<View> getAllChildren(View v) {
+
+        if (!(v instanceof ViewGroup)) {
+            ArrayList<View> viewArrayList = new ArrayList<View>();
+            viewArrayList.add(v);
+            return viewArrayList;
         }
+
+        ArrayList<View> result = new ArrayList<View>();
+
+        ViewGroup viewGroup = (ViewGroup) v;
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+
+            View child = viewGroup.getChildAt(i);
+
+            ArrayList<View> viewArrayList = new ArrayList<View>();
+            viewArrayList.add(v);
+            viewArrayList.addAll(getAllChildren(child));
+
+            result.addAll(viewArrayList);
+        }
+        return result;
+    }
 }

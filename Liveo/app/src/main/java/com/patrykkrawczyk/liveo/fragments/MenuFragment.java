@@ -1,6 +1,7 @@
 package com.patrykkrawczyk.liveo.fragments;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -23,59 +26,50 @@ import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
 
+import net.steamcrafted.materialiconlib.MaterialIconView;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator;
 
-public class MenuFragment extends AnimatedFragment implements ViewPager.OnPageChangeListener{
+public class MenuFragment extends AnimatedFragment{
 
-    @Bind(R.id.menuLayout)         GridLayout menuLayout;
-    @Bind(R.id.driverTextView)     TextView driverTextView;
-    @Bind(R.id.iceTextView)        TextView iceTextView;
-    @Bind(R.id.passengersTextView) TextView passengersTextView;
-    @Bind(R.id.triggerTextView)    TextView triggerTextView;
-
+    @Bind(R.id.menuLayout)       TableLayout menuLayout;
+    @Bind(R.id.driverButton)     MaterialIconView driverButton;
+    @Bind(R.id.iceButton)        MaterialIconView iceButton;
+    @Bind(R.id.passengersButton) MaterialIconView passengersButton;
+    @Bind(R.id.triggerButton)    MaterialIconView triggerButton;
+    //@Bind(R.id.animator)         ViewRevealAnimator mViewAnimator;
 
     public MenuFragment() { super(R.layout.fragment_menu); }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewPager.addOnPageChangeListener(this);
     }
 
 
-    @OnClick(R.id.driverTextView)
+    @OnClick(R.id.driverButton)
     public void onClickDriver(View view) {
-        switchPage(Page.DRIVER);
+        //switchPage(Page.DRIVER);
+
+       // mViewAnimator.showNext();
     }
 
-    @OnClick(R.id.iceTextView)
+    @OnClick(R.id.iceButton)
     public void onClickIce(View view) {
         switchPage(Page.ICE);
     }
 
-    @OnClick(R.id.passengersTextView)
+    @OnClick(R.id.passengersButton)
     public void onClickPassengers(View view) {
         switchPage(Page.PASSENGERS);
     }
 
-    @OnClick(R.id.triggerTextView)
+    @OnClick(R.id.triggerButton)
     public void onClickTrigger(View view) {
 
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-    @Override
-    public void onPageSelected(int position) {}
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        if(mainViewPager.getCurrentItem() == 0 && state == ViewPager.SCROLL_STATE_IDLE) {
-            Logger.d("MENU STOP");
-            //adapter.cleanFragments();
-        }
-    }
 }

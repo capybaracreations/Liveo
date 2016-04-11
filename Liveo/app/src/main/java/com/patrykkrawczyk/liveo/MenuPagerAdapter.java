@@ -19,23 +19,11 @@ import java.util.List;
 public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<AnimatedFragment> mList = null;
-    private MenuFragment menuFragment;
-    private DriverSettings driverFragment;
-    private PassengerSelection passengerFragment;
-    private IceSettings iceFragment;
 
 
     public MenuPagerAdapter(FragmentManager fm) {
         super(fm);
         mList = new ArrayList<>();
-        menuFragment = new MenuFragment();
-        passengerFragment = new PassengerSelection();
-        driverFragment = new DriverSettings();
-        iceFragment = new IceSettings();
-        mList.add(menuFragment);
-        mList.add(passengerFragment);
-        //mList.add(driverFragment);
-        //mList.add(iceFragment);
     }
 
     public void switchState(AnimatedFragment.Page page) {
@@ -44,9 +32,9 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 //        else if (page == AnimatedFragment.Page.DRIVER) newFragment = driverFragment;
 //        else newFragment = iceFragment;
 
-        if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
-        else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
-        else mList.set(1, iceFragment);
+        //if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
+        //else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
+        //else mList.set(1, iceFragment);
 
 
         //add(newFragment);

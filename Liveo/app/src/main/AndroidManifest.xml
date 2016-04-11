@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar.FullScreen">
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity" android:screenOrientation="portrait">
 
             <!-- android:exported="false" -->
             <intent-filter>
@@ -24,14 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SplashScreenActivity">
-        </activity>
-        <activity android:name=".fragments.MenuFragment">
-        </activity>
-        <activity android:name=".fragments.PassengerSelection">
-        </activity>
-        <activity android:name=".fragments.IceSettings">
-        </activity>
-        <activity android:name=".DriverSettings">
         </activity>
         <activity android:name=".activities.HubActivity">
         </activity>
