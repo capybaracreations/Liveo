@@ -18,48 +18,51 @@ import java.util.List;
  */
 public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
+    //static private MenuFragment menuFragment;
+    //static private DriverSettings driverFragment;
+    //static private PassengerSelection passengerFragment;
+    //static private IceSettings iceFragment;
     private List<AnimatedFragment> mList = null;
-
 
     public MenuPagerAdapter(FragmentManager fm) {
         super(fm);
-        mList = new ArrayList<>();
+
+        //menuFragment      = new MenuFragment();
+        //passengerFragment = new PassengerSelection();
+        //driverFragment    = new DriverSettings();
+        //iceFragment       = new IceSettings();
+
+        mList = new ArrayList<>(2);
+        mList.add(new MenuFragment());
+        mList.add(new PassengerSelection());
+        //mList.add(driverFragment);
+        //mList.add(iceFragment);
     }
 
-    public void switchState(AnimatedFragment.Page page) {
-//        AnimatedFragment newFragment;
-//        if (page == AnimatedFragment.Page.PASSENGERS) newFragment = passengerFragment;
-//        else if (page == AnimatedFragment.Page.DRIVER) newFragment = driverFragment;
-//        else newFragment = iceFragment;
+    public void switchPage(AnimatedFragment.Page page) {
+        AnimatedFragment newFragment;
+        int position = 1;
+
+        if (page == AnimatedFragment.Page.PASSENGERS) newFragment = new PassengerSelection();
+        else if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverSettings();
+        else if (page == AnimatedFragment.Page.ICE) newFragment = new IceSettings();
+        else {
+            newFragment = new MenuFragment();
+            position = 0;
+        }
+
+        mList.set(position, newFragment);
+        notifyDataSetChanged();
+
 
         //if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
         //else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
         //else mList.set(1, iceFragment);
 
-
-        //add(newFragment);
-
-        //AnimatedFragment oldFragment = getItem(1);
-        //if (oldFragment.equals(newFragment)) return;
-
         //int position = getItemPosition(newFragment);
         //mList.set(1, newFragment);
         //mList.set(position, oldFragment);
         //notifyDataSetChanged();
-    }
-
-    public void add(AnimatedFragment fragment)
-    {
-        mList.add(fragment);
-        notifyDataSetChanged();
-    }
-
-    public void cleanFragments()
-    {
-        while(mList.size() > 1) {
-            mList.remove(getCount() - 1);
-            notifyDataSetChanged();
-        }
     }
 
     @Override

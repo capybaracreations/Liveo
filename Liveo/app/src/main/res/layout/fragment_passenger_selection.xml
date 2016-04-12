@@ -1,65 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:grid="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.PassengerSelection"
-    android:id="@+id/choice_grid"
-    android:layout_width="match_parent"
+
+<FrameLayout
     android:layout_height="match_parent"
-    grid:columnCount="2"
-    grid:rowCount="3"
-    grid:alignmentMode="alignBounds"
-    grid:orientation="horizontal">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <TextView
-        android:id="@+id/passenger0TextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="#FF33B5E5"
-        android:gravity="center"
-        android:text="0" />
-    <TextView
-        android:id="@+id/passenger1TextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="#FF33B5E5"
-        android:gravity="center"
-        android:text="1" />
-    <TextView
-        android:id="@+id/passenger2TextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="#FF33B5E5"
-        android:gravity="center"
-        android:text="2" />
-    <TextView
-        android:id="@+id/passenger3TextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="#FF33B5E5"
-        android:gravity="center"
-        android:text="3" />
-    <TextView
-        android:id="@+id/passenger4TextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="#FF33B5E5"
-        android:gravity="center"
-        android:text="4" />
+    <View
+        android:background="@color/mainColor"
+        android:id="@+id/rippleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/passenger5TextView"
-        grid:layout_rowWeight="1"
-        grid:layout_columnWeight="1"
-        grid:layout_gravity="fill"
-        android:background="#FF33B5E5"
-        android:gravity="center"
-        android:text="4+" />
+    <TableLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*" >
 
-</android.support.v7.widget.GridLayout>
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/passenger0Button"
+                        android:tag="0"
+                        android:layout_weight="1"
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/passenger1Button"
+                        android:tag="1"
+                        android:layout_weight="1"
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/passenger2Button"
+                        android:tag="2"
+                        android:layout_weight="1"
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/passenger3Button"
+                        android:tag="3"
+                        android:layout_weight="1"
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/passenger4Button"
+                        android:tag="4"
+                        android:layout_weight="1"
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:id="@+id/passenger5Button"
+                        android:tag="5"
+                        android:layout_weight="1"
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+            </LinearLayout>
+        </TableRow>
+
+    </TableLayout>
+
+</FrameLayout>

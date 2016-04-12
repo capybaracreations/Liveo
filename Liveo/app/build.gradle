@@ -40,6 +40,6 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'net.steamcrafted:materialiconlib:1.0.9'
     compile 'it.sephiroth.android.library.viewrevealanimator:view-reveal-animator:+'
-
+    compile 'org.greenrobot:eventbus:3.0.0'
 
 }

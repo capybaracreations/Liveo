@@ -1,5 +1,6 @@
 package com.patrykkrawczyk.liveo.fragments;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,11 @@ import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.SwitchPageEvent;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import butterknife.ButterKnife;
@@ -31,15 +35,9 @@ public class AnimatedFragment extends Fragment {
     protected final int ANIMATION_SPEED = 500;
 
     public enum Page {
-        MENU(0), PASSENGERS(1), DRIVER(2), ICE(3);
-        private final int value;
-        private Page(int value) { this.value = value; }
-        public int getValue() { return value; }
+        MENU, PASSENGERS, DRIVER, ICE;
     }
 
-    protected FragmentManager fragmentManager;
-    protected static MenuPagerAdapter adapter;
-    protected static MyViewPager mainViewPager;
     protected MaterialRippleLayout ripple;
     protected int layoutId;
 
@@ -48,19 +46,9 @@ public class AnimatedFragment extends Fragment {
         this.layoutId = layoutId;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        fragmentManager = getFragmentManager();
-        FragmentActivity activiity = getActivity();
-        mainViewPager = (MyViewPager) activiity.findViewById(R.id.mainViewPager);
-        adapter = (MenuPagerAdapter) mainViewPager.getAdapter();
-    }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(layoutId, container, false);
         ButterKnife.bind(this, view);
@@ -76,11 +64,11 @@ public class AnimatedFragment extends Fragment {
         return view;
     }
 
-    protected void switchPage(Page page) {
-        mainViewPager.setScrollSpeed(page.getValue());
-        mainViewPager.setCurrentItem(page.getValue(), true);
+    protected void rippleChangePage(MotionEvent event, Page page) {
+        Point point = new Point((int) event.getRawX(), (int) event.getRawY());
+        ripple.performRipple(point);
+        EventBus.getDefault().post(new SwitchPageEvent(page));
     }
-
 
     protected void addRippleEffect(View view) {
         ripple = MaterialRippleLayout.on(view)
@@ -92,18 +80,6 @@ public class AnimatedFragment extends Fragment {
                     .rippleFadeDuration(100)
                     .create();
     }
-//    protected void addRippleEffect(ArrayList<View> list) {
-//        for (View view:list) {
-//            if (view instanceof TextView || view instanceof MaterialIconView)
-//            MaterialRippleLayout.on(view)
-//                    .rippleOverlay(true)
-//                    .rippleAlpha((float)0.5)
-//                    .rippleDuration(350)
-//                    .rippleDelayClick(false)
-//                    .rippleFadeDuration(100)
-//                    .create();
-//        }
-//    }
 
     private ArrayList<View> getAllChildren(View v) {
 

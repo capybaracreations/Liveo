@@ -30,10 +30,6 @@ public class MyViewPager extends ViewPager {
 
     public MyViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setMyScroller();
-    }
-
-    private void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;
             Field scroller = viewpager.getDeclaredField("mScroller");
@@ -44,7 +40,9 @@ public class MyViewPager extends ViewPager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
 
     public void setScrollSpeed(int destination) {
         int pageCount = Math.abs(getCurrentItem() - destination);

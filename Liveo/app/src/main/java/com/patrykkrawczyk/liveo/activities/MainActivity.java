@@ -12,12 +12,19 @@ import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
 import com.patrykkrawczyk.liveo.fragments.DriverSettings;
 import com.patrykkrawczyk.liveo.fragments.IceSettings;
 import com.patrykkrawczyk.liveo.fragments.MenuFragment;
 import com.patrykkrawczyk.liveo.fragments.PassengerSelection;
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment.Page;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,13 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.mainViewPager)
     MyViewPager mainViewPager;
 
+    static private MenuPagerAdapter mPagerAdapter;
+    private EventBus eventBus;
 
-    static private MenuFragment menuFragment;
-    static private DriverSettings driverFragment;
-    static private PassengerSelection passengerFragment;
-    static private IceSettings iceFragment;
-
-    private MenuPagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +45,44 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         Logger.init(getString(R.string.APP_TAG));
+        eventBus = EventBus.getDefault();
 
         mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mPagerAdapter);
+
         //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());
         mainViewPager.setPageTransformer(true, new StackTransformer());
-        //mainViewPager.setPageTransformer(true, new StackTransformer());
+        //mainViewPager.setPageTransformer(true, new CubeOutTransformer());
 
-        menuFragment = new MenuFragment();
-        passengerFragment = new PassengerSelection();
-        driverFragment = new DriverSettings();
-        iceFragment = new IceSettings();
+    }
 
-        mPagerAdapter.add(menuFragment);
-        mPagerAdapter.add(passengerFragment);
-        mPagerAdapter.add(driverFragment);
-        mPagerAdapter.add(iceFragment);
+    @Subscribe
+    public void onEvent(SwitchPageEvent event) {
+        mPagerAdapter.switchPage(event.page);
+        if (event.page != Page.MENU) {
+            mainViewPager.setCurrentItem(1);
+        } else {
+            mainViewPager.setCurrentItem(0);
+        }
+    };
+
+
+    @Override
+    protected void onResume() {
+        eventBus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        eventBus.unregister(this);
+        super.onStop();
     }
 
     @Override
     public void onBackPressed() {
         if (mainViewPager.getCurrentItem() > 0) {
-            mainViewPager.setCurrentItem(0);
+            EventBus.getDefault().post(new SwitchPageEvent(Page.MENU));
         }
     }
 

@@ -1,72 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    android:id="@+id/driverLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<FrameLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:stretchColumns="*" >
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
+    <View
+        android:background="@color/mainColor"
+        android:id="@+id/rippleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
+    <TableLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*" >
 
-    <TableRow
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
-        <EditText
-            android:id="@+id/firstNameEditText"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+        <TableRow
+            android:id="@+id/confirmButton"
             android:layout_weight="1"
-            android:gravity="center"
-            android:background="@color/colorDefault"
-            android:text=""
-            android:hint="First Name"/>
-        <EditText
-            android:id="@+id/lastNameEditText"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@color/colorDefault"
-            android:text=""
-            android:hint="Last Name"/>
-    </TableRow>
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <TableRow
+                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        app:materialIcon="car"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                </TableRow>
+            </LinearLayout>
+        </TableRow>
 
+    </TableLayout>
 
-
-    <TableRow
-        android:layout_weight="1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-        <EditText
-            android:id="@+id/registrationNumberEditText"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_span="3"
-            android:padding="20dip"
-            android:gravity="center"
-            android:background="@color/colorDefault"
-            android:text=""
-            android:hint="Registration Number"/>
-    </TableRow>
-
-
-    <TableRow
-        android:layout_weight="1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-        <TextView
-            android:id="@+id/confirmTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_span="3"
-            android:padding="20dip"
-            android:gravity="center"
-            android:background="@color/colorActive"
-            android:text="Confirm -->" />
-    </TableRow>
-
-
-
-</TableLayout>
+</FrameLayout>
