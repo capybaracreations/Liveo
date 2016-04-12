@@ -19,28 +19,87 @@
         android:stretchColumns="*" >
 
         <TableRow
-            android:id="@+id/confirmButton"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                android:id="@+id/contact0Button"
+                app:materialIcon="account_plus"
+                app:materialIconColor="#fff"
+                android:scaleType="center"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <TableRow
-                    android:layout_weight="10"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-                    <net.steamcrafted.materialiconlib.MaterialIconView
-                        app:materialIcon="car"
-                        app:materialIconColor="#fff"
-                        android:scaleType="center"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"/>
-                </TableRow>
-            </LinearLayout>
+                android:layout_width="match_parent"/>
         </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                android:id="@+id/contact1Button"
+                app:materialIcon="account_plus"
+                app:materialIconColor="#fff"
+                android:scaleType="center"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                android:id="@+id/contact2Button"
+                app:materialIcon="account_plus"
+                app:materialIconColor="#fff"
+                android:scaleType="center"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                android:id="@+id/contact3Button"
+                app:materialIcon="account_plus"
+                app:materialIconColor="#fff"
+                android:scaleType="center"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                android:id="@+id/contact4Button"
+                app:materialIcon="account_plus"
+                app:materialIconColor="#fff"
+                android:scaleType="center"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+
 
     </TableLayout>
 
 </FrameLayout>
+    <!--
+    <it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator
+    android:id="@+id/animator"
+    android:animationDuration="@android:integer/config_longAnimTime"
+    android:measureAllChildren="true"
+    android:animateFirstView="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:outAnimation="@anim/out_animation"
+    android:inAnimation="@anim/in_animation"
+    android:interpolator="@android:interpolator/accelerate_decelerate" >
+
+    </it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator>
+    -->
+

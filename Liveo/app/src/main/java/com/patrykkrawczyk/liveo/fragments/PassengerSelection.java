@@ -2,6 +2,7 @@ package com.patrykkrawczyk.liveo.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -34,33 +35,39 @@ public class PassengerSelection extends AnimatedFragment {
 
     @OnTouch(R.id.passenger0Button)
     public boolean onPassenger0Button(View view, MotionEvent event) {
+        setIconColor(view, Color.RED);
         savePassengerCount(view, event);
         return true;
     }
     @OnTouch(R.id.passenger1Button)
     public boolean onPassenger1Button(View view, MotionEvent event) {
+        setIconColor(view, Color.RED);
         savePassengerCount(view, event);
         return true;
     }
 
     @OnTouch(R.id.passenger2Button)
     public boolean onPassenger2Button(View view, MotionEvent event) {
+        setIconColor(view, Color.RED);
         savePassengerCount(view, event);
         return true;
     }
     @OnTouch(R.id.passenger3Button)
     public boolean onPassenger3Button(View view, MotionEvent event) {
+        setIconColor(view, Color.RED);
         savePassengerCount(view, event);
         return true;
     }
 
     @OnTouch(R.id.passenger4Button)
     public boolean onPassenger4Button(View view, MotionEvent event) {
+        setIconColor(view, Color.RED);
         savePassengerCount(view, event);
         return true;
     }
     @OnTouch(R.id.passenger5Button)
     public boolean onPassenger5Button(View view, MotionEvent event) {
+        setIconColor(view, Color.RED);
         savePassengerCount(view, event);
         return true;
     }

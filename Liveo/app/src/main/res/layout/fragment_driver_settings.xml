@@ -16,113 +16,137 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:stretchColumns="*" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
 
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
+                <TableRow
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
-                <EditText
-                    android:id="@+id/firstNameEditText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:hint="First Name"
-                    android:text=""/>
-                <EditText
-                    android:id="@+id/lastNameEditText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:hint="Last Name"
-                    android:text=""/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <EditText
-                android:id="@+id/registrationNumberEditText"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:text=""
-                android:hint="Registration Number"/>
-        </TableRow>
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <TextView
-                    android:id="@+id/maleSelection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="MALE" />
-                <TextView
-                    android:id="@+id/femaleSelection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="FEMALE"/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <TextView
-                    android:id="@+id/teenSelection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="TEEN" />
-                <TextView
-                    android:id="@+id/adultSelection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="ADULT"/>
-                <TextView
-                    android:id="@+id/seniorSelection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="SENIOR"/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <TextView
-                android:id="@+id/confirmTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Confirm -->" />
-        </TableRow>
+                    <EditText
+                        android:id="@+id/firstNameEditText"
+                        android:textColorHint="@color/WHITE"
+                        android:textColor="@color/WHITE"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:hint="First Name"
+                        android:text=""/>
+                    <EditText
+                        android:id="@+id/lastNameEditText"
+                        android:textColorHint="@color/WHITE"
+                        android:textColor="@color/WHITE"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:hint="Last Name"
+                        android:text=""/>
+                </TableRow>
 
+                <TableRow
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                    <EditText
+                        android:layout_weight="1"
+                        android:id="@+id/registrationNumberEditText"
+                        android:textColorHint="@color/WHITE"
+                        android:textColor="@color/WHITE"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:hint="Registration Number"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:layout_weight="1"
+                        android:id="@+id/maleSelection"
+                        app:materialIcon="gender_male"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:layout_weight="1"
+                        android:id="@+id/femaleSelection"
+                        app:materialIcon="gender_female"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/teenSelection"
+                            android:textColor="@color/WHITE"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="30sp"
+                            android:text="TEEN" />
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/adultSelection"
+                            android:textColor="@color/WHITE"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="30sp"
+                            android:text="ADULT"/>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/seniorSelection"
+                            android:textColor="@color/WHITE"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textSize="30sp"
+                            android:text="SENIOR"/>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:layout_weight="1"
+                        android:id="@+id/confirmButton"
+                        app:materialIcon="check"
+                        app:materialIconColor="#fff"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                </TableRow>
+            </LinearLayout>
     </TableLayout>
+
 
 </FrameLayout>
 

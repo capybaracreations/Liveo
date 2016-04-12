@@ -3,6 +3,7 @@ package com.patrykkrawczyk.liveo.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -19,6 +21,11 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.SwitchPageEvent;
+
+import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,14 +35,15 @@ import butterknife.OnTouch;
 public class DriverSettings extends AnimatedFragment {
 
 
-    @Bind(R.id.maleSelection)              TextView maleSelection;
-    @Bind(R.id.femaleSelection)            TextView femaleSelection;
+    @Bind(R.id.firstNameEditText)          EditText firstNameEditText;
+    @Bind(R.id.maleSelection)              MaterialIconView maleSelection;
+    @Bind(R.id.femaleSelection)            MaterialIconView femaleSelection;
+    @Bind(R.id.confirmButton)              MaterialIconView confirmButton;
     @Bind(R.id.teenSelection)              TextView teenSelection;
     @Bind(R.id.adultSelection)             TextView adultSelection;
     @Bind(R.id.seniorSelection)            TextView seniorSelection;
 
     SharedPreferences sharedPreferences;
-    int activeColor;
     enum Gender{
         MALE, FEMALE;
     };
@@ -53,56 +61,97 @@ public class DriverSettings extends AnimatedFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        activeColor = getResources().getColor(R.color.colorDefault);
         sharedPreferences = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
     }
 
-
-    @OnTouch(R.id.confirmTextView)
-    public boolean onToucConfirm(View v, MotionEvent event) {
+    @OnTouch(R.id.confirmButton)
+    public boolean onTouchConfirm(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            rippleChangePage(event, Page.MENU);
+            performRippleNoSwitch(event);
+            performCheck();
         }
         return true;
     }
 
-    @OnClick(R.id.maleSelection)
-    public void onClickMale(View view) {
-        gender = Gender.MALE;
-        maleSelection.setBackgroundColor(activeColor);
-        femaleSelection.setBackgroundColor(Color.TRANSPARENT);
+    private void performCheck() {
+        boolean correct = false;
+
+        if (!correct) {
+            confirmButton.setColor(Color.RED);
+        } else {
+            confirmButton.setColor(Color.GREEN);
+            saveDriverData();
+        }
     }
 
-    @OnClick(R.id.femaleSelection)
-    public void onClickFemale(View view) {
-        gender = Gender.FEMALE;
-        femaleSelection.setBackgroundColor(activeColor);
-        maleSelection.setBackgroundColor(Color.TRANSPARENT);
+    private void saveDriverData() {
+
+        EventBus.getDefault().post(new SwitchPageEvent(Page.MENU));
     }
 
-    @OnClick(R.id.teenSelection)
-    public void onClickTeen(View view) {
-        ageGroup = AgeGroup.TEEN;
-        teenSelection.setBackgroundColor(activeColor);
-        adultSelection.setBackgroundColor(Color.TRANSPARENT);
-        seniorSelection.setBackgroundColor(Color.TRANSPARENT);
+    @OnTouch(R.id.maleSelection)
+    public boolean onTouchMale(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            gender = Gender.MALE;
+            femaleSelection.setColor(Color.WHITE);
+            maleSelection.setColor(Color.RED);
+            confirmButton.setColor(Color.WHITE);
+            performRippleNoSwitch(event);
+        }
+        return true;
     }
 
-    @OnClick(R.id.adultSelection)
-    public void onClickAdult(View view) {
-        ageGroup = AgeGroup.ADULT;
-        adultSelection.setBackgroundColor(activeColor);
-        teenSelection.setBackgroundColor(Color.TRANSPARENT);
-        seniorSelection.setBackgroundColor(Color.TRANSPARENT);
+    @OnTouch(R.id.femaleSelection)
+    public boolean onTouchFemale(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            gender = Gender.FEMALE;
+            femaleSelection.setColor(Color.RED);
+            maleSelection.setColor(Color.WHITE);
+            confirmButton.setColor(Color.WHITE);
+            performRippleNoSwitch(event);
+        }
+        return true;
     }
 
-    @OnClick(R.id.seniorSelection)
-    public void onClickSenior(View view) {
-        ageGroup = AgeGroup.SENIOR;
-        seniorSelection.setBackgroundColor(activeColor);
-        teenSelection.setBackgroundColor(Color.TRANSPARENT);
-        adultSelection.setBackgroundColor(Color.TRANSPARENT);
+    @OnTouch(R.id.teenSelection)
+    public boolean onTouchTeen(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            ageGroup = AgeGroup.TEEN;
+            teenSelection.setTextColor(Color.RED);
+            adultSelection.setTextColor(Color.WHITE);
+            seniorSelection.setTextColor(Color.WHITE);
+            confirmButton.setColor(Color.WHITE);
+            performRippleNoSwitch(event);
+        }
+        return true;
     }
+
+    @OnTouch(R.id.adultSelection)
+    public boolean onTouchAdult(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            ageGroup = AgeGroup.ADULT;
+            teenSelection.setTextColor(Color.WHITE);
+            adultSelection.setTextColor(Color.RED);
+            seniorSelection.setTextColor(Color.WHITE);
+            confirmButton.setColor(Color.WHITE);
+            performRippleNoSwitch(event);
+        }
+        return true;
+    }
+
+    @OnTouch(R.id.seniorSelection)
+    public boolean onTouchSenior(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            ageGroup = AgeGroup.SENIOR;
+            teenSelection.setTextColor(Color.WHITE);
+            adultSelection.setTextColor(Color.WHITE);
+            seniorSelection.setTextColor(Color.RED);
+            confirmButton.setColor(Color.WHITE);
+            performRippleNoSwitch(event);
+        }
+        return true;
+    }
+
 
 
 }

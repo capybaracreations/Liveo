@@ -64,10 +64,22 @@ public class AnimatedFragment extends Fragment {
         return view;
     }
 
+    protected void setIconColor(View view, int color) {
+        MaterialIconView icon = (MaterialIconView) view;
+        icon.setColor(color);
+    }
+
     protected void rippleChangePage(MotionEvent event, Page page) {
         Point point = new Point((int) event.getRawX(), (int) event.getRawY());
+        ripple.setRipplePersistent(true);
         ripple.performRipple(point);
         EventBus.getDefault().post(new SwitchPageEvent(page));
+    }
+
+    protected void performRippleNoSwitch(MotionEvent event) {
+        Point point = new Point((int) event.getRawX(), (int) event.getRawY());
+        ripple.setRipplePersistent(false);
+        ripple.performRipple(point);
     }
 
     protected void addRippleEffect(View view) {
