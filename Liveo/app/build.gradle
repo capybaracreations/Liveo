@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.patrykkrawczyk.liveo"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -20,10 +20,13 @@ android {
     repositories {
         maven { url "https://jitpack.io" }
     }
+    compileOptions {
+        targetCompatibility 1.7
+        sourceCompatibility 1.7
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:gridlayout-v7:23.2.1'
     compile 'com.nineoldandroids:library:2.4.0'
@@ -41,5 +44,6 @@ dependencies {
     compile 'net.steamcrafted:materialiconlib:1.0.9'
     compile 'it.sephiroth.android.library.viewrevealanimator:view-reveal-animator:+'
     compile 'org.greenrobot:eventbus:3.0.0'
-
+    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 }

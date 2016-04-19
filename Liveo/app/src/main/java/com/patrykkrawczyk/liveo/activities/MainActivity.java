@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         mainViewPager.setAdapter(mPagerAdapter);
 
         //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());
-        //mainViewPager.setPageTransformer(true, new StackTransformer());
-        mainViewPager.setPageTransformer(true, new CubeOutTransformer());
+        mainViewPager.setPageTransformer(true, new StackTransformer());
+        //mainViewPager.setPageTransformer(true, new CubeOutTransformer());
 
     }
 

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <View
-        android:background="@color/mainColor"
+        android:background="@color/colorPrimary"
         android:id="@+id/rippleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

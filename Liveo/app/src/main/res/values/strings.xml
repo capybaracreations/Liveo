@@ -2,5 +2,11 @@
     <string name="app_name">Liveo</string>
     <string name="APP_TAG">LIVEO</string>
     <string name="LIVEO_INFORMATIONS">liveoInformations</string>
+    <string name="LIVEO_FIELD_ID">liveoId</string>
+    <string name="LIVEO_FIELD_FIRSTNAME">liveoFirstName</string>
+    <string name="LIVEO_FIELD_LASTNAME">liveoLastName</string>
+    <string name="LIVEO_FIELD_GENDER">liveoGender</string>
+    <string name="LIVEO_FIELD_AGEGROUP">liveoAgeGroup</string>
+    <string name="LIVEO_FIELD_REGISTRATION">liveoRegistration</string>
     <string name="PASSENGERS_COUNT">passengersCount</string>
 </resources>

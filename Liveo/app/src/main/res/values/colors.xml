@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mainColor">#607D8B</color>
-    <color name="colorPrimary">#FF4081</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorActive">#FF4081</color>
-    <color name="colorSecondary">#FFC107</color>
-    <color name="colorInactive">#3F51B5</color>
-    <color name="colorDefault">#99FF00</color>
-    <color name="colorDisabled">#F44336</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorSecondary">#303F9F</color>
+    <color name="colorDetail">#303F9F</color>
     <color name="colorEnabled">#4CAF50</color>
+    <color name="colorDisabled">#F44336</color>
     <color name="BLACK">#000000</color>
+    <color name="SHIMMERBLACK">#46000000</color>
     <color name="WHITE">#FFFFFF</color>
 </resources>
