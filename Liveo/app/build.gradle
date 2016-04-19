@@ -46,4 +46,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.romainpiel.shimmer:library:1.4.0@aar'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
 }

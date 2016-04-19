@@ -1,5 +1,6 @@
 package com.patrykkrawczyk.liveo.activities;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +48,14 @@ public class MainActivity extends AppCompatActivity {
         Logger.init(getString(R.string.APP_TAG));
         eventBus = EventBus.getDefault();
 
-        mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
+        AnimatedFragment.Page page = Page.MENU;
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("showDriver", false) == true) page = Page.DRIVER;
+        else if (intent.getBooleanExtra("showPassengers", false) == true) page = Page.PASSENGERS;
+        else if (intent.getBooleanExtra("showIce", false) == true) page = Page.ICE;
+
+
+        mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager(), page);
         mainViewPager.setAdapter(mPagerAdapter);
 
         //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());

@@ -10,6 +10,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.patrykkrawczyk.liveo.Driver;
+import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -27,10 +28,8 @@ public class SplashScreenActivity extends AppCompatActivity
 {
     private static final int SPLASH_DISPLAY_LENGTH = 1000;
 
-    @Bind(R.id.splashText)
-    ShimmerTextView splashText;
-    @Bind(R.id.welcomeText)
-    TextView welcomeText;
+    @Bind(R.id.splashText)    ShimmerTextView splashText;
+    @Bind(R.id.welcomeText)   TextView welcomeText;
 
     private Shimmer shimmer;
 
@@ -49,18 +48,13 @@ public class SplashScreenActivity extends AppCompatActivity
                 .interpolate(new AccelerateInterpolator())
                 .duration(SPLASH_DISPLAY_LENGTH)
                 .playOn(splashText);
+
+        GuideManager.loadGuideState(this);
     }
+
 
     public void getCurrentDriver() {
-        Driver current = Driver.getCurrentDriver(getApplicationContext());
-
-        if (current != null) showWelcomeText(current);
-        else getRemoteDriver();
-    }
-
-
-    public void getRemoteDriver() {
-        showWelcomeText(new Driver("", "Patryk", "Krawczyk","","",""));
+        showWelcomeText(Driver.getCurrentDriver(this));
     }
 
 
@@ -80,6 +74,11 @@ public class SplashScreenActivity extends AppCompatActivity
         }
     }
 
+    private void goToMenu() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if (Driver.getCurrentDriver(this) == null) intent.putExtra("showDriver", true);
+        startActivity(intent);
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -140,9 +139,7 @@ public class SplashScreenActivity extends AppCompatActivity
         return new AnimatorListener() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
+                goToMenu();
             }
             @Override
             public void onAnimationStart(Animator animation) {

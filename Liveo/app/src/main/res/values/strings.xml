@@ -8,5 +8,7 @@
     <string name="LIVEO_FIELD_GENDER">liveoGender</string>
     <string name="LIVEO_FIELD_AGEGROUP">liveoAgeGroup</string>
     <string name="LIVEO_FIELD_REGISTRATION">liveoRegistration</string>
+    <string name="LIVEO_GUIDE_STAGE">0</string>
+    <string name="LIVEO_GUIDE_SHOWN">false</string>
     <string name="PASSENGERS_COUNT">passengersCount</string>
 </resources>

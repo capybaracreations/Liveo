@@ -1,6 +1,7 @@
 package com.patrykkrawczyk.liveo.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -19,9 +20,11 @@ import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.orhanobut.logger.Logger;
+import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.activities.MainActivity;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
@@ -74,7 +77,7 @@ public class DriverSettings extends AnimatedFragment {
     }
 
     private void performCheck() {
-        boolean correct = false;
+        boolean correct = true;
 
         if (!correct) {
             confirmButton.setColor(Color.RED);
@@ -85,8 +88,10 @@ public class DriverSettings extends AnimatedFragment {
     }
 
     private void saveDriverData() {
-
-        EventBus.getDefault().post(new SwitchPageEvent(Page.MENU));
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.putExtra("showPassengers", true);
+        startActivity(intent);
+        //EventBus.getDefault().post(new SwitchPageEvent(Page.MENU));
     }
 
     @OnTouch(R.id.maleSelection)
