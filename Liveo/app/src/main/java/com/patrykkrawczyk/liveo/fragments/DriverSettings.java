@@ -4,35 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.balysv.materialripple.MaterialRippleLayout;
-import com.orhanobut.logger.Logger;
-import com.patrykkrawczyk.liveo.Driver;
-import com.patrykkrawczyk.liveo.MenuPagerAdapter;
+import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.activities.MainActivity;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnTouch;
 
 public class DriverSettings extends AnimatedFragment {
@@ -70,8 +55,10 @@ public class DriverSettings extends AnimatedFragment {
     @OnTouch(R.id.confirmButton)
     public boolean onTouchConfirm(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            performRippleNoSwitch(event);
-            performCheck();
+            if (GuideManager.tutorialStage == 0) GuideManager.tutorialStage++;
+            rippleChangePage(event, Page.MENU);
+            //performRippleNoSwitch(event);
+            //performCheck();
         }
         return true;
     }
@@ -82,6 +69,7 @@ public class DriverSettings extends AnimatedFragment {
         if (!correct) {
             confirmButton.setColor(Color.RED);
         } else {
+            if (GuideManager.tutorialStage == 0) GuideManager.tutorialStage++;
             confirmButton.setColor(Color.GREEN);
             saveDriverData();
         }
@@ -91,7 +79,6 @@ public class DriverSettings extends AnimatedFragment {
         Intent intent = new Intent(getContext(), MainActivity.class);
         intent.putExtra("showPassengers", true);
         startActivity(intent);
-        //EventBus.getDefault().post(new SwitchPageEvent(Page.MENU));
     }
 
     @OnTouch(R.id.maleSelection)

@@ -24,7 +24,7 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
     //static private IceSettings iceFragment;
     private List<AnimatedFragment> mList = null;
 
-    public MenuPagerAdapter(FragmentManager fm, AnimatedFragment.Page page) {
+    public MenuPagerAdapter(FragmentManager fm) {
         super(fm);
 
         //menuFragment      = new MenuFragment();
@@ -34,15 +34,10 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
         mList = new ArrayList<>(2);
 
-        if (page == AnimatedFragment.Page.DRIVER) mList.add(new DriverSettings());
-        else if (page == AnimatedFragment.Page.ICE) mList.add(new IceSettings());
-        else if (page == AnimatedFragment.Page.PASSENGERS) mList.add(new PassengerSelection());
-        else {
-            mList.add(new MenuFragment());
-            mList.add(new PassengerSelection());
-            //mList.add(driverFragment);
-            //mList.add(iceFragment);
-        }
+        mList.add(new MenuFragment());
+        mList.add(new PassengerSelection());
+        //mList.add(driverFragment);
+        //mList.add(iceFragment);
     }
 
     public void switchPage(AnimatedFragment.Page page) {

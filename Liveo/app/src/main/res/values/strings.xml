@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Liveo</string>
-    <string name="APP_TAG">LIVEO</string>
+    <string name="APP_TAG">PATRYCZEK</string>
     <string name="LIVEO_INFORMATIONS">liveoInformations</string>
     <string name="LIVEO_FIELD_ID">liveoId</string>
     <string name="LIVEO_FIELD_FIRSTNAME">liveoFirstName</string>
@@ -9,6 +9,6 @@
     <string name="LIVEO_FIELD_AGEGROUP">liveoAgeGroup</string>
     <string name="LIVEO_FIELD_REGISTRATION">liveoRegistration</string>
     <string name="LIVEO_GUIDE_STAGE">0</string>
-    <string name="LIVEO_GUIDE_SHOWN">false</string>
+    <string name="LIVEO_GUIDE_SHOW">false</string>
     <string name="PASSENGERS_COUNT">passengersCount</string>
 </resources>

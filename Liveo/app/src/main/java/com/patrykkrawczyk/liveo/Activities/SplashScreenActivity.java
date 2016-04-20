@@ -15,7 +15,6 @@ import com.patrykkrawczyk.liveo.R;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
-import android.util.Log;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
@@ -76,7 +75,6 @@ public class SplashScreenActivity extends AppCompatActivity
 
     private void goToMenu() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        if (Driver.getCurrentDriver(this) == null) intent.putExtra("showDriver", true);
         startActivity(intent);
     }
 

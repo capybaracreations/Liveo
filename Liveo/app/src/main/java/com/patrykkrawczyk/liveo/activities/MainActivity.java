@@ -1,36 +1,26 @@
 package com.patrykkrawczyk.liveo.activities;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.ToxicBakery.viewpager.transforms.StackTransformer;
-import com.ToxicBakery.viewpager.transforms.ZoomOutTranformer;
 import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.SwitchPageEvent;
-import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
-import com.patrykkrawczyk.liveo.fragments.DriverSettings;
-import com.patrykkrawczyk.liveo.fragments.IceSettings;
-import com.patrykkrawczyk.liveo.fragments.MenuFragment;
-import com.patrykkrawczyk.liveo.fragments.PassengerSelection;
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment.Page;
+import com.patrykkrawczyk.liveo.fragments.MenuFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     @Bind(R.id.mainViewPager)
     MyViewPager mainViewPager;
@@ -48,19 +38,15 @@ public class MainActivity extends AppCompatActivity {
         Logger.init(getString(R.string.APP_TAG));
         eventBus = EventBus.getDefault();
 
-        AnimatedFragment.Page page = Page.MENU;
-        Intent intent = getIntent();
-        if (intent.getBooleanExtra("showDriver", false) == true) page = Page.DRIVER;
-        else if (intent.getBooleanExtra("showPassengers", false) == true) page = Page.PASSENGERS;
-        else if (intent.getBooleanExtra("showIce", false) == true) page = Page.ICE;
 
-
-        mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager(), page);
+        mPagerAdapter = new MenuPagerAdapter(getSupportFragmentManager());
         mainViewPager.setAdapter(mPagerAdapter);
+        mainViewPager.addOnPageChangeListener(this);
 
         //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());
         mainViewPager.setPageTransformer(true, new StackTransformer());
         //mainViewPager.setPageTransformer(true, new CubeOutTransformer());
+
 
     }
 
@@ -90,8 +76,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (mainViewPager.getCurrentItem() > 0) {
-            EventBus.getDefault().post(new SwitchPageEvent(Page.MENU));
+            eventBus.post(new SwitchPageEvent(Page.MENU));
         }
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if (mainViewPager.getCurrentItem() == 0 && state == 0) {
+            eventBus.post(new ScrollStoppedEvent());
+        }
+    }
 }

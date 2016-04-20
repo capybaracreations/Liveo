@@ -1,14 +1,8 @@
 
 package com.patrykkrawczyk.liveo;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Driver {
 
@@ -24,14 +18,6 @@ public class Driver {
     public Driver() {
     }
 
-    /**
-     * @param id
-     * @param registrationNumber
-     * @param lastName
-     * @param gender
-     * @param firstName
-     * @param ageGroup
-     */
     public Driver(String id, String firstName, String lastName, String gender, String ageGroup, String registrationNumber) {
         this.id = id;
         this.firstName = firstName;

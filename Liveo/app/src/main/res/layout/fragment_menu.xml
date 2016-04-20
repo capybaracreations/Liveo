@@ -32,6 +32,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_width="match_parent">
                                         <net.steamcrafted.materialiconlib.MaterialIconView
+                                            android:id="@+id/driverIcon"
                                             app:materialIcon="car"
                                             app:materialIconColor="#fff"
                                             android:scaleType="center"

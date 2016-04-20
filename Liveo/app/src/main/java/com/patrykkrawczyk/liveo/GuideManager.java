@@ -20,10 +20,10 @@ public class GuideManager {
         SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
         int     stage = preferences.getInt(context.getString(R.string.LIVEO_GUIDE_STAGE), 0);
-        boolean shown = preferences.getBoolean(context.getString(R.string.LIVEO_GUIDE_SHOWN), false);
+        boolean show  = preferences.getBoolean(context.getString(R.string.LIVEO_GUIDE_SHOW), true);
 
         tutorialStage = stage;
-        showGuide     = !shown;
+        showGuide     = show;
     }
 
     public static ShowcaseView setGuideOnView(Activity activity, View view, String contentTitle, String contentText) {
@@ -31,10 +31,25 @@ public class GuideManager {
                                     .setTarget(new ViewTarget(view))
                                     .setContentTitle(contentTitle)
                                     .setContentText(contentText)
+                                    .withNewStyleShowcase()
                                     .setStyle(R.style.ShowcaseTheme)
                                     .build();
+        showcaseView.hideButton();
+
+        //saveState(activity);
 
         return showcaseView;
+    }
+
+    private static void saveState(Activity activity) {
+        SharedPreferences preferences = activity.getSharedPreferences(activity.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putInt(activity.getString(R.string.LIVEO_GUIDE_STAGE), tutorialStage);
+        editor.putBoolean(activity.getString(R.string.LIVEO_GUIDE_SHOW), showGuide);
+
+        editor.commit();
+
     }
 
 }

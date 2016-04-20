@@ -40,7 +40,7 @@ public class NfcReader {//implements NfcAdapter.ReaderCallback {
 
     //@Override
     public void onTagDiscovered(Tag tag) {
-        String serial = tagIdToString(tag);
+       // String serial = tagIdToString(tag);
         //EventBus.getDefault().post(new NfcSerialDetected(serial));
     }
 

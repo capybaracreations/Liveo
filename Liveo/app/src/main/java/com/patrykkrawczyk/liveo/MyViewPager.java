@@ -1,26 +1,11 @@
 package com.patrykkrawczyk.liveo;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AnticipateOvershootInterpolator;
-import android.view.animation.BaseInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Scroller;
-
-import com.orhanobut.logger.Logger;
-import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
-import com.patrykkrawczyk.liveo.fragments.DriverSettings;
-import com.patrykkrawczyk.liveo.fragments.IceSettings;
-import com.patrykkrawczyk.liveo.fragments.MenuFragment;
-import com.patrykkrawczyk.liveo.fragments.PassengerSelection;
 
 import java.lang.reflect.Field;
 
