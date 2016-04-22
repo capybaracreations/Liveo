@@ -25,7 +25,7 @@
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/contact0Button"
                 app:materialIcon="account_plus"
-                app:materialIconColor="#fff"
+                app:materialIconColor="@color/colorFont"
                 android:scaleType="center"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"/>
@@ -38,7 +38,7 @@
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/contact1Button"
                 app:materialIcon="account_plus"
-                app:materialIconColor="#fff"
+                app:materialIconColor="@color/colorFont"
                 android:scaleType="center"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
@@ -51,7 +51,7 @@
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/contact2Button"
                 app:materialIcon="account_plus"
-                app:materialIconColor="#fff"
+                app:materialIconColor="@color/colorFont"
                 android:scaleType="center"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
@@ -64,7 +64,7 @@
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/contact3Button"
                 app:materialIcon="account_plus"
-                app:materialIconColor="#fff"
+                app:materialIconColor="@color/colorFont"
                 android:scaleType="center"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
@@ -77,7 +77,7 @@
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/contact4Button"
                 app:materialIcon="account_plus"
-                app:materialIconColor="#fff"
+                app:materialIconColor="@color/colorFont"
                 android:scaleType="center"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />

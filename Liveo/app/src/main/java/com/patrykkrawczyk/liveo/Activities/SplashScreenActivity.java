@@ -48,7 +48,10 @@ public class SplashScreenActivity extends AppCompatActivity
                 .duration(SPLASH_DISPLAY_LENGTH)
                 .playOn(splashText);
 
+
+       // GuideManager.resetGuide(this); // TODO DELETE THIS
         GuideManager.loadGuideState(this);
+        Driver.setCurrentDriver(getApplicationContext(), new Driver("0", "Patryk", "Krawczyk", "0", "0", "0")); // TODO DELETE THIS
     }
 
 
@@ -82,6 +85,7 @@ public class SplashScreenActivity extends AppCompatActivity
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     private AnimatorListener setupSplashAnimator() {
         return new AnimatorListener() {
             @Override

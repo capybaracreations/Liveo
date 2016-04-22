@@ -1,6 +1,5 @@
 package com.patrykkrawczyk.liveo.fragments;
 
-import android.app.usage.UsageEvents;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.balysv.materialripple.MaterialRippleLayout;
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.SwitchPageEvent;
@@ -31,7 +27,7 @@ import butterknife.ButterKnife;
 public class AnimatedFragment extends Fragment {
 
     protected final int ANIMATION_SPEED = 500;
-    protected EventBus eventBus;
+    protected boolean touchEnabled = false;
 
     public enum Page {
         MENU, PASSENGERS, DRIVER, ICE;
@@ -39,13 +35,12 @@ public class AnimatedFragment extends Fragment {
 
     protected MaterialRippleLayout ripple;
     protected int layoutId;
-    protected ShowcaseView guide;
-
 
     public AnimatedFragment() {}
     public AnimatedFragment(int layoutId) {
         this.layoutId = layoutId;
     }
+
 
 
     @Override
@@ -54,7 +49,6 @@ public class AnimatedFragment extends Fragment {
 
         View view = inflater.inflate(layoutId, container, false);
         ButterKnife.bind(this, view);
-        eventBus = EventBus.getDefault();
 
         ArrayList<View> viewList = getAllChildren(view);
         for (View v:viewList) {
@@ -67,16 +61,17 @@ public class AnimatedFragment extends Fragment {
         return view;
     }
 
+
     protected void setIconColor(View view) {
         MaterialIconView icon = (MaterialIconView) view;
-        icon.setColor(android.graphics.Color.RED);
+        icon.setColor(getResources().getColor(R.color.colorAccent));
     }
 
     protected void rippleChangePage(MotionEvent event, Page page) {
         Point point = new Point((int) event.getRawX(), (int) event.getRawY());
         ripple.setRipplePersistent(true);
         ripple.performRipple(point);
-        eventBus.post(new SwitchPageEvent(page));
+        EventBus.getDefault().post(new SwitchPageEvent(page));
     }
 
     protected void performRippleNoSwitch(MotionEvent event) {
@@ -88,7 +83,8 @@ public class AnimatedFragment extends Fragment {
     protected void addRippleEffect(View view) {
         ripple = MaterialRippleLayout.on(view)
                     .rippleOverlay(true)
-                    .rippleAlpha((float)0.75)
+                    .rippleColor(getResources().getColor(R.color.colorRipple))
+                    .rippleAlpha((float)0.80)
                     .ripplePersistent(true)
                     .rippleDuration((int)(ANIMATION_SPEED*0.75))
                     .rippleDelayClick(false)

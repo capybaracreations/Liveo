@@ -9,17 +9,19 @@
     android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.SplashScreenActivity" >
+
     <com.romainpiel.shimmer.ShimmerTextView
-        app:reflectionColor="@color/SHIMMERBLACK"
+        app:reflectionColor="@color/SHIMMER"
         android:id="@+id/splashText"
         fontPath="fonts/Roboto-Thin.ttf"
         android:text="LIVEO"
         tools:ignore="MissingPrefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/WHITE"
+        android:textColor="@color/colorLogo"
         android:textSize="75sp"
         android:layout_centerInParent="true"/>
+
     <TextView
         android:gravity="center"
         android:layout_marginTop="15dp"
@@ -31,7 +33,7 @@
         tools:ignore="MissingPrefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/WHITE"
+        android:textColor="@color/colorFont"
         android:textSize="20sp"
         android:layout_centerHorizontal="true"/>
 

@@ -31,7 +31,7 @@
                         android:tag="0"
                         android:layout_weight="1"
                         app:materialIcon="numeric_0_box_outline"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -40,7 +40,7 @@
                         android:tag="1"
                         android:layout_weight="1"
                         app:materialIcon="numeric_1_box_outline"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -59,7 +59,7 @@
                         android:tag="2"
                         android:layout_weight="1"
                         app:materialIcon="numeric_2_box_outline"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -68,7 +68,7 @@
                         android:tag="3"
                         android:layout_weight="1"
                         app:materialIcon="numeric_3_box_outline"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -87,7 +87,7 @@
                         android:tag="4"
                         android:layout_weight="1"
                         app:materialIcon="numeric_4_box_outline"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -96,7 +96,7 @@
                         android:tag="5"
                         android:layout_weight="1"
                         app:materialIcon="dots_horizontal"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>

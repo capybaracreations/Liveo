@@ -1,5 +1,6 @@
 package com.patrykkrawczyk.liveo.activities;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.ShowGuideEvent;
 import com.patrykkrawczyk.liveo.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment.Page;
 import com.patrykkrawczyk.liveo.fragments.MenuFragment;
@@ -19,6 +21,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
@@ -46,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());
         mainViewPager.setPageTransformer(true, new StackTransformer());
         //mainViewPager.setPageTransformer(true, new CubeOutTransformer());
-
-
     }
 
     @Subscribe
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         } else {
             mainViewPager.setCurrentItem(0);
         }
+
     };
 
 
@@ -92,8 +94,16 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        if (mainViewPager.getCurrentItem() == 0 && state == 0) {
+        if (state == 0) {
             eventBus.post(new ScrollStoppedEvent());
+            if (mainViewPager.getCurrentItem() == 0) {
+                eventBus.post(new ShowGuideEvent());
+            }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

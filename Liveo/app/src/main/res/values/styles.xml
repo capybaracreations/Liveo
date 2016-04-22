@@ -14,11 +14,12 @@
     </style>
 
     <style name="ShowcaseTheme" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#c8000000</item>
+        <item name="sv_backgroundColor">@color/showcaseBackground</item>
         <item name="sv_showcaseColor">@color/colorAccent</item>
         <item name="sv_titleTextAppearance">@style/CustomTitle2</item>
         <item name="sv_detailTextAppearance">@style/CustomText2</item>
         <item name="sv_buttonText">Next</item>
+
     </style>
 
     <style name="CustomTitle2" parent="TextAppearance.ShowcaseView.Title.Light">

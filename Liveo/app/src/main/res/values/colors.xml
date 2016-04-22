@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorSecondary">#303F9F</color>
-    <color name="colorAccent">#ff00ff</color>
-    <color name="colorEnabled">#4CAF50</color>
-    <color name="colorDisabled">#F44336</color>
+
+    <color name="colorPrimary">#303030</color>
+    <color name="colorSecondary">#000000</color>
+    <color name="colorAccent">#1DE9B6</color>
+    <color name="colorFont">#FFFFFF</color>
+
     <color name="BLACK">#000000</color>
-    <color name="SHIMMERBLACK">#46000000</color>
     <color name="WHITE">#FFFFFF</color>
+
+    <color name="SHIMMER">#ffffff</color>
+    <color name="showcaseBackground">#c8616161</color>
+    <color name="colorRipple">#455A64</color>
+    <color name="colorLogo">#2196f3</color>
+
 </resources>

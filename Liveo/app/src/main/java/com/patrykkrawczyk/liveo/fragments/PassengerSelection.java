@@ -5,8 +5,13 @@ import android.content.SharedPreferences;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.OnTouch;
 
@@ -14,6 +19,18 @@ public class PassengerSelection extends AnimatedFragment {
 
 
     public PassengerSelection() { super(R.layout.fragment_passenger_selection); }
+
+
+    private EventBus eventBus;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        eventBus = EventBus.getDefault();
+        if (!eventBus.isRegistered(this)) eventBus.register(this);
+    }
 
     @OnTouch(R.id.passenger0Button)
     public boolean onPassenger0Button(View view, MotionEvent event) {
@@ -54,9 +71,18 @@ public class PassengerSelection extends AnimatedFragment {
         return true;
     }
 
+
+    @Subscribe
+    public void onScrollStoppedEvent(ScrollStoppedEvent event) {
+        Logger.d("onScrollStoppedEvent | DRIVER");
+        touchEnabled = true;
+    }
+
     private void savePassengerCount(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (GuideManager.tutorialStage == 2) GuideManager.tutorialStage++;
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            if (eventBus.isRegistered(this)) eventBus.unregister(this);
+            touchEnabled = false;
+            if (GuideManager.getStage() == 2) GuideManager.incrementStage();
             String count                    = view.getTag().toString();
             SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -66,5 +92,7 @@ public class PassengerSelection extends AnimatedFragment {
             rippleChangePage(event, Page.MENU);
         }
     }
+
+
 
 }

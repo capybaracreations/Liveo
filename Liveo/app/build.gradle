@@ -28,7 +28,6 @@ android {
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:gridlayout-v7:23.2.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.1@aar'
     compile 'com.daimajia.androidanimations:library:1.1.3@aar'
@@ -39,10 +38,7 @@ dependencies {
     compile 'com.github.orhanobut:logger:1.12'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.balysv:material-ripple:1.0.2'
-    compile 'pro.alexzaitsev:freepager:1.0.1'
-    compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'net.steamcrafted:materialiconlib:1.0.9'
-    compile 'it.sephiroth.android.library.viewrevealanimator:view-reveal-animator:+'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.romainpiel.shimmer:library:1.4.0@aar'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'

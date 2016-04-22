@@ -28,8 +28,8 @@
                 android:layout_width="match_parent">
                     <EditText
                         android:id="@+id/firstNameEditText"
-                        android:textColorHint="@color/WHITE"
-                        android:textColor="@color/WHITE"
+                        android:textColorHint="@color/colorFont"
+                        android:textColor="@color/colorFont"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
@@ -38,8 +38,8 @@
                         android:text=""/>
                     <EditText
                         android:id="@+id/lastNameEditText"
-                        android:textColorHint="@color/WHITE"
-                        android:textColor="@color/WHITE"
+                        android:textColorHint="@color/colorFont"
+                        android:textColor="@color/colorFont"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
@@ -56,8 +56,8 @@
                     <EditText
                         android:layout_weight="1"
                         android:id="@+id/registrationNumberEditText"
-                        android:textColorHint="@color/WHITE"
-                        android:textColor="@color/WHITE"
+                        android:textColorHint="@color/colorFont"
+                        android:textColor="@color/colorFont"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -74,7 +74,7 @@
                         android:layout_weight="1"
                         android:id="@+id/maleSelection"
                         app:materialIcon="gender_male"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -82,7 +82,7 @@
                         android:layout_weight="1"
                         android:id="@+id/femaleSelection"
                         app:materialIcon="gender_female"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>
@@ -139,7 +139,7 @@
                         android:layout_weight="1"
                         android:id="@+id/confirmButton"
                         app:materialIcon="check"
-                        app:materialIconColor="#fff"
+                        app:materialIconColor="@color/colorFont"
                         android:scaleType="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"/>

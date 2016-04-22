@@ -1,6 +1,5 @@
 package com.patrykkrawczyk.liveo;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
@@ -36,6 +35,7 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
         mList.add(new MenuFragment());
         mList.add(new PassengerSelection());
+
         //mList.add(driverFragment);
         //mList.add(iceFragment);
     }
@@ -54,8 +54,6 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
         mList.set(position, newFragment);
         notifyDataSetChanged();
-
-
         //if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
         //else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
         //else mList.set(1, iceFragment);

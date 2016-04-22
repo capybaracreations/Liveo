@@ -131,7 +131,7 @@ public class Driver {
     }
 
 
-    public void setCurrentDriver(Context context, Driver driver) {
+    public static void setCurrentDriver(Context context, Driver driver) {
         if (validateDriver(driver)) {
             currentDriver = driver;
 

@@ -10,12 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.activities.MainActivity;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.OnTouch;
@@ -31,6 +36,7 @@ public class DriverSettings extends AnimatedFragment {
     @Bind(R.id.adultSelection)             TextView adultSelection;
     @Bind(R.id.seniorSelection)            TextView seniorSelection;
 
+    private EventBus eventBus;
     SharedPreferences sharedPreferences;
     enum Gender{
         MALE, FEMALE;
@@ -46,21 +52,31 @@ public class DriverSettings extends AnimatedFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
 
+        eventBus = EventBus.getDefault();
+        if (!eventBus.isRegistered(this)) eventBus.register(this);
         sharedPreferences = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
     }
 
     @OnTouch(R.id.confirmButton)
     public boolean onTouchConfirm(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (GuideManager.tutorialStage == 0) GuideManager.tutorialStage++;
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            if (eventBus.isRegistered(this)) eventBus.unregister(this);
+            touchEnabled = false;
+            if (GuideManager.getStage() == 0) GuideManager.incrementStage();
             rippleChangePage(event, Page.MENU);
             //performRippleNoSwitch(event);
             //performCheck();
         }
         return true;
+    }
+
+    @Subscribe
+    public void onScrollStoppedEvent(ScrollStoppedEvent event) {
+        Logger.d("onScrollStoppedEvent | DRIVER");
+        touchEnabled = true;
     }
 
     private void performCheck() {
@@ -69,8 +85,8 @@ public class DriverSettings extends AnimatedFragment {
         if (!correct) {
             confirmButton.setColor(Color.RED);
         } else {
-            if (GuideManager.tutorialStage == 0) GuideManager.tutorialStage++;
-            confirmButton.setColor(Color.GREEN);
+            if (GuideManager.getStage() == 0) GuideManager.incrementStage();
+            confirmButton.setColor(getResources().getColor(R.color.colorAccent));
             saveDriverData();
         }
     }
@@ -86,7 +102,7 @@ public class DriverSettings extends AnimatedFragment {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             gender = Gender.MALE;
             femaleSelection.setColor(Color.WHITE);
-            maleSelection.setColor(Color.RED);
+            maleSelection.setColor(getResources().getColor(R.color.colorAccent));
             confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
@@ -97,7 +113,7 @@ public class DriverSettings extends AnimatedFragment {
     public boolean onTouchFemale(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             gender = Gender.FEMALE;
-            femaleSelection.setColor(Color.RED);
+            femaleSelection.setColor(getResources().getColor(R.color.colorAccent));
             maleSelection.setColor(Color.WHITE);
             confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
@@ -109,7 +125,7 @@ public class DriverSettings extends AnimatedFragment {
     public boolean onTouchTeen(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             ageGroup = AgeGroup.TEEN;
-            teenSelection.setTextColor(Color.RED);
+            teenSelection.setTextColor(getResources().getColor(R.color.colorAccent));
             adultSelection.setTextColor(Color.WHITE);
             seniorSelection.setTextColor(Color.WHITE);
             confirmButton.setColor(Color.WHITE);
@@ -123,7 +139,7 @@ public class DriverSettings extends AnimatedFragment {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             ageGroup = AgeGroup.ADULT;
             teenSelection.setTextColor(Color.WHITE);
-            adultSelection.setTextColor(Color.RED);
+            adultSelection.setTextColor(getResources().getColor(R.color.colorAccent));
             seniorSelection.setTextColor(Color.WHITE);
             confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
@@ -137,7 +153,7 @@ public class DriverSettings extends AnimatedFragment {
             ageGroup = AgeGroup.SENIOR;
             teenSelection.setTextColor(Color.WHITE);
             adultSelection.setTextColor(Color.WHITE);
-            seniorSelection.setTextColor(Color.RED);
+            seniorSelection.setTextColor(getResources().getColor(R.color.colorAccent));
             confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
