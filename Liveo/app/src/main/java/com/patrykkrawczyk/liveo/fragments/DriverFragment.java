@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.orhanobut.logger.Logger;
+import com.patrykkrawczyk.liveo.BackKeyEvent;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
@@ -49,7 +50,6 @@ public class DriverFragment extends AnimatedFragment {
     @Bind(R.id.seniorSelection)     TextView seniorSelection;
 
     private EventBus eventBus;
-    SharedPreferences sharedPreferences;
     enum Gender{
         MALE, FEMALE;
     };
@@ -69,7 +69,51 @@ public class DriverFragment extends AnimatedFragment {
 
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
-        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+
+        loadData();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+
+        String fn = sharedPref.getString(getString(R.string.LIVEO_DRIVER_FIRSTNAME),  "");
+        String ln = sharedPref.getString(getString(R.string.LIVEO_DRIVER_LASTNAME),  "");
+        String rn = sharedPref.getString(getString(R.string.LIVEO_DRIVER_REGISTRATION),  "");
+        String g = sharedPref.getString(getString(R.string.LIVEO_DRIVER_GENDER), "");
+        String ag = sharedPref.getString(getString(R.string.LIVEO_DRIVER_AGEGROUP), "");
+
+        if (!fn.isEmpty()) firstNameEditText.setText(fn);
+        if (!ln.isEmpty()) lastNameEditText.setText(ln);
+        if (!rn.isEmpty()) registrationNumberEditText.setText(rn);
+        if (!g.isEmpty()) {
+            if (g.equals("male")) {
+                gender = Gender.MALE;
+                femaleSelection.setColor(Color.WHITE);
+                maleSelection.setColor(getResources().getColor(R.color.colorAccent));
+            } else if (g.equals("female")) {
+                gender = Gender.FEMALE;
+                maleSelection.setColor(Color.WHITE);
+                femaleSelection.setColor(getResources().getColor(R.color.colorAccent));
+            }
+        }
+        if (!ag.isEmpty()) {
+            if (ag.equals("teen")) {
+                ageGroup = AgeGroup.TEEN;
+                adultSelection.setTextColor(Color.WHITE);
+                teenSelection.setTextColor(getResources().getColor(R.color.colorAccent));
+                seniorSelection.setTextColor(Color.WHITE);
+            } else if (ag.equals("adult")) {
+                ageGroup = AgeGroup.ADULT;
+                teenSelection.setTextColor(Color.WHITE);
+                adultSelection.setTextColor(getResources().getColor(R.color.colorAccent));
+                seniorSelection.setTextColor(Color.WHITE);
+            } else if (ag.equals("senior")) {
+                ageGroup = AgeGroup.SENIOR;
+                teenSelection.setTextColor(Color.WHITE);
+                seniorSelection.setTextColor(getResources().getColor(R.color.colorAccent));
+                adultSelection.setTextColor(Color.WHITE);
+            }
+        }
     }
 
     @OnTouch(R.id.confirmButton)
@@ -84,6 +128,21 @@ public class DriverFragment extends AnimatedFragment {
     public void onScrollStoppedEvent(ScrollStoppedEvent event) {
         Logger.d("onScrollStoppedEvent | DRIVER");
         touchEnabled = true;
+    }
+
+    @Subscribe
+    public void onBackKeyEvent(BackKeyEvent event) {
+//        Driver driver = validateData();
+
+//        if (driver != null)  {
+//            if (GuideManager.getStage() == 0) GuideManager.incrementStage();
+//            confirmButton.setColor(getResources().getColor(R.color.colorAccent));
+//            saveDriverData();
+//            Driver.setCurrentDriver(getContext(), driver);
+            if (eventBus.isRegistered(this)) eventBus.unregister(this);
+            touchEnabled = false;
+            eventBus.post(new SwitchPageEvent(Page.MENU));
+//        }
     }
 
     private void performCheck(MotionEvent event) {
@@ -182,7 +241,6 @@ public class DriverFragment extends AnimatedFragment {
             gender = Gender.MALE;
             femaleSelection.setColor(Color.WHITE);
             maleSelection.setColor(getResources().getColor(R.color.colorAccent));
-            confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
         return true;
@@ -194,7 +252,6 @@ public class DriverFragment extends AnimatedFragment {
             gender = Gender.FEMALE;
             femaleSelection.setColor(getResources().getColor(R.color.colorAccent));
             maleSelection.setColor(Color.WHITE);
-            confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
         return true;
@@ -207,7 +264,6 @@ public class DriverFragment extends AnimatedFragment {
             teenSelection.setTextColor(getResources().getColor(R.color.colorAccent));
             adultSelection.setTextColor(Color.WHITE);
             seniorSelection.setTextColor(Color.WHITE);
-            confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
         return true;
@@ -220,7 +276,6 @@ public class DriverFragment extends AnimatedFragment {
             teenSelection.setTextColor(Color.WHITE);
             adultSelection.setTextColor(getResources().getColor(R.color.colorAccent));
             seniorSelection.setTextColor(Color.WHITE);
-            confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
         return true;
@@ -233,7 +288,6 @@ public class DriverFragment extends AnimatedFragment {
             teenSelection.setTextColor(Color.WHITE);
             adultSelection.setTextColor(Color.WHITE);
             seniorSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-            confirmButton.setColor(Color.WHITE);
             performRippleNoSwitch(event);
         }
         return true;

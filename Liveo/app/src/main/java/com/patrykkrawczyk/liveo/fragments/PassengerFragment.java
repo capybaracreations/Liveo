@@ -4,14 +4,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.orhanobut.logger.Logger;
+import com.patrykkrawczyk.liveo.BackKeyEvent;
 import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.SwitchPageEvent;
+
+import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.OnTouch;
 
@@ -30,10 +40,32 @@ public class PassengerFragment extends AnimatedFragment {
 
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
+
+        loadData();
     }
 
     private void buttonTouch(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
+
+            MaterialIconView icon = (MaterialIconView) getActivity().findViewById(R.id.passenger0Button);
+            icon.setColor(getResources().getColor(R.color.WHITE));
+
+            icon = (MaterialIconView) getActivity().findViewById(R.id.passenger1Button);
+            icon.setColor(getResources().getColor(R.color.WHITE));
+
+            icon = (MaterialIconView) getActivity().findViewById(R.id.passenger2Button);
+            icon.setColor(getResources().getColor(R.color.WHITE));
+
+            icon = (MaterialIconView) getActivity().findViewById(R.id.passenger3Button);
+            icon.setColor(getResources().getColor(R.color.WHITE));
+
+            icon = (MaterialIconView) getActivity().findViewById(R.id.passenger4Button);
+            icon.setColor(getResources().getColor(R.color.WHITE));
+
+            icon = (MaterialIconView) getActivity().findViewById(R.id.passenger5Button);
+            icon.setColor(getResources().getColor(R.color.WHITE));
+
+
             if (eventBus.isRegistered(this)) eventBus.unregister(this);
             touchEnabled = false;
             setIconColor(view);
@@ -92,6 +124,46 @@ public class PassengerFragment extends AnimatedFragment {
         editor.apply();
     }
 
+    private void loadData() {
+        SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
+        String count = sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "");
+
+        if (!count.isEmpty()) {
+            if (count.equals("0"))      setIconColor(getActivity().findViewById(R.id.passenger0Button));
+            else if (count.equals("1")) setIconColor(getActivity().findViewById(R.id.passenger1Button));
+            else if (count.equals("2")) setIconColor(getActivity().findViewById(R.id.passenger2Button));
+            else if (count.equals("3")) setIconColor(getActivity().findViewById(R.id.passenger3Button));
+            else if (count.equals("4")) setIconColor(getActivity().findViewById(R.id.passenger4Button));
+            else if (count.equals("5")) setIconColor(getActivity().findViewById(R.id.passenger5Button));
+        }
+    }
+
+    @Subscribe
+    public void onBackKeyEvent(BackKeyEvent event) {
+//        SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+//        String count = sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT), "");
+//        if (count.isEmpty()) {
+//            List<View> empties = new ArrayList<>();
+//
+//            empties.add(getActivity().findViewById(R.id.passenger0Button));
+//            empties.add(getActivity().findViewById(R.id.passenger1Button));
+//            empties.add(getActivity().findViewById(R.id.passenger2Button));
+//            empties.add(getActivity().findViewById(R.id.passenger3Button));
+//            empties.add(getActivity().findViewById(R.id.passenger4Button));
+//            empties.add(getActivity().findViewById(R.id.passenger5Button));
+//
+//            for (View view:empties) {
+//                YoYo.with(Techniques.Shake)
+//                        .interpolate(new AccelerateInterpolator())
+//                        .duration(1000)
+//                        .playOn(view);
+//            }
+//        } else {
+            if (eventBus.isRegistered(this)) eventBus.unregister(this);
+            touchEnabled = false;
+            eventBus.post(new SwitchPageEvent(Page.MENU));
+        //}
+    }
 
 }

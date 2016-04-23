@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.ToxicBakery.viewpager.transforms.StackTransformer;
 import com.orhanobut.logger.Logger;
+import com.patrykkrawczyk.liveo.BackKeyEvent;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
@@ -77,9 +78,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onBackPressed() {
-        if (mainViewPager.getCurrentItem() > 0) {
-            eventBus.post(new SwitchPageEvent(Page.MENU));
-        }
+        eventBus.post(new BackKeyEvent());
     }
 
     @Override

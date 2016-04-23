@@ -17,6 +17,7 @@ import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.ShowGuideEvent;
 
+import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +32,12 @@ public class MenuFragment extends AnimatedFragment {
     @Bind(R.id.driverButton) TableRow driverButton;
     @Bind(R.id.passengersButton) TableRow passengersButton;
     @Bind(R.id.iceButton) TableRow iceButton;
+    @Bind(R.id.triggerButton) TableRow triggerButton;
+    @Bind(R.id.driverButtonIcon) MaterialIconView driverButtonIcon;
+    @Bind(R.id.iceButtonIcon) MaterialIconView iceButtonIcon;
+    @Bind(R.id.passengersButtonIcon) MaterialIconView passengersButtonIcon;
+    @Bind(R.id.triggerButtonIcon) MaterialIconView triggerButtonIcon;
+
     TextView driverName;
     private static boolean firstTimeRun = true;
     private EventBus eventBus;
@@ -67,6 +74,32 @@ public class MenuFragment extends AnimatedFragment {
         if (driver == null) driverName.setText("Driver");
         else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());
 
+        loadPassenger();
+
+        driverButtonIcon.bringToFront();
+        iceButtonIcon.bringToFront();
+        passengersButtonIcon.bringToFront();
+        triggerButtonIcon.bringToFront();
+
+        driverButton.invalidate();
+        iceButton.invalidate();
+        passengersButton.invalidate();
+        triggerButton.invalidate();
+    }
+
+    private void loadPassenger() {
+        SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+
+        String count = sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "");
+
+        if (!count.isEmpty()) {
+            if (count.equals("0")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_0_BOX_OUTLINE);
+            else if (count.equals("1")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_1_BOX_OUTLINE);
+            else if (count.equals("2")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_2_BOX_OUTLINE);
+            else if (count.equals("3")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_3_BOX_OUTLINE);
+            else if (count.equals("4")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_4_BOX_OUTLINE);
+            else if (count.equals("5")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.DOTS_HORIZONTAL);
+        } else passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.ACCOUNT_MULTIPLE);
     }
 
     @Subscribe

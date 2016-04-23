@@ -9,6 +9,8 @@ import com.patrykkrawczyk.liveo.fragments.IceFragment;
 import com.patrykkrawczyk.liveo.fragments.MenuFragment;
 import com.patrykkrawczyk.liveo.fragments.PassengerFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +53,10 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
             newFragment = new MenuFragment();
             position = 0;
         }
+
+        EventBus eb = EventBus.getDefault();
+        AnimatedFragment oldFragment = mList.get(position);
+        if (eb.isRegistered(oldFragment)) eb.unregister(oldFragment);
 
         mList.set(position, newFragment);
         notifyDataSetChanged();

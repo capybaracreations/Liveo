@@ -11,9 +11,11 @@ import android.widget.LinearLayout;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.orhanobut.logger.Logger;
+import com.patrykkrawczyk.liveo.BackKeyEvent;
 import com.patrykkrawczyk.liveo.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.SwitchPageEvent;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -50,6 +52,25 @@ public class IceFragment extends AnimatedFragment {
         if (!eventBus.isRegistered(this)) eventBus.register(this);
 
         ripple.setEnabled(false);
+        loadData();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+
+        String s1n = sharedPref.getString(getString(R.string.LIVEO_ICE_1_NAME),  "");
+        String s2n = sharedPref.getString(getString(R.string.LIVEO_ICE_2_NAME),  "");
+        String s3n = sharedPref.getString(getString(R.string.LIVEO_ICE_3_NAME),  "");
+        String s1p = sharedPref.getString(getString(R.string.LIVEO_ICE_1_PHONE), "");
+        String s2p = sharedPref.getString(getString(R.string.LIVEO_ICE_2_PHONE), "");
+        String s3p = sharedPref.getString(getString(R.string.LIVEO_ICE_3_PHONE), "");
+
+        if (!s1n.isEmpty()) ice1Name.setText(s1n);
+        if (!s2n.isEmpty()) ice2Name.setText(s2n);
+        if (!s3n.isEmpty()) ice3Name.setText(s3n);
+        if (!s1p.isEmpty()) ice1Phone.setText(s1p);
+        if (!s2p.isEmpty()) ice2Phone.setText(s2p);
+        if (!s3p.isEmpty()) ice3Phone.setText(s3p);
     }
 
 
@@ -81,37 +102,35 @@ public class IceFragment extends AnimatedFragment {
 
     private int validateFields() {
         int validFields = 0;
+        List<View> empties = new ArrayList<>();
 
-        if (!ice1Name.getText().toString().isEmpty() && !ice1Phone.getText().toString().isEmpty()) validFields++;
-        if (!ice2Name.getText().toString().isEmpty() && !ice2Phone.getText().toString().isEmpty()) validFields++;
-        if (!ice3Name.getText().toString().isEmpty() && !ice3Phone.getText().toString().isEmpty()) validFields++;
-
-        if (validFields == 0) {
-            List<View> empties = new ArrayList<>();
-            if (ice1Name.getText().toString().isEmpty()) {
-                empties.add(ice1Name);
-            }
-            if (ice1Phone.getText().toString().isEmpty()) {
+        if (!ice1Name.getText().toString().isEmpty()) {
+            if (ice1Phone.getText().toString().isEmpty() || !android.util.Patterns.PHONE.matcher(ice1Phone.getText().toString()).matches()) {
                 empties.add(ice1Phone);
-            }
-            if (ice2Name.getText().toString().isEmpty()) {
+                } else validFields++;
+        } else {
+            empties.add(ice1Name);
+
+            if (!ice2Name.getText().toString().isEmpty()) {
+                if (ice2Phone.getText().toString().isEmpty() || !android.util.Patterns.PHONE.matcher(ice2Phone.getText().toString()).matches()) {
+                    empties.add(ice2Phone);
+                } else validFields++;
+            } else {
                 empties.add(ice2Name);
+
+                if (!ice3Name.getText().toString().isEmpty()) {
+                    if (ice3Phone.getText().toString().isEmpty() || !android.util.Patterns.PHONE.matcher(ice3Phone.getText().toString()).matches()) {
+                        empties.add(ice3Phone);
+                    } else validFields++;
+                } else empties.add(ice3Name);
             }
-            if (ice2Phone.getText().toString().isEmpty()) {
-                empties.add(ice2Phone);
-            }
-            if (ice3Name.getText().toString().isEmpty()) {
-                empties.add(ice3Name);
-            }
-            if (ice3Phone.getText().toString().isEmpty()) {
-                empties.add(ice3Phone);
-            }
-            for (View view:empties) {
-                YoYo.with(Techniques.Shake)
-                        .interpolate(new AccelerateInterpolator())
-                        .duration(1000)
-                        .playOn(view);
-            }
+        }
+
+        for (View view:empties) {
+            YoYo.with(Techniques.Shake)
+                    .interpolate(new AccelerateInterpolator())
+                    .duration(1000)
+                    .playOn(view);
         }
 
         return validFields;
@@ -132,5 +151,17 @@ public class IceFragment extends AnimatedFragment {
     }
 
 
+    @Subscribe
+    public void onBackKeyEvent(BackKeyEvent event) {
+//        if (validateFields() > 0) {
+            if (eventBus.isRegistered(this)) eventBus.unregister(this);
+            touchEnabled = false;
+                setIconColor(getActivity().findViewById(R.id.confirmButton));
+//            if (GuideManager.getStage() == 1) GuideManager.incrementStage();
+//            saveIce();
+//            ripple.setEnabled(false);
+            eventBus.post(new SwitchPageEvent(Page.MENU));
+   //     }
+    }
 
 }
