@@ -2,15 +2,21 @@
     <string name="app_name">Liveo</string>
     <string name="APP_TAG">PATRYCZEK</string>
     <string name="LIVEO_INFORMATIONS">liveoInformations</string>
-    <string name="LIVEO_FIELD_ID">liveoId</string>
-    <string name="LIVEO_FIELD_FIRSTNAME">liveoFirstName</string>
-    <string name="LIVEO_FIELD_LASTNAME">liveoLastName</string>
-    <string name="LIVEO_FIELD_GENDER">liveoGender</string>
-    <string name="LIVEO_FIELD_AGEGROUP">liveoAgeGroup</string>
-    <string name="LIVEO_FIELD_REGISTRATION">liveoRegistration</string>
+    <string name="LIVEO_DRIVER_ID">liveoId</string>
+    <string name="LIVEO_DRIVER_FIRSTNAME">liveoFirstName</string>
+    <string name="LIVEO_DRIVER_LASTNAME">liveoLastName</string>
+    <string name="LIVEO_DRIVER_GENDER">liveoGender</string>
+    <string name="LIVEO_DRIVER_AGEGROUP">liveoAgeGroup</string>
+    <string name="LIVEO_DRIVER_REGISTRATION">liveoRegistration</string>
     <string name="LIVEO_GUIDE_STAGE">liveoGuideStage</string>
     <string name="LIVEO_GUIDE_SHOW">liveoGuideShow</string>
-    <string name="PASSENGERS_COUNT">passengersCount</string>
+    <string name="LIVEO_PASSENGERS_COUNT">liveoPassengersCount</string>
+    <string name="LIVEO_ICE_1_NAME">liveIce1Name</string>
+    <string name="LIVEO_ICE_1_PHONE">liveIce1Phone</string>
+    <string name="LIVEO_ICE_2_NAME">liveIce2Name</string>
+    <string name="LIVEO_ICE_2_PHONE">liveIce2Phone</string>
+    <string name="LIVEO_ICE_3_NAME">liveIce3Name</string>
+    <string name="LIVEO_ICE_3_PHONE">liveIce3Phone</string>
     <string-array name="guide_description">
         <item>Provide your personal details</item>
         <item>Decide who should be contacted</item>

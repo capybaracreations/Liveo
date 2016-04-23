@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+            <TextView fontPath="fonts/Roboto-Black.ttf"
+                android:text="PASSENGERS"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/WHITE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:textSize="30dp"
+                />
+            <TextView fontPath="fonts/Roboto-Bold.ttf"
+                android:text="PASSENGERS"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/WHITE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:textSize="30dp"
+                />
+
+            <TextView fontPath="fonts/Roboto-Medium.ttf"
+                android:text="PASSENGERS"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/WHITE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:textSize="30dp"
+                />
+            <TextView fontPath="fonts/Roboto-Regular.ttf"
+                android:text="PASSENGERS"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/WHITE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:textSize="30dp"
+                />
+
+            <TextView fontPath="fonts/RobotoCondensed-Bold.ttf"
+                android:text="PASSENGERS"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/WHITE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:textSize="30dp"
+                />
+            <TextView fontPath="fonts/RobotoCondensed-Regular.ttf"
+                android:text="PASSENGERS"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/WHITE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:textSize="30dp"
+                />
+
+    </LinearLayout>
+</FrameLayout>
+

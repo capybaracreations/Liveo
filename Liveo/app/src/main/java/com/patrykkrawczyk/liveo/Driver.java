@@ -115,12 +115,12 @@ public class Driver {
         if (currentDriver == null) {
             SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
-            String cId = preferences.getString(context.getString(R.string.LIVEO_FIELD_ID), "");
-            String cFirstName = preferences.getString(context.getString(R.string.LIVEO_FIELD_FIRSTNAME), "");
-            String cLastName = preferences.getString(context.getString(R.string.LIVEO_FIELD_LASTNAME), "");
-            String cGender = preferences.getString(context.getString(R.string.LIVEO_FIELD_GENDER), "");
-            String cAgeGroup = preferences.getString(context.getString(R.string.LIVEO_FIELD_AGEGROUP), "");
-            String cRegistration = preferences.getString(context.getString(R.string.LIVEO_FIELD_REGISTRATION), "");
+            String cId = preferences.getString(context.getString(R.string.LIVEO_DRIVER_FIRSTNAME), "");
+            String cFirstName = preferences.getString(context.getString(R.string.LIVEO_DRIVER_FIRSTNAME), "");
+            String cLastName = preferences.getString(context.getString(R.string.LIVEO_DRIVER_LASTNAME), "");
+            String cGender = preferences.getString(context.getString(R.string.LIVEO_DRIVER_GENDER), "");
+            String cAgeGroup = preferences.getString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), "");
+            String cRegistration = preferences.getString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), "");
 
             Driver current = new Driver(cId, cFirstName, cLastName, cGender, cAgeGroup, cRegistration);
 

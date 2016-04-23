@@ -3,6 +3,11 @@ package com.patrykkrawczyk.liveo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.text.Layout;
+import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,8 @@ import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.orhanobut.logger.Logger;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 /**
  * Created by Patryk Krawczyk on 20.04.2016.
@@ -46,15 +53,31 @@ public class GuideManager implements OnShowcaseEventListener {
     public static ShowcaseView showGuide(Activity activity, View view) {
         final String[] descriptions = activity.getResources().getStringArray(R.array.guide_description);
 
+
+        TextPaint titlePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        titlePaint.setTextSize(activity.getResources().getDimension(R.dimen.abc_text_size_display_1_material));
+        titlePaint.setTypeface(Typeface.createFromAsset(activity.getAssets(), "fonts/RobotoCondensed-Regular.ttf"));
+
+        TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setTextSize(activity.getResources().getDimension(R.dimen.abc_text_size_headline_material));
+        textPaint.setTypeface(Typeface.createFromAsset(activity.getAssets(), "fonts/RobotoCondensed-LightItalic.ttf"));
+
+
         instance.guide = new ShowcaseView.Builder(activity)
                                 .setTarget(new ViewTarget(view))
                                 .setContentTitle("Getting started")
                                 .setContentText(descriptions[instance.tutorialStage])
                                 .withNewStyleShowcase()
+                                .setContentTextPaint(textPaint)
+                                .setContentTitlePaint(titlePaint)
                                 .setShowcaseEventListener(instance)
                                 .setStyle(R.style.ShowcaseTheme)
                                 .build();
+
         instance.guide.hideButton();
+        instance.guide.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
+        instance.guide.setTitleTextAlignment(Layout.Alignment.ALIGN_CENTER);
+        instance.guide.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
 
         instance.saveState(activity);
 
@@ -68,7 +91,7 @@ public class GuideManager implements OnShowcaseEventListener {
         editor.putInt(activity.getString(R.string.LIVEO_GUIDE_STAGE), instance.tutorialStage);
         editor.putBoolean(activity.getString(R.string.LIVEO_GUIDE_SHOW), instance.showGuide);
 
-        editor.commit();
+        editor.apply();
     }
 
     public static void hideGuide() {

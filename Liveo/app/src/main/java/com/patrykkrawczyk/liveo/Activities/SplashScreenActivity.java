@@ -49,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity
                 .playOn(splashText);
 
 
-       // GuideManager.resetGuide(this); // TODO DELETE THIS
+        //GuideManager.resetGuide(this); // TODO DELETE THIS
         GuideManager.loadGuideState(this);
         Driver.setCurrentDriver(getApplicationContext(), new Driver("0", "Patryk", "Krawczyk", "0", "0", "0")); // TODO DELETE THIS
     }

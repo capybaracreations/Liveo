@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 public class AnimatedFragment extends Fragment {
 
     protected final int ANIMATION_SPEED = 500;
-    protected boolean touchEnabled = false;
+    public boolean touchEnabled = false;
 
     public enum Page {
         MENU, PASSENGERS, DRIVER, ICE;
@@ -45,8 +45,6 @@ public class AnimatedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         View view = inflater.inflate(layoutId, container, false);
         ButterKnife.bind(this, view);
 
@@ -84,7 +82,7 @@ public class AnimatedFragment extends Fragment {
         ripple = MaterialRippleLayout.on(view)
                     .rippleOverlay(true)
                     .rippleColor(getResources().getColor(R.color.colorRipple))
-                    .rippleAlpha((float)0.80)
+                    .rippleAlpha((float)0.20)
                     .ripplePersistent(true)
                     .rippleDuration((int)(ANIMATION_SPEED*0.75))
                     .rippleDelayClick(false)

@@ -4,10 +4,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
-import com.patrykkrawczyk.liveo.fragments.DriverSettings;
-import com.patrykkrawczyk.liveo.fragments.IceSettings;
+import com.patrykkrawczyk.liveo.fragments.DriverFragment;
+import com.patrykkrawczyk.liveo.fragments.IceFragment;
 import com.patrykkrawczyk.liveo.fragments.MenuFragment;
-import com.patrykkrawczyk.liveo.fragments.PassengerSelection;
+import com.patrykkrawczyk.liveo.fragments.PassengerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +18,23 @@ import java.util.List;
 public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
     //static private MenuFragment menuFragment;
-    //static private DriverSettings driverFragment;
-    //static private PassengerSelection passengerFragment;
-    //static private IceSettings iceFragment;
+    //static private DriverFragment driverFragment;
+    //static private PassengerFragment passengerFragment;
+    //static private IceFragment iceFragment;
     private List<AnimatedFragment> mList = null;
 
     public MenuPagerAdapter(FragmentManager fm) {
         super(fm);
 
         //menuFragment      = new MenuFragment();
-        //passengerFragment = new PassengerSelection();
-        //driverFragment    = new DriverSettings();
-        //iceFragment       = new IceSettings();
+        //passengerFragment = new PassengerFragment();
+        //driverFragment    = new DriverFragment();
+        //iceFragment       = new IceFragment();
 
         mList = new ArrayList<>(2);
 
         mList.add(new MenuFragment());
-        mList.add(new PassengerSelection());
+        mList.add(new PassengerFragment());
 
         //mList.add(driverFragment);
         //mList.add(iceFragment);
@@ -44,9 +44,9 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         AnimatedFragment newFragment;
         int position = 1;
 
-        if (page == AnimatedFragment.Page.PASSENGERS) newFragment = new PassengerSelection();
-        else if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverSettings();
-        else if (page == AnimatedFragment.Page.ICE) newFragment = new IceSettings();
+        if (page == AnimatedFragment.Page.PASSENGERS) newFragment = new PassengerFragment();
+        else if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverFragment();
+        else if (page == AnimatedFragment.Page.ICE) newFragment = new IceFragment();
         else {
             newFragment = new MenuFragment();
             position = 0;
@@ -54,6 +54,10 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
 
         mList.set(position, newFragment);
         notifyDataSetChanged();
+
+        for (AnimatedFragment fragment:mList) {
+            fragment.touchEnabled = false;
+        }
         //if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
         //else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
         //else mList.set(1, iceFragment);

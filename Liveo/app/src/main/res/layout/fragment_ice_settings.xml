@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -17,89 +16,155 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:stretchColumns="*" >
-
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:layout_width="match_parent">
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:id="@+id/contact0Button"
-                app:materialIcon="account_plus"
-                app:materialIconColor="@color/colorFont"
-                android:scaleType="center"
+
+            <TableRow
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"/>
-        </TableRow>
+                android:layout_width="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/ice1Name"
+                            android:layout_marginRight="9dp"
+                            style="@style/iceMaterialEditText"
+                            app:met_iconLeft="@drawable/account"
+                            android:inputType="textNoSuggestions"
+                            android:hint="Name"/>
+                    </RelativeLayout>
 
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:id="@+id/contact1Button"
-                app:materialIcon="account_plus"
-                app:materialIconColor="@color/colorFont"
-                android:scaleType="center"
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/ice1Phone"
+                            android:layout_marginRight="9dp"
+                            style="@style/iceMaterialEditText"
+                            app:met_iconLeft="@drawable/phone"
+                            android:inputType="phone"
+                            android:hint="Phone"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <View
+                android:layout_margin="9dp"
+                android:layout_gravity="center"
+                android:background="#424242"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"/>
+
+            <TableRow
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-        </TableRow>
+                android:layout_width="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/ice2Name"
+                            android:layout_marginRight="9dp"
+                            style="@style/iceMaterialEditText"
+                            app:met_iconLeft="@drawable/account"
+                            android:inputType="textNoSuggestions"
+                            android:hint="Name"/>
+                    </RelativeLayout>
 
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:id="@+id/contact2Button"
-                app:materialIcon="account_plus"
-                app:materialIconColor="@color/colorFont"
-                android:scaleType="center"
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/ice2Phone"
+                            android:layout_marginRight="9dp"
+                            style="@style/iceMaterialEditText"
+                            app:met_iconLeft="@drawable/phone"
+                            android:inputType="phone"
+                            android:hint="Phone"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <View
+                android:layout_margin="9dp"
+                android:layout_gravity="center"
+                android:background="#424242"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"/>
+
+            <TableRow
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-        </TableRow>
+                android:layout_width="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/ice3Name"
+                            android:layout_marginRight="9dp"
+                            android:layout_centerInParent="true"
+                            style="@style/iceMaterialEditText"
+                            app:met_iconLeft="@drawable/account"
+                            android:inputType="textNoSuggestions"
+                            android:hint="Name"/>
+                    </RelativeLayout>
 
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:id="@+id/contact3Button"
-                app:materialIcon="account_plus"
-                app:materialIconColor="@color/colorFont"
-                android:scaleType="center"
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/ice3Phone"
+                            android:layout_marginRight="9dp"
+                            style="@style/iceMaterialEditText"
+                            app:met_iconLeft="@drawable/phone"
+                            android:inputType="phone"
+                            android:hint="Phone"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-        </TableRow>
+                android:layout_width="match_parent">
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_weight="1"
+                    android:id="@+id/confirmButton"
+                    app:materialIcon="check"
+                    app:materialIconColor="@color/colorFont"
+                    android:scaleType="center"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"/>
+            </TableRow>
 
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:id="@+id/contact4Button"
-                app:materialIcon="account_plus"
-                app:materialIconColor="@color/colorFont"
-                android:scaleType="center"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-        </TableRow>
-
-
-
+        </LinearLayout>
     </TableLayout>
 
-</FrameLayout>
-    <!--
-    <it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator
-    android:id="@+id/animator"
-    android:animationDuration="@android:integer/config_longAnimTime"
-    android:measureAllChildren="true"
-    android:animateFirstView="true"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:outAnimation="@anim/out_animation"
-    android:inAnimation="@anim/in_animation"
-    android:interpolator="@android:interpolator/accelerate_decelerate" >
 
-    </it.sephiroth.android.library.viewrevealanimator.ViewRevealAnimator>
-    -->
+</FrameLayout>
 
