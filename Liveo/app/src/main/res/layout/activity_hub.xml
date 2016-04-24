@@ -3,9 +3,10 @@
 <FrameLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
         android:background="@color/colorPrimary"
@@ -13,70 +14,83 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <TableLayout
-        android:id="@+id/menuLayout"
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:stretchColumns="*" >
+        android:weightSum="10"
+        app:layout_heightPercent="100%"
+        app:layout_widthPercent="100%">
 
-        <TableRow
+        <LinearLayout
+            android:layout_marginTop="9dp"
+            android:id="@+id/closeButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <net.steamcrafted.materialiconlib.MaterialIconView
-                    android:id="@+id/passenger0Button"
-                    android:tag="0"
-                    android:layout_weight="1"
-                    app:materialIcon="numeric_0_box_outline"
-                    app:materialIconColor="@color/colorFont"
-                    android:scaleType="center"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <net.steamcrafted.materialiconlib.MaterialIconView
-                    android:id="@+id/passenger2Button"
-                    android:tag="2"
-                    android:layout_weight="1"
-                    app:materialIcon="numeric_2_box_outline"
-                    app:materialIconColor="@color/colorFont"
-                    android:scaleType="center"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"/>
-            </LinearLayout>
-        </TableRow>
-        <TableRow
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <net.steamcrafted.materialiconlib.MaterialIconView
-                    android:id="@+id/passenger4Button"
-                    android:tag="4"
-                    android:layout_weight="1"
-                    app:materialIcon="numeric_4_box_outline"
-                    app:materialIconColor="@color/colorFont"
-                    android:scaleType="center"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"/>
-            </LinearLayout>
-        </TableRow>
+            android:weightSum="2"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="100%">
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                android:id="@+id/closeButtonIcon"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scaleType="center"
+                app:layout_heightPercent="100%"
+                app:layout_widthPercent="100%"
+                app:materialIcon="stop"
+                app:materialIconColor="@color/colorFont" />
+            <TextView
+                android:id="@+id/closeButtonText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top|center"
+                android:text="STOP"
+                fontPath="fonts/Roboto-Medium.ttf"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/colorFont"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-    </TableLayout>
+        <View
+            android:layout_marginTop="9dp"
+            android:background="@color/colorLogo"
+            android:alpha="0.1"
+            android:id="@+id/mapView"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="30%"
+            app:layout_widthPercent="100%" />
+
+        <com.txusballesteros.SnakeView
+            android:layout_marginTop="9dp"
+            android:id="@+id/heartGraph"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="30%"
+            app:layout_widthPercent="100%" />
+
+        <com.github.mikephil.charting.charts.RadarChart
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"
+            android:id="@+id/accelerometerGraph"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="30%"
+            app:layout_widthPercent="100%" />
+    </LinearLayout>
+
+
+    </android.support.percent.PercentRelativeLayout>
 
 </FrameLayout>
