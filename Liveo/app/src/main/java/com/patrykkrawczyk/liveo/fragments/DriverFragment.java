@@ -1,27 +1,22 @@
 package com.patrykkrawczyk.liveo.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.orhanobut.logger.Logger;
-import com.patrykkrawczyk.liveo.BackKeyEvent;
+import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.Driver;
-import com.patrykkrawczyk.liveo.GuideManager;
+import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
-import com.patrykkrawczyk.liveo.SwitchPageEvent;
-import com.patrykkrawczyk.liveo.activities.MainActivity;
+import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -33,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnTouch;
 
 public class DriverFragment extends AnimatedFragment {
@@ -122,6 +116,11 @@ public class DriverFragment extends AnimatedFragment {
             performCheck(event);
         }
         return true;
+    }
+
+    @OnTouch(R.id.menuLayout)
+    public boolean onMenuTouch(View v, MotionEvent event) {
+        return false;
     }
 
     @Subscribe

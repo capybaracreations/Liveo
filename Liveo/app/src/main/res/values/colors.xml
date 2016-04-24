@@ -9,6 +9,8 @@
 
     <color name="BLACK">#000000</color>
     <color name="WHITE">#FFFFFF</color>
+    <color name="RED">#F44336</color>
+    <color name="GREEN">#4CAF50</color>
 
     <color name="SHIMMER">#ffffff</color>
     <color name="showcaseBackground">#dc000000</color>

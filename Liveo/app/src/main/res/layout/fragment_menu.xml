@@ -172,7 +172,7 @@
                                     android:layout_width="match_parent">
                                         <TextView
                                             android:text="START"
-                                              android:id="@+id/triggerTextView"
+                                              android:id="@+id/triggerText"
                                               android:textColor="@color/colorFont"
                                               android:textAlignment="center"
                                               fontPath="fonts/Roboto-Medium.ttf"

@@ -10,7 +10,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.patrykkrawczyk.liveo.Driver;
-import com.patrykkrawczyk.liveo.GuideManager;
+import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -51,7 +51,7 @@ public class SplashScreenActivity extends AppCompatActivity
 
         //GuideManager.resetGuide(this); // TODO DELETE THIS
         GuideManager.loadGuideState(this);
-        Driver.setCurrentDriver(getApplicationContext(), new Driver("0", "Patryk", "Krawczyk", "0", "0", "0")); // TODO DELETE THIS
+
     }
 
 

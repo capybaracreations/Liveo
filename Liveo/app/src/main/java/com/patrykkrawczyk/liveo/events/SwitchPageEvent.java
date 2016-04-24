@@ -1,4 +1,4 @@
-package com.patrykkrawczyk.liveo;
+package com.patrykkrawczyk.liveo.events;
 
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment.Page;
 

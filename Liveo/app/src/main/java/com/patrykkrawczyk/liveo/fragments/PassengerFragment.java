@@ -4,24 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.orhanobut.logger.Logger;
-import com.patrykkrawczyk.liveo.BackKeyEvent;
-import com.patrykkrawczyk.liveo.GuideManager;
+import com.patrykkrawczyk.liveo.events.BackKeyEvent;
+import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
-import com.patrykkrawczyk.liveo.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.OnTouch;
 

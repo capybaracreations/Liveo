@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
-import com.patrykkrawczyk.liveo.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import butterknife.ButterKnife;

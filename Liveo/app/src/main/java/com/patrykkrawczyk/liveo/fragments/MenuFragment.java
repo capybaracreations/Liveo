@@ -1,8 +1,10 @@
 package com.patrykkrawczyk.liveo.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.net.NetworkInfo;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +14,15 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.Driver;
-import com.patrykkrawczyk.liveo.GuideManager;
+import com.patrykkrawczyk.liveo.activities.MainActivity;
+import com.patrykkrawczyk.liveo.events.BackKeyEvent;
+import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
-import com.patrykkrawczyk.liveo.ShowGuideEvent;
+import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.events.ShowGuideEvent;
+import com.patrykkrawczyk.liveo.activities.HubActivity;
+import com.patrykkrawczyk.liveo.managers.StateManager;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -25,7 +32,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.OnTouch;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MenuFragment extends AnimatedFragment {
 
@@ -33,6 +39,7 @@ public class MenuFragment extends AnimatedFragment {
     @Bind(R.id.passengersButton) TableRow passengersButton;
     @Bind(R.id.iceButton) TableRow iceButton;
     @Bind(R.id.triggerButton) TableRow triggerButton;
+    @Bind(R.id.triggerText) TextView triggerText;
     @Bind(R.id.driverButtonIcon) MaterialIconView driverButtonIcon;
     @Bind(R.id.iceButtonIcon) MaterialIconView iceButtonIcon;
     @Bind(R.id.passengersButtonIcon) MaterialIconView passengersButtonIcon;
@@ -41,7 +48,7 @@ public class MenuFragment extends AnimatedFragment {
     TextView driverName;
     private static boolean firstTimeRun = true;
     private EventBus eventBus;
-    SharedPreferences sharedPreferences;
+    private StateManager stateManager;
 
     public MenuFragment() {
         super(R.layout.fragment_menu);
@@ -52,9 +59,9 @@ public class MenuFragment extends AnimatedFragment {
     public void onStart() {
         super.onStart();
 
+        touchEnabled = true;
         if (firstTimeRun == true) {
             firstTimeRun = false;
-            touchEnabled = true;
             if (GuideManager.getShowGuide()) {
                 if (GuideManager.getStage() == 0)
                     GuideManager.showGuide(getActivity(), driverButton);
@@ -68,6 +75,7 @@ public class MenuFragment extends AnimatedFragment {
 
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
+        stateManager = StateManager.getInstance(getActivity());
 
         driverName = (TextView) driverButton.findViewById(R.id.driverText);
         Driver driver = Driver.getCurrentDriver(getContext());
@@ -75,16 +83,8 @@ public class MenuFragment extends AnimatedFragment {
         else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());
 
         loadPassenger();
+        checkState();
 
-        driverButtonIcon.bringToFront();
-        iceButtonIcon.bringToFront();
-        passengersButtonIcon.bringToFront();
-        triggerButtonIcon.bringToFront();
-
-        driverButton.invalidate();
-        iceButton.invalidate();
-        passengersButton.invalidate();
-        triggerButton.invalidate();
     }
 
     private void loadPassenger() {
@@ -100,6 +100,18 @@ public class MenuFragment extends AnimatedFragment {
             else if (count.equals("4")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_4_BOX_OUTLINE);
             else if (count.equals("5")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.DOTS_HORIZONTAL);
         } else passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.ACCOUNT_MULTIPLE);
+    }
+
+    private void checkState() {
+        boolean state = stateManager.getMonitorState();
+
+        if (state) {
+            triggerButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.PULSE);
+            triggerText.setText("HUB");
+        } else {
+            triggerButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.PLAY);
+            triggerText.setText("START");
+        }
     }
 
     @Subscribe
@@ -133,14 +145,16 @@ public class MenuFragment extends AnimatedFragment {
 
     @OnTouch(R.id.triggerButton)
     public boolean onTouchTrigger (View view, MotionEvent event) {
-
-        setIconColor(view);
-        Point point = new Point((int) event.getRawX(), (int) event.getRawY());
-        ripple.setRipplePersistent(true);
-        ripple.performRipple(point);
-//        if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 0)) {
-//            onButtonTouch(view, event, Page.DRIVER);
-//        }
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            setIconColor(view);
+            Point point = new Point((int) event.getRawX(), (int) event.getRawY());
+            ripple.setRipplePersistent(true);
+            ripple.performRipple(point);
+            //firstTimeRun = true;
+            Intent intent = new Intent(getContext(), HubActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
         return true;
     }
 
@@ -168,6 +182,10 @@ public class MenuFragment extends AnimatedFragment {
         return true;
     }
 
+
+
+    @Subscribe
+    public void onBackKeyEvent(BackKeyEvent event) { }
 
     @Override
     protected void setIconColor(View view) {

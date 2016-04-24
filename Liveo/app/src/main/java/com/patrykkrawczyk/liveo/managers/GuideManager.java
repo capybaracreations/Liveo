@@ -1,9 +1,8 @@
-package com.patrykkrawczyk.liveo;
+package com.patrykkrawczyk.liveo.managers;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.Layout;
@@ -11,15 +10,12 @@ import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.view.animation.Animation;
 
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.orhanobut.logger.Logger;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
+import com.patrykkrawczyk.liveo.R;
 
 /**
  * Created by Patryk Krawczyk on 20.04.2016.

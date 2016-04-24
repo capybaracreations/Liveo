@@ -7,15 +7,15 @@ import android.os.Bundle;
 
 import com.ToxicBakery.viewpager.transforms.StackTransformer;
 import com.orhanobut.logger.Logger;
-import com.patrykkrawczyk.liveo.BackKeyEvent;
+import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.ScrollStoppedEvent;
-import com.patrykkrawczyk.liveo.ShowGuideEvent;
-import com.patrykkrawczyk.liveo.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
+import com.patrykkrawczyk.liveo.events.ShowGuideEvent;
+import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment.Page;
-import com.patrykkrawczyk.liveo.fragments.MenuFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Bind(R.id.mainViewPager)
     MyViewPager mainViewPager;
 
-    static private MenuPagerAdapter mPagerAdapter;
+    private MenuPagerAdapter mPagerAdapter;
     private EventBus eventBus;
 
 
@@ -105,4 +105,5 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
 }

@@ -23,7 +23,7 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
     //static private DriverFragment driverFragment;
     //static private PassengerFragment passengerFragment;
     //static private IceFragment iceFragment;
-    private List<AnimatedFragment> mList = null;
+    public List<AnimatedFragment> mList = null;
 
     public MenuPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -36,7 +36,7 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         mList = new ArrayList<>(2);
 
         mList.add(new MenuFragment());
-        mList.add(new PassengerFragment());
+        //mList.add(new PassengerFragment());
 
         //mList.add(driverFragment);
         //mList.add(iceFragment);
@@ -55,15 +55,25 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         }
 
         EventBus eb = EventBus.getDefault();
-        AnimatedFragment oldFragment = mList.get(position);
-        if (eb.isRegistered(oldFragment)) eb.unregister(oldFragment);
+        AnimatedFragment oldFragment = null;
 
-        mList.set(position, newFragment);
+        if (mList.size() > 1) {
+            oldFragment = mList.get(position);
+            if (eb.isRegistered(oldFragment)) eb.unregister(oldFragment);
+            mList.set(position, newFragment);
+            for (AnimatedFragment fragment:mList) {
+                fragment.touchEnabled = false;
+            }
+        } else if (page != AnimatedFragment.Page.MENU) {
+            mList.add(position, newFragment);
+            for (AnimatedFragment fragment:mList) {
+                fragment.touchEnabled = false;
+            }
+        }
+
         notifyDataSetChanged();
 
-        for (AnimatedFragment fragment:mList) {
-            fragment.touchEnabled = false;
-        }
+
         //if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
         //else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
         //else mList.set(1, iceFragment);
