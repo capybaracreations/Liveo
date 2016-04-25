@@ -1,6 +1,7 @@
 package com.patrykkrawczyk.liveo.managers;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -36,17 +37,19 @@ public class NotificationManager {
 
         mBuilder = new Builder(activity)
                 .setOngoing(true)
+                .addAction(R.drawable.stop, "Stop", createPendingIntent(activity, true))
                 .setSmallIcon(R.drawable.heart_pulse)
                 .setContentTitle("Liveo")
-                .setContentText(activity.getString(R.string.LIVEO_SLOGAN));
+                .setContentText(activity.getString(R.string.LIVEO_SLOGAN))
+                .setPriority(Notification.PRIORITY_MAX);
     }
 
-    public void showNotification(Activity activity) {
-
+    private PendingIntent createPendingIntent(Activity activity, boolean shouldClose) {
         Intent intent = new Intent(activity, HubActivity.class);
+        if (shouldClose) intent.setAction(activity.getString(R.string.LIVEO_ACTION_CLOSE));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        PendingIntent resultPendingIntent =
+        PendingIntent pendingIntent =
                 PendingIntent.getActivity(
                         activity,
                         0,
@@ -54,7 +57,12 @@ public class NotificationManager {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
-        mBuilder.setContentIntent(resultPendingIntent);
+        return pendingIntent;
+    }
+
+    public void showNotification(Activity activity) {
+
+        mBuilder.setContentIntent(createPendingIntent(activity, false));
 
         mNotificationManager.notify(id, mBuilder.build());
 

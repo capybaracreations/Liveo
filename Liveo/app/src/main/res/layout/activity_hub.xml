@@ -70,16 +70,33 @@
             app:layout_heightPercent="30%"
             app:layout_widthPercent="100%" />
 
-        <com.txusballesteros.SnakeView
+        <LinearLayout
             android:layout_marginTop="9dp"
-            android:id="@+id/heartGraph"
             android:layout_weight="3"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_heightPercent="30%"
-            app:layout_widthPercent="100%" />
+            app:layout_widthPercent="100%">
+            <TextView
+                android:id="@+id/heartText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|center"
+                android:text="100"
+                fontPath="fonts/Roboto-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:textColor="@color/colorFont"
+                android:textSize="35sp" />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/heartGraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_heightPercent="100%"
+                app:layout_widthPercent="100%" />
+        </LinearLayout>
 
-        <com.github.mikephil.charting.charts.RadarChart
+        <com.github.mikephil.charting.charts.ScatterChart
             android:layout_marginTop="9dp"
             android:layout_marginBottom="9dp"
             android:id="@+id/accelerometerGraph"
