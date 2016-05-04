@@ -74,13 +74,13 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         notifyDataSetChanged();
 
 
-        //if (page == AnimatedFragment.Page.PASSENGERS) mList.set(1, passengerFragment);
-        //else if (page == AnimatedFragment.Page.DRIVER) mList.set(1, driverFragment);
-        //else mList.set(1, iceFragment);
+        //if (page == AnimatedFragment.Page.PASSENGERS) mList.setChartValue(1, passengerFragment);
+        //else if (page == AnimatedFragment.Page.DRIVER) mList.setChartValue(1, driverFragment);
+        //else mList.setChartValue(1, iceFragment);
 
         //int position = getItemPosition(newFragment);
-        //mList.set(1, newFragment);
-        //mList.set(position, oldFragment);
+        //mList.setChartValue(1, newFragment);
+        //mList.setChartValue(position, oldFragment);
         //notifyDataSetChanged();
     }
 

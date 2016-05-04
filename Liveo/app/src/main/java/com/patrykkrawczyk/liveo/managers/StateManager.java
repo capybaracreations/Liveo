@@ -17,17 +17,26 @@ public class StateManager {
 
 
     private static StateManager instance;
+    private boolean accelerometerState = false;
     private boolean notificationState = false;
     private boolean monitorState = false;
 
 
-    public static StateManager getInstance(Activity activity) {
-        if (instance == null) instance = new StateManager(activity);
+    public static StateManager getInstance() {
+        if (instance == null) instance = new StateManager();
         return instance;
     }
 
-    public StateManager(Activity activity) {
+    public StateManager() {
 
+    }
+
+    public boolean getAccelerometerState() {
+        return instance.accelerometerState;
+    }
+
+    public void setAccelerometerState(boolean state) {
+        instance.accelerometerState = state;
     }
 
     public boolean getNotificationState() {

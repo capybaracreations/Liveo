@@ -21,6 +21,7 @@ import com.patrykkrawczyk.liveo.managers.HeartRateManager;
 import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.StateManager;
+import com.skyfishjy.library.RippleBackground;
 import com.txusballesteros.SnakeView;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -36,14 +37,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HubActivity extends AppCompatActivity {
 
-    private EventBus eventBus;
-    private SharedPreferences preferences;
     private MaterialRippleLayout ripple;
-    @Bind(R.id.closeButton) LinearLayout closeButton;
     @Bind(R.id.closeButtonIcon) MaterialIconView closeButtonIcon;
     @Bind(R.id.closeButtonText) TextView closeButtonText;
     @Bind(R.id.heartText) TextView heartText;
-    @Bind(R.id.heartGraph) LineChart heartGraph;
+    @Bind(R.id.heartRipple) RippleBackground heartRipple;
     @Bind(R.id.accelerometerGraph) ScatterChart accelerometerGraph;;
 
     private CpuManager cpuManager;
@@ -57,40 +55,27 @@ public class HubActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
 
-        eventBus = EventBus.getDefault();
         ButterKnife.bind(this);
-        preferences = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
         cpuManager = CpuManager.getInstance(this);
         notificationManager = NotificationManager.getInstance(this);
-        stateManager = StateManager.getInstance(this);
+        stateManager = StateManager.getInstance();
 
         Intent incomingIntent = getIntent();
         String action = incomingIntent.getAction();
-        if (action != null && action.equals(getString(R.string.LIVEO_ACTION_CLOSE)) == true)
-            closeHub();
+        if (action != null && action.equals(getString(R.string.LIVEO_ACTION_CLOSE)) == true) closeHub();
 
         accelerometerManager = new AccelerometerManager(this, accelerometerGraph);
-        heartRateManager = new HeartRateManager(this, heartGraph, heartText);
+        heartRateManager = new HeartRateManager(this, heartRipple, heartText);
 
-        initialize();
+        initializeRipple();
     }
 
-    private void initialize() {
-        ripple = MaterialRippleLayout.on(findViewById(R.id.rippleView))
-                .rippleOverlay(true)
-                .rippleColor(getResources().getColor(R.color.colorRipple))
-                .rippleAlpha((float)0.20)
-                .ripplePersistent(true)
-                .rippleDuration(375)
-                .rippleDelayClick(false)
-                .rippleFadeDuration(100)
-                .create();
-        ripple.setEnabled(false);
+    @OnTouch(R.id.heartRipple)
+    public boolean onHeart(View v, MotionEvent event) {
+        heartRateManager.add(100);
 
-        stateManager.setMonitorState(true);
-        cpuManager.acquireCpu();
-        notificationManager.showNotification(this);
+        return true;
     }
 
     @OnTouch(R.id.closeButton)
@@ -101,50 +86,63 @@ public class HubActivity extends AppCompatActivity {
             closeButtonIcon.setColor(getResources().getColor(R.color.colorAccent));
             closeButtonText.setTextColor(getResources().getColor(R.color.colorAccent));
 
-            stateManager.setMonitorState(false);
-            notificationManager.hideNotification();
-            cpuManager.releaseCpu();
-
             onBackPressed();
             finish();
         }
         return true;
     }
 
-
-
-    @OnTouch(R.id.heartGraph)
-    public boolean onHeart(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-                heartRateManager.feedMultiple(this);
-        }
-        return true;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        enableMonitor(true);
     }
 
-    @OnTouch(R.id.accelerometerGraph)
-    public boolean onAccelerometer(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-                accelerometerManager.feedMultiple(this);
-        }
-        return true;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        enableMonitor(false);
     }
 
-
+    private void enableMonitor(boolean state) {
+        stateManager.setMonitorState(state);
+        accelerometerManager.enable(state);
+        if (state) {
+            cpuManager.acquireCpu();
+            notificationManager.showNotification(this);
+        } else {
+            cpuManager.releaseCpu();
+            notificationManager.hideNotification();
+        }
+    }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     private void closeHub() {
-        stateManager.setMonitorState(false);
-        notificationManager.hideNotification();
-        cpuManager.releaseCpu();
         finish();
         System.exit(0);
     }
+
+    private void initializeRipple() {
+        ripple = MaterialRippleLayout.on(findViewById(R.id.rippleView))
+                .rippleOverlay(true)
+                .rippleColor(getResources().getColor(R.color.colorRipple))
+                .rippleAlpha((float)0.20)
+                .ripplePersistent(true)
+                .rippleDuration(375)
+                .rippleDelayClick(false)
+                .rippleFadeDuration(100)
+                .create();
+        ripple.setEnabled(false);
+    }
+
 }

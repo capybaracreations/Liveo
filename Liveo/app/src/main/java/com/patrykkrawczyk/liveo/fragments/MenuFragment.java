@@ -75,7 +75,7 @@ public class MenuFragment extends AnimatedFragment {
 
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
-        stateManager = StateManager.getInstance(getActivity());
+        stateManager = StateManager.getInstance();
 
         driverName = (TextView) driverButton.findViewById(R.id.driverText);
         Driver driver = Driver.getCurrentDriver(getContext());

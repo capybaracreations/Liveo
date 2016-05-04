@@ -1,6 +1,11 @@
 package com.patrykkrawczyk.liveo.managers;
 
 import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -17,19 +22,65 @@ import java.util.Random;
 /**
  * Created by Patryk Krawczyk on 24.04.2016.
  */
-public class AccelerometerManager {
+public class AccelerometerManager implements SensorEventListener{
 
-
+    private final int UPDATE_THRESHOLD = 50;
+    private long lastUpdateTime;
+    private StateManager stateManager;
+    private SensorManager sensorManager;
+    private Sensor senAccelerometer;
     private ScatterChart accelerometerChart;
     private int colorPoint;
     private int colorGrid;
+    private float maxRange;
 
     public AccelerometerManager(Activity activity, ScatterChart chart) {
+        stateManager = StateManager.getInstance();
+
         colorPoint = activity.getResources().getColor(R.color.colorAccent);
         colorGrid = activity.getResources().getColor(R.color.colorFont);
 
         this.accelerometerChart = chart;
+        initializeChart();
+        setChartValue(50, 50);
 
+        sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+        senAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        maxRange = senAccelerometer.getMaximumRange();
+    }
+
+    public void enable(boolean state) {
+        if (state) {
+            sensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_FASTEST);
+        } else {
+            sensorManager.unregisterListener(this);
+        }
+
+        stateManager.setAccelerometerState(state);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            long currentTime = System.currentTimeMillis();
+
+            long diffTime = (currentTime - lastUpdateTime);
+            if (diffTime > UPDATE_THRESHOLD) {
+                lastUpdateTime = currentTime;
+
+                float z = event.values[0] / maxRange * 50;
+                float x = event.values[2] / maxRange * 50;
+                setChartValue(50 + (int)x, 50 + (int)z);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    private void initializeChart() {
         accelerometerChart.getLegend().setEnabled(false);
         accelerometerChart.setTouchEnabled(false);
         accelerometerChart.setDescription("");
@@ -79,14 +130,9 @@ public class AccelerometerManager {
 
         yAxis.addLimitLine(limitY);
         yAxis.setDrawLimitLinesBehindData(true);
-
-
-
-        set(50, 50);
     }
 
-
-    public void set(int x, int y) {
+    public void setChartValue(int x, int y) {
 
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i <= 100; i++) {
@@ -110,31 +156,4 @@ public class AccelerometerManager {
         accelerometerChart.invalidate();
     }
 
-
-    public void feedMultiple(final Activity activity) {
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                for(int i = 0; i < 500; i++) {
-
-                    activity.runOnUiThread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            set(new Random().nextInt() % 100, new Random().nextInt() % 100);
-                        }
-                    });
-
-                    try {
-                        Thread.sleep(35);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
 }

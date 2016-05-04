@@ -30,7 +30,7 @@ public class NotificationManager {
     }
 
     public NotificationManager(Activity activity) {
-        stateManager = StateManager.getInstance(activity);
+        stateManager = StateManager.getInstance();
 
         mNotificationManager =
                 (android.app.NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
