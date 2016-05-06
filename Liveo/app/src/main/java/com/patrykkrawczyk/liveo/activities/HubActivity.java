@@ -2,33 +2,25 @@ package com.patrykkrawczyk.liveo.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.ScatterChart;
-import com.orhanobut.logger.Logger;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.patrykkrawczyk.liveo.managers.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.CpuManager;
 import com.patrykkrawczyk.liveo.managers.HeartRateManager;
+import com.patrykkrawczyk.liveo.managers.LocationManager;
 import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.StateManager;
 import com.skyfishjy.library.RippleBackground;
-import com.txusballesteros.SnakeView;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,13 +34,14 @@ public class HubActivity extends AppCompatActivity {
     @Bind(R.id.closeButtonText) TextView closeButtonText;
     @Bind(R.id.heartText) TextView heartText;
     @Bind(R.id.heartRipple) RippleBackground heartRipple;
-    @Bind(R.id.accelerometerGraph) ScatterChart accelerometerGraph;;
+    @Bind(R.id.accelerometerGraph) ScatterChart accelerometerGraph;
 
     private CpuManager cpuManager;
     private AccelerometerManager accelerometerManager;
     private NotificationManager notificationManager;
     private StateManager stateManager;
     private HeartRateManager heartRateManager;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +60,7 @@ public class HubActivity extends AppCompatActivity {
 
         accelerometerManager = new AccelerometerManager(this, accelerometerGraph);
         heartRateManager = new HeartRateManager(this, heartRipple, heartText);
+        locationManager = new LocationManager((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
 
         initializeRipple();
     }

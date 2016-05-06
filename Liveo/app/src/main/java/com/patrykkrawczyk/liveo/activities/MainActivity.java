@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ToxicBakery.viewpager.transforms.StackTransformer;
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
 import com.patrykkrawczyk.liveo.MyViewPager;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        Logger.init(getString(R.string.APP_TAG));
         eventBus = EventBus.getDefault();
 
 
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             mainViewPager.setCurrentItem(0);
         }
 
-    };
+    }
 
 
     @Override

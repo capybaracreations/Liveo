@@ -28,7 +28,7 @@ public class AnimatedFragment extends Fragment {
     public boolean touchEnabled = false;
 
     public enum Page {
-        MENU, PASSENGERS, DRIVER, ICE;
+        MENU, PASSENGERS, DRIVER, ICE
     }
 
     protected MaterialRippleLayout ripple;

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
@@ -104,7 +103,6 @@ public class PassengerFragment extends AnimatedFragment {
 
     @Subscribe
     public void onScrollStoppedEvent(ScrollStoppedEvent event) {
-        Logger.d("onScrollStoppedEvent | DRIVER");
         touchEnabled = true;
     }
 

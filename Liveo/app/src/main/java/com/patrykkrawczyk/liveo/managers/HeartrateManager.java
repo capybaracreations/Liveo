@@ -5,18 +5,8 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.ScatterChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.patrykkrawczyk.liveo.R;
 import com.skyfishjy.library.RippleBackground;
-import com.txusballesteros.SnakeView;
 
 import java.util.Random;
 

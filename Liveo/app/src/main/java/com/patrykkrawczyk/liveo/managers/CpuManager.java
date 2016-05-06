@@ -1,6 +1,7 @@
 package com.patrykkrawczyk.liveo.managers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.PowerManager;
 
 import com.patrykkrawczyk.liveo.R;
@@ -21,7 +22,7 @@ public class CpuManager {
     }
 
     public CpuManager(Activity activity) {
-        powerManager = (PowerManager) activity.getSystemService(activity.POWER_SERVICE);
+        powerManager = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, activity.getString(R.string.LIVEO_WAKE_LOCK));
     }
 

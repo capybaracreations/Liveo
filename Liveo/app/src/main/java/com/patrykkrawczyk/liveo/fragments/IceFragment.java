@@ -8,7 +8,6 @@ import android.view.animation.AccelerateInterpolator;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
@@ -74,7 +73,6 @@ public class IceFragment extends AnimatedFragment {
 
     @Subscribe
     public void onScrollStoppedEvent(ScrollStoppedEvent event) {
-        Logger.d("onScrollStoppedEvent | DRIVER");
         touchEnabled = true;
     }
 

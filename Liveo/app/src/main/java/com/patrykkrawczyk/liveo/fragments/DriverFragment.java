@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
@@ -45,12 +44,14 @@ public class DriverFragment extends AnimatedFragment {
 
     private EventBus eventBus;
     enum Gender{
-        MALE, FEMALE;
-    };
+        MALE, FEMALE
+    }
+
     Gender gender;
     enum AgeGroup{
-        TEEN, ADULT, SENIOR;
-    };
+        TEEN, ADULT, SENIOR
+    }
+
     AgeGroup ageGroup;
 
     public DriverFragment() {
@@ -125,7 +126,6 @@ public class DriverFragment extends AnimatedFragment {
 
     @Subscribe
     public void onScrollStoppedEvent(ScrollStoppedEvent event) {
-        Logger.d("onScrollStoppedEvent | DRIVER");
         touchEnabled = true;
     }
 

@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.activities.MainActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
@@ -122,12 +121,10 @@ public class MenuFragment extends AnimatedFragment {
             else if (GuideManager.getStage() == 2) GuideManager.showGuide(getActivity(), passengersButton);
             else GuideManager.finishGuide(getActivity());
         }
-        Logger.d("onShowGuideEvent | MENU");
     }
 
     @Subscribe
     public void onScrollStoppedEvent(ScrollStoppedEvent event) {
-        Logger.d("onScrollStoppedEvent | MENU");
         touchEnabled = true;
     }
 

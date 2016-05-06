@@ -26,4 +26,5 @@
         <item>Decide who should be contacted</item>
         <item>Select number of additional passengers in car</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

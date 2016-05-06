@@ -31,7 +31,7 @@ public class MyViewPager extends ViewPager {
 
     public void setScrollSpeed(int destination) {
         int pageCount = Math.abs(getCurrentItem() - destination);
-        myScroller.speed = myScroller.BASE_SPEED * pageCount;
+        myScroller.speed = MyScroller.BASE_SPEED * pageCount;
     }
 
     @Override

@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import com.orhanobut.logger.Logger;
 import com.patrykkrawczyk.liveo.R;
 
 /**
@@ -100,7 +99,6 @@ public class GuideManager implements OnShowcaseEventListener {
         ViewGroup parent = (ViewGroup) showcaseView.getParent();
         parent.removeView(instance.guide);
         instance.guide = null;
-        Logger.d("onShowcaseViewDidHide");
     }
 
     @Override
