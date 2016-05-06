@@ -32,7 +32,7 @@ public class AccelerometerManager implements SensorEventListener{
     private ScatterChart accelerometerChart;
     private int colorPoint;
     private int colorGrid;
-    private float maxRange;
+    private int maxRange;
 
     public AccelerometerManager(Activity activity, ScatterChart chart) {
         stateManager = StateManager.getInstance();
@@ -40,13 +40,13 @@ public class AccelerometerManager implements SensorEventListener{
         colorPoint = activity.getResources().getColor(R.color.colorAccent);
         colorGrid = activity.getResources().getColor(R.color.colorFont);
 
-        this.accelerometerChart = chart;
-        initializeChart();
-        setChartValue(50, 50);
-
         sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        maxRange = senAccelerometer.getMaximumRange();
+        maxRange = (int) senAccelerometer.getMaximumRange();
+
+        this.accelerometerChart = chart;
+        initializeChart();
+        setChartValue(maxRange, maxRange);
     }
 
     public void enable(boolean state) {
@@ -68,9 +68,9 @@ public class AccelerometerManager implements SensorEventListener{
             if (diffTime > UPDATE_THRESHOLD) {
                 lastUpdateTime = currentTime;
 
-                float z = event.values[0] / maxRange * 50;
-                float x = event.values[2] / maxRange * 50;
-                setChartValue(50 + (int)x, 50 + (int)z);
+                float z = event.values[0];
+                float x = event.values[2];
+                setChartValue(maxRange + (int)x, maxRange + (int)z);
             }
         }
     }
@@ -93,34 +93,34 @@ public class AccelerometerManager implements SensorEventListener{
         YAxis yAxisR = accelerometerChart.getAxisRight();
         yAxisR.setDrawAxisLine(true);
         yAxisR.setDrawGridLines(false);
-        yAxisR.setDrawLabels(false);
+        yAxisR.setDrawLabels(true);
         yAxisR.setGridColor(colorGrid);
         yAxisR.setAxisMinValue(0);
-        yAxisR.setAxisMaxValue(100);
+        yAxisR.setAxisMaxValue(maxRange*2);
 
         YAxis yAxis = accelerometerChart.getAxisLeft();
         yAxis.setDrawAxisLine(true);
         yAxis.setDrawGridLines(false);
-        yAxis.setDrawLabels(false);
+        yAxis.setDrawLabels(true);
         yAxis.setGridColor(colorGrid);
         yAxis.setAxisMinValue(0);
-        yAxis.setAxisMaxValue(100);
+        yAxis.setAxisMaxValue(maxRange*2);
 
         XAxis xAxis = accelerometerChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawLabels(false);
+        xAxis.setDrawLabels(true);
         xAxis.setGridColor(colorGrid);
         xAxis.setAvoidFirstLastClipping(true);
 
         // limit lines
-        LimitLine limitX = new LimitLine(50);
+        LimitLine limitX = new LimitLine(maxRange);
         limitX.enableDashedLine(10, 10, 0);
         limitX.setLineColor(colorGrid);
         limitX.setLineWidth(0);
 
-        LimitLine limitY = new LimitLine(50);
+        LimitLine limitY = new LimitLine(maxRange);
         limitY.enableDashedLine(10, 10, 0);
         limitY.setLineColor(colorGrid);
         limitY.setLineWidth(0);
@@ -135,14 +135,14 @@ public class AccelerometerManager implements SensorEventListener{
     public void setChartValue(int x, int y) {
 
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 0; i <= maxRange*2; i++) {
             xVals.add((i) + "");
         }
 
         ArrayList<Entry> yVals = new ArrayList<>();
-        for (int i = 0; i <= 100; i++) {
+        //for (int i = 0; i <= maxRange; i++) {
             //yVals.add(new Entry(i, i));
-        }
+       // }
         yVals.add(new Entry(x, y));
         ScatterDataSet set = new ScatterDataSet(yVals, "ACCELEROMETER");
         set.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
