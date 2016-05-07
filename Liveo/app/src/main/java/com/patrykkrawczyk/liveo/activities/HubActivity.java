@@ -2,19 +2,20 @@ package com.patrykkrawczyk.liveo.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.github.mikephil.charting.charts.ScatterChart;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.patrykkrawczyk.liveo.managers.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.CpuManager;
 import com.patrykkrawczyk.liveo.managers.HeartRateManager;
-import com.patrykkrawczyk.liveo.managers.GpsManager;
+import com.patrykkrawczyk.liveo.managers.LocationManager;
 import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.StateManager;
@@ -24,24 +25,26 @@ import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTouch;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HubActivity extends AppCompatActivity {
 
-    private MaterialRippleLayout ripple;
     @Bind(R.id.closeButtonIcon) MaterialIconView closeButtonIcon;
     @Bind(R.id.closeButtonText) TextView closeButtonText;
     @Bind(R.id.heartText) TextView heartText;
     @Bind(R.id.heartRipple) RippleBackground heartRipple;
     @Bind(R.id.accelerometerGraph) ScatterChart accelerometerGraph;
+    @Bind(R.id.locationButton)
+    FloatingActionButton locationButton;
 
     private CpuManager cpuManager;
     private AccelerometerManager accelerometerManager;
     private NotificationManager notificationManager;
     private StateManager stateManager;
     private HeartRateManager heartRateManager;
-    private GpsManager gpsManager;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +57,16 @@ public class HubActivity extends AppCompatActivity {
         notificationManager = NotificationManager.getInstance(this);
         stateManager = StateManager.getInstance();
 
+       // locationButton.setPadding(0,0,0,0);
+
         Intent incomingIntent = getIntent();
         String action = incomingIntent.getAction();
         if (action != null && action.equals(getString(R.string.LIVEO_ACTION_CLOSE)) == true) closeHub();
 
         accelerometerManager = new AccelerometerManager(this, accelerometerGraph);
         heartRateManager = new HeartRateManager(this, heartRipple, heartText);
-        gpsManager = new GpsManager((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map), this);
+        locationManager = new LocationManager(this, savedInstanceState);
 
-        initializeRipple();
     }
 
     @OnTouch(R.id.heartRipple)
@@ -75,8 +79,6 @@ public class HubActivity extends AppCompatActivity {
     @OnTouch(R.id.closeButton)
     public boolean onCloseButton(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            ripple.setEnabled(true);
-            ripple.performRipple();
             closeButtonIcon.setColor(getResources().getColor(R.color.colorAccent));
             closeButtonText.setTextColor(getResources().getColor(R.color.colorAccent));
 
@@ -86,21 +88,13 @@ public class HubActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        enableMonitor(true);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        enableMonitor(false);
-    }
 
     private void enableMonitor(boolean state) {
         stateManager.setMonitorState(state);
         accelerometerManager.enable(state);
+        heartRateManager.enable(state);
+        locationManager.enable(state);
+
         if (state) {
             cpuManager.acquireCpu();
             notificationManager.showNotification(this);
@@ -126,17 +120,22 @@ public class HubActivity extends AppCompatActivity {
         System.exit(0);
     }
 
-    private void initializeRipple() {
-        ripple = MaterialRippleLayout.on(findViewById(R.id.rippleView))
-                .rippleOverlay(true)
-                .rippleColor(getResources().getColor(R.color.colorRipple))
-                .rippleAlpha((float)0.20)
-                .ripplePersistent(true)
-                .rippleDuration(375)
-                .rippleDelayClick(false)
-                .rippleFadeDuration(100)
-                .create();
-        ripple.setEnabled(false);
+
+    @OnClick(R.id.locationButton)
+    public void onLocationButtonClick() {
+        locationManager.centerView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        enableMonitor(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        enableMonitor(false);
     }
 
 }

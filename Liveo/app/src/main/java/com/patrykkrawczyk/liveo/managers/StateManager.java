@@ -20,6 +20,8 @@ public class StateManager {
     private boolean accelerometerState = false;
     private boolean notificationState = false;
     private boolean monitorState = false;
+    private boolean heartRateState = false;
+    private boolean locationState;
 
 
     public static StateManager getInstance() {
@@ -56,5 +58,21 @@ public class StateManager {
 //        SharedPreferences.Editor editor = preferences.edit();
 //        editor.putBoolean(getString(R.string.LIVEO_IS_RUNNING), state);
 //        editor.apply();
+    }
+
+    public boolean getHeartRateState() {
+        return instance.heartRateState;
+    }
+
+    public void setHeartRateState(boolean state) {
+        instance.heartRateState = state;
+    }
+
+    public boolean getLocationState() {
+        return instance.locationState;
+    }
+
+    public void setLocationState(boolean state) {
+        instance.locationState = state;
     }
 }
