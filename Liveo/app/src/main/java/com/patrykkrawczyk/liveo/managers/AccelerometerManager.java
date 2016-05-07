@@ -93,7 +93,7 @@ public class AccelerometerManager implements SensorEventListener{
         YAxis yAxisR = accelerometerChart.getAxisRight();
         yAxisR.setDrawAxisLine(true);
         yAxisR.setDrawGridLines(false);
-        yAxisR.setDrawLabels(true);
+        yAxisR.setDrawLabels(false);
         yAxisR.setGridColor(colorGrid);
         yAxisR.setAxisMinValue(0);
         yAxisR.setAxisMaxValue(maxRange*2);
@@ -101,7 +101,7 @@ public class AccelerometerManager implements SensorEventListener{
         YAxis yAxis = accelerometerChart.getAxisLeft();
         yAxis.setDrawAxisLine(true);
         yAxis.setDrawGridLines(false);
-        yAxis.setDrawLabels(true);
+        yAxis.setDrawLabels(false);
         yAxis.setGridColor(colorGrid);
         yAxis.setAxisMinValue(0);
         yAxis.setAxisMaxValue(maxRange*2);
@@ -110,7 +110,7 @@ public class AccelerometerManager implements SensorEventListener{
         xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawLabels(true);
+        xAxis.setDrawLabels(false);
         xAxis.setGridColor(colorGrid);
         xAxis.setAvoidFirstLastClipping(true);
 

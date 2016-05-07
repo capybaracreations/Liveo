@@ -14,7 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.patrykkrawczyk.liveo.managers.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.CpuManager;
 import com.patrykkrawczyk.liveo.managers.HeartRateManager;
-import com.patrykkrawczyk.liveo.managers.LocationManager;
+import com.patrykkrawczyk.liveo.managers.GpsManager;
 import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.StateManager;
@@ -41,7 +41,7 @@ public class HubActivity extends AppCompatActivity {
     private NotificationManager notificationManager;
     private StateManager stateManager;
     private HeartRateManager heartRateManager;
-    private LocationManager locationManager;
+    private GpsManager gpsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class HubActivity extends AppCompatActivity {
 
         accelerometerManager = new AccelerometerManager(this, accelerometerGraph);
         heartRateManager = new HeartRateManager(this, heartRipple, heartText);
-        locationManager = new LocationManager((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
+        gpsManager = new GpsManager((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map), this);
 
         initializeRipple();
     }

@@ -63,14 +63,14 @@
                   android:name="com.google.android.gms.maps.SupportMapFragment"
                   xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:map="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
                   tools:context="com.patrykkrawczyk.liveo.activities.MapsActivity"
                   android:layout_marginTop="9dp"
                   android:layout_weight="6"
                   android:layout_width="match_parent"
                   android:layout_height="0dp"
                   app:layout_heightPercent="60%"
-                  app:layout_widthPercent="100%"/>
+                  app:layout_widthPercent="100%"
+                  />
 
         <LinearLayout
             android:layout_marginTop="9dp"
