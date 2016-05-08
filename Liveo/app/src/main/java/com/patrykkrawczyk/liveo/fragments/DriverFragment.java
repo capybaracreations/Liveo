@@ -3,6 +3,7 @@ package com.patrykkrawczyk.liveo.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.text.InputFilter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -64,6 +65,10 @@ public class DriverFragment extends AnimatedFragment {
 
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
+
+        firstNameEditText.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        lastNameEditText.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        registrationNumberEditText.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 
         loadData();
     }

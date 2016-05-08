@@ -2,6 +2,7 @@ package com.patrykkrawczyk.liveo.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.InputFilter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -49,6 +50,15 @@ public class IceFragment extends AnimatedFragment {
         if (!eventBus.isRegistered(this)) eventBus.register(this);
 
         ripple.setEnabled(false);
+
+
+        ice1Name.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        ice2Name.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        ice3Name.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        ice1Phone.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        ice2Phone.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+        ice3Phone.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+
         loadData();
     }
 

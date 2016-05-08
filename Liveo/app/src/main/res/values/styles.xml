@@ -39,7 +39,7 @@
         <item name="android:textCursorDrawable">@drawable/text_cursor</item>
         <item name="android:textSize">20dp</item>
         <item name="met_typeface">fonts/Roboto-Light.ttf</item>
-        <item name="met_accentTypeface">fonts/Roboto-LightItalic.ttf</item>
+        <item name="met_accentTypeface">fonts/Roboto-Light.ttf</item>
         <item name="met_clearButton">true</item>
         <item name="met_iconPadding">0dp</item>
         <item name="met_floatingLabel">highlight</item>

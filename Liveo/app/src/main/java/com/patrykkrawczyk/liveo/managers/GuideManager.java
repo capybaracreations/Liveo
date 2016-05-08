@@ -55,7 +55,7 @@ public class GuideManager implements OnShowcaseEventListener {
 
         TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setTextSize(activity.getResources().getDimension(R.dimen.abc_text_size_headline_material));
-        textPaint.setTypeface(Typeface.createFromAsset(activity.getAssets(), "fonts/RobotoCondensed-LightItalic.ttf"));
+        textPaint.setTypeface(Typeface.createFromAsset(activity.getAssets(), "fonts/RobotoCondensed-Light.ttf"));
 
 
         instance.guide = new ShowcaseView.Builder(activity)
@@ -73,6 +73,8 @@ public class GuideManager implements OnShowcaseEventListener {
         instance.guide.setDetailTextAlignment(Layout.Alignment.ALIGN_CENTER);
         instance.guide.setTitleTextAlignment(Layout.Alignment.ALIGN_CENTER);
         instance.guide.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+
+        if (instance.tutorialStage == 2) instance.guide.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
 
         instance.saveState(activity);
 

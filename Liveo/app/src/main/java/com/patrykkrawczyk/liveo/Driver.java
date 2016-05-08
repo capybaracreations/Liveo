@@ -151,7 +151,7 @@ public class Driver {
         boolean okInformation = true;
 
         if (driver.getId().isEmpty() || driver.getFirstName().isEmpty() || driver.getLastName().isEmpty() ||
-            driver.getGender().isEmpty() || driver.getLastName().isEmpty() || driver.getRegistrationNumber().isEmpty()) okInformation = false;
+            driver.getGender().isEmpty() || driver.getAgeGroup().isEmpty() || driver.getRegistrationNumber().isEmpty()) okInformation = false;
 
         return okInformation;
     }

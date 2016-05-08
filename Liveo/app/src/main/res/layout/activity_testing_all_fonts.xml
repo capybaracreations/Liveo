@@ -21,7 +21,7 @@
                 android:gravity="top"
                 android:textSize="23dp"
                 />
-            <TextView fontPath="fonts/Roboto-BlackItalic.ttf"
+            <TextView fontPath="fonts/Roboto-Black.ttf"
                 android:text="PASSENGERS"
                 tools:ignore="MissingPrefix"
                 android:textColor="@color/WHITE"
