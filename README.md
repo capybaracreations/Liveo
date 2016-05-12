@@ -1,1 +1,1 @@
-# Liveo
+# Liveo Mini version
