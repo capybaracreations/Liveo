@@ -48,7 +48,7 @@
         <item name="met_primaryColor">@color/colorAccent</item>
         <item name="met_textColor">@color/colorFont</item>
         <item name="met_textColorHint">@color/colorFont</item>
-        <item name="met_underlineColor">@color/colorAccent</item>
+        <item name="met_underlineColor">@color/WHITE</item>
         <item name="met_floatingLabelTextColor">@color/colorAccent</item>
     </style>
 
