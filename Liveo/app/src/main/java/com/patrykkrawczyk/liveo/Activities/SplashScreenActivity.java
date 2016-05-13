@@ -49,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity
                 .playOn(splashText);
 
 
-        GuideManager.resetGuide(this); // TODO DELETE THIS
+       // GuideManager.resetGuide(this); // TODO DELETE THIS
         GuideManager.loadGuideState(this);
 
     }
