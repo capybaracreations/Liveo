@@ -1,5 +1,6 @@
 package com.patrykkrawczyk.liveo.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.patrykkrawczyk.liveo.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HelloActivity extends AppCompatActivity {
 
@@ -51,6 +53,7 @@ public class HelloActivity extends AppCompatActivity {
     private void afterTextHide() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private Animator.AnimatorListener setupShowAnimator() {
@@ -88,4 +91,9 @@ public class HelloActivity extends AppCompatActivity {
         };
     }
 
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

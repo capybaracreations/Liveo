@@ -1,7 +1,6 @@
 <resources>
 
     <style name="AppTheme.Liveo" parent="Theme.AppCompat.Light">
-        <item name="android:background">@color/colorPrimary</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">false</item>
@@ -9,6 +8,9 @@
         <item name="android:immersive">true</item>
         <item name="android:keepScreenOn">true</item>
         <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>
+    </style>
+
+    <style name="SplashSceen" parent="AppTheme.Liveo" >
     </style>
 
     <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
@@ -31,7 +33,7 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="iceMaterialEditText">
+    <style name="materialEditText">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

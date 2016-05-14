@@ -11,18 +11,18 @@ public class Driver {
     private String lastName;
     private String gender;
     private String ageGroup;
-    private String registrationNumber;
+    private String registerNumber;
 
     public Driver() {
     }
 
-    public Driver(String id, String firstName, String lastName, String gender, String ageGroup, String registrationNumber) {
+    public Driver(String id, String firstName, String lastName, String gender, String ageGroup, String registerNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.ageGroup = ageGroup;
-        this.registrationNumber = registrationNumber;
+        this.registerNumber = registerNumber;
     }
 
     /**
@@ -96,17 +96,17 @@ public class Driver {
     }
 
     /**
-     * @return The registrationNumber
+     * @return The registerNumber
      */
-    public String getRegistrationNumber() {
-        return registrationNumber;
+    public String getRegisterNumber() {
+        return registerNumber;
     }
 
     /**
-     * @param registrationNumber The registrationNumber
+     * @param registerNumber The registerNumber
      */
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+    public void setRegisterNumber(String registerNumber) {
+        this.registerNumber = registerNumber;
     }
 
     public static Driver getLocalDriver(Context context) {
@@ -125,7 +125,7 @@ public class Driver {
         else return null;
     }
 
-    public static void setCurrentDriver(Context context, Driver driver) {
+    public static boolean setCurrentDriver(Context context, Driver driver) {
         if (validateDriver(driver)) {
             SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
@@ -135,9 +135,11 @@ public class Driver {
             editor.putString(context.getString(R.string.LIVEO_DRIVER_LASTNAME), driver.getLastName());
             editor.putString(context.getString(R.string.LIVEO_DRIVER_GENDER), driver.getGender());
             editor.putString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), driver.getAgeGroup());
-            editor.putString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), driver.getRegistrationNumber());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), driver.getRegisterNumber());
             editor.apply();
-        }
+
+            return true;
+        } else return false;
     }
 
     public boolean validateDriver() {
@@ -147,7 +149,7 @@ public class Driver {
         boolean okInformation = true;
 
         if (driver.getId().isEmpty() || driver.getFirstName().isEmpty() || driver.getLastName().isEmpty() ||
-            driver.getGender().isEmpty() || driver.getAgeGroup().isEmpty() || driver.getRegistrationNumber().isEmpty()) okInformation = false;
+            driver.getGender().isEmpty() || driver.getAgeGroup().isEmpty() || driver.getRegisterNumber().isEmpty()) okInformation = false;
 
         return okInformation;
     }

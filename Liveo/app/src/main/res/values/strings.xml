@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Liveo</string>
     <string name="APP_TAG">PATRYCZEK</string>
+    <string name="LIVEO_API_URL">http://liveo.azurewebsites.net</string>
     <string name="LIVEO_INFORMATIONS">liveoInformations</string>
     <string name="LIVEO_DRIVER_ID">liveoId</string>
     <string name="LIVEO_DRIVER_FIRSTNAME">liveoFirstName</string>

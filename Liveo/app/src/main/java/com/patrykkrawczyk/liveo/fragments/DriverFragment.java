@@ -181,7 +181,7 @@ public class DriverFragment extends AnimatedFragment {
         driver.setId("0"); // TODO FIX THIS
         driver.setFirstName(firstNameEditText.getText().toString());
         driver.setLastName(lastNameEditText.getText().toString());
-        driver.setRegistrationNumber(registrationNumberEditText.getText().toString());
+        driver.setRegisterNumber(registrationNumberEditText.getText().toString());
         driver.setGender(sGender);
         driver.setAgeGroup(sAgeGroup);
 
@@ -194,7 +194,7 @@ public class DriverFragment extends AnimatedFragment {
             if (driver.getLastName().isEmpty()) {
                 empties.add(lastNameEditText);
             }
-            if (driver.getRegistrationNumber().isEmpty()) {
+            if (driver.getRegisterNumber().isEmpty()) {
                 empties.add(registrationNumberEditText);
             }
             if (driver.getGender().isEmpty()) {

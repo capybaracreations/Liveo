@@ -1,25 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_centerInParent="true"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.SplashScreenActivity">
 
-    <com.romainpiel.shimmer.ShimmerTextView
-        app:reflectionColor="@color/SHIMMER"
-        android:id="@+id/splashText"
-        fontPath="fonts/Roboto-Thin.ttf"
-        android:text="LIVEO"
-        tools:ignore="MissingPrefix"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorLogo"
-        android:textSize="75sp"
-        android:layout_centerInParent="true"/>
+    <View
+        android:clickable="false"
+        android:background="@color/colorPrimary"
+        android:id="@+id/rippleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center" >
+
+        <com.romainpiel.shimmer.ShimmerTextView
+            app:reflectionColor="@color/SHIMMER"
+            android:id="@+id/splashText"
+            fontPath="fonts/Roboto-Thin.ttf"
+            android:text="LIVEO"
+            tools:ignore="MissingPrefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorLogo"
+            android:textSize="75sp"
+            android:layout_centerInParent="true"/>
+
+        <FrameLayout
+            android:layout_centerInParent="true"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:alpha="0"
+                android:id="@+id/loginForm"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/usernameEditText"
+                    app:met_clearButton="false"
+                    android:layout_centerInParent="true"
+                    style="@style/materialEditText"
+                    android:inputType="textNoSuggestions"
+                    android:hint="Username"/>
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:gravity="center"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/pinEditText"
+                    android:layout_centerInParent="true"
+                    style="@style/materialEditText"
+                    app:met_clearButton="false"
+                    android:inputType="numberPassword"
+                    app:met_minCharacters="4"
+                    android:hint="PIN"/>
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_marginTop="9dp"
+                    android:id="@+id/submitButton"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"
+                    app:materialIcon="check"
+                    app:materialIconColor="@color/colorFont"
+                    android:layout_height="75dp"
+                    android:layout_width="match_parent"/>
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/loadingView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:indicator="BallPulse"
+                    app:indicator_color="@color/colorAccent"/>
+            </LinearLayout>
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:alpha="0"
+                android:id="@+id/helloText"
+                android:text="Hello"
+                fontPath="fonts/Roboto-ThinItalic.ttf"
+                tools:ignore="MissingPrefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorFont"
+                android:textSize="20sp"
+                android:layout_centerInParent="true"/>
+        </FrameLayout>
+    </LinearLayout>
+
+</FrameLayout>
