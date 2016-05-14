@@ -91,6 +91,7 @@ public class LocationManager implements OnMapReadyCallback, MapboxMap.OnMyLocati
     private void animateCamera(Location location) {
         CameraPosition position = new CameraPosition.Builder()
                 .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                .zoom(17)
                 .tilt(45)
                 .build();
 

@@ -1,6 +1,7 @@
 <resources>
 
-    <style name="AppTheme.NoActionBar.FullScreen" parent="Theme.AppCompat.Light">
+    <style name="AppTheme.Liveo" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/colorPrimary</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">false</item>
@@ -51,5 +52,6 @@
         <item name="met_underlineColor">@color/WHITE</item>
         <item name="met_floatingLabelTextColor">@color/colorAccent</item>
     </style>
+
 
 </resources>

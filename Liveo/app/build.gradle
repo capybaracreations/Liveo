@@ -46,4 +46,7 @@ dependencies {
     compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:4.0.0@aar'){
         transitive=true
     }
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:retrofit-converters:2.0.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
 }

@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 
 public class Driver {
 
-    private static Driver currentDriver;
-
     private String id;
     private String firstName;
     private String lastName;
@@ -111,42 +109,40 @@ public class Driver {
         this.registrationNumber = registrationNumber;
     }
 
-    public static Driver getCurrentDriver(Context context) {
-        if (currentDriver == null) {
-            SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+    public static Driver getLocalDriver(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
-            String cId = preferences.getString(context.getString(R.string.LIVEO_DRIVER_FIRSTNAME), "");
-            String cFirstName = preferences.getString(context.getString(R.string.LIVEO_DRIVER_FIRSTNAME), "");
-            String cLastName = preferences.getString(context.getString(R.string.LIVEO_DRIVER_LASTNAME), "");
-            String cGender = preferences.getString(context.getString(R.string.LIVEO_DRIVER_GENDER), "");
-            String cAgeGroup = preferences.getString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), "");
-            String cRegistration = preferences.getString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), "");
+        String cId = preferences.getString(context.getString(R.string.LIVEO_DRIVER_ID), "");
+        String cFirstName = preferences.getString(context.getString(R.string.LIVEO_DRIVER_FIRSTNAME), "");
+        String cLastName = preferences.getString(context.getString(R.string.LIVEO_DRIVER_LASTNAME), "");
+        String cGender = preferences.getString(context.getString(R.string.LIVEO_DRIVER_GENDER), "");
+        String cAgeGroup = preferences.getString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), "");
+        String cRegistration = preferences.getString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), "");
 
-            Driver current = new Driver(cId, cFirstName, cLastName, cGender, cAgeGroup, cRegistration);
+        Driver driver = new Driver(cId, cFirstName, cLastName, cGender, cAgeGroup, cRegistration);
 
-            if (validateDriver(current)) currentDriver = current;
-            else currentDriver = null;
-            return currentDriver;
-        } else return currentDriver;
+        if (validateDriver(driver)) return driver;
+        else return null;
     }
-
 
     public static void setCurrentDriver(Context context, Driver driver) {
         if (validateDriver(driver)) {
-            currentDriver = driver;
-
             SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
-            //editor.putString(getString(R.string.PASSENGERS_COUNT), count);
-            //editor.apply();
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_ID), driver.getId());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_FIRSTNAME), driver.getFirstName());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_LASTNAME), driver.getLastName());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_GENDER), driver.getGender());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), driver.getAgeGroup());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), driver.getRegistrationNumber());
+            editor.apply();
         }
     }
 
     public boolean validateDriver() {
         return validateDriver(this);
     }
-
     public static boolean validateDriver(Driver driver) {
         boolean okInformation = true;
 

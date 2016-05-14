@@ -77,7 +77,7 @@ public class MenuFragment extends AnimatedFragment {
         stateManager = StateManager.getInstance();
 
         driverName = (TextView) driverButton.findViewById(R.id.driverText);
-        Driver driver = Driver.getCurrentDriver(getContext());
+        Driver driver = Driver.getLocalDriver(getContext());
         if (driver == null) driverName.setText("Driver");
         else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());
 
