@@ -38,9 +38,12 @@
             android:name=".activities.TestingActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.CalibrateActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".activities.CalibrateActivity"
+            android:screenOrientation="portrait">
         </activity>
+
+        <service android:name=".MonitorService"/>
     </application>
 
 </manifest>

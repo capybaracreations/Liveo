@@ -23,6 +23,8 @@ public class HeartRateViewManager {
     public HeartRateViewManager(RippleBackground ripple, TextView text) {
         this.heartRateRipple = ripple;
         this.heartRateText = text;
+
+        setEnabled(true);
     }
 
     private void setEnabled(boolean state) {
@@ -30,6 +32,9 @@ public class HeartRateViewManager {
 
         if (!enabled) {
             heartRateText.setText("OFF");
+            heartRateRipple.stopRippleAnimation();
+        } else {
+            heartRateRipple.startRippleAnimation();
         }
     }
 
@@ -40,7 +45,6 @@ public class HeartRateViewManager {
     public void set(int value) {
         if (enabled) {
             heartRateText.setText(String.valueOf(value));
-            heartRateRipple.startRippleAnimation();
         }
     }
 
