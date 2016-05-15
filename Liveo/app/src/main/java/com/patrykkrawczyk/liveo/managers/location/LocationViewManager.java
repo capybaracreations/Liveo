@@ -1,8 +1,10 @@
-package com.patrykkrawczyk.liveo.managers;
+package com.patrykkrawczyk.liveo.managers.location;
 
 import android.app.Activity;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -19,56 +21,67 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.SupportMapFragment;
 import com.mapbox.mapboxsdk.maps.UiSettings;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.managers.StateManager;
 
 import butterknife.OnClick;
 
 /**
  * Created by Patryk Krawczyk on 07.05.2016.
  */
-public class LocationManager implements OnMapReadyCallback, MapboxMap.OnMyLocationChangeListener {
+public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMyLocationChangeListener, MapboxMap.OnMapClickListener {
 
     private MapboxMap mapboxMap;
     private SupportMapFragment mapFragment;
     private StateManager stateManager;
+    private boolean enabled = false;
+    private boolean locked = true;
 
-
-    public LocationManager(FragmentActivity activity, Bundle savedInstanceState) {
+    public LocationViewManager(FragmentActivity activity) {
         stateManager = StateManager.getInstance();
 
-        if (savedInstanceState == null) {
-            MapboxMapOptions options = new MapboxMapOptions();
-            options.accessToken(activity.getString(R.string.LIVEO_MAPBOX_TOKEN));
-            //options.styleUrl(Style.DARK);
-            options.styleUrl(activity.getString(R.string.LIVEO_MAPBOX_STYLE));
-            options.attributionEnabled(false);
-            options.rotateGesturesEnabled(false);
-            options.compassEnabled(false);
-            options.logoEnabled(false);
-            mapFragment = SupportMapFragment.newInstance(options);
+        MapboxMapOptions options = new MapboxMapOptions();
+        options.accessToken(activity.getString(R.string.LIVEO_MAPBOX_TOKEN));
+        options.styleUrl(activity.getString(R.string.LIVEO_MAPBOX_STYLE));
+        options.attributionEnabled(false);
+        options.rotateGesturesEnabled(false);
+        options.compassEnabled(false);
+        options.logoEnabled(false);
+        mapFragment = SupportMapFragment.newInstance(options);
 
-            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.mapContainer, mapFragment, "com.mapbox.map");
-            transaction.commit();
-        } else {
-            mapFragment = (SupportMapFragment) activity.getSupportFragmentManager().findFragmentByTag("com.mapbox.map");
-        }
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.mapContainer, mapFragment, "com.mapbox.map");
+        transaction.commit();
 
         mapFragment.getMapAsync(this);
     }
 
-    public void enable(boolean state) {
-        if (state) {
-            // TODO: TURN ON
-        } else {
-            // TODO: TURN OFF
-        }
+    private void setEnabled(boolean state) {
+        enabled = state;
 
-        stateManager.setLocationState(state);
+        if (isEnabled()) {
+
+        } else {
+
+        }
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public double[] getLocation() {
+        Location location = mapboxMap.getMyLocation();
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        return new double[]{latitude, longitude};
     }
 
     public void centerView() {
+        locked = true;
         animateCamera(mapboxMap.getMyLocation());
     }
+
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
@@ -77,15 +90,7 @@ public class LocationManager implements OnMapReadyCallback, MapboxMap.OnMyLocati
         mapboxMap.setMyLocationEnabled(true);
         mapboxMap.setOnMyLocationChangeListener(this);
 
-        Location location = mapboxMap.getMyLocation();
-        CameraPosition position = new CameraPosition.Builder()
-                .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                .zoom(17)
-                .tilt(45)
-                .build();
-
-        mapboxMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(position));
+        centerView();
     }
 
     private void animateCamera(Location location) {
@@ -102,8 +107,12 @@ public class LocationManager implements OnMapReadyCallback, MapboxMap.OnMyLocati
 
     @Override
     public void onMyLocationChange(@Nullable Location location) {
-        if (location != null) animateCamera(location);
+        if (location != null && locked) animateCamera(location);
     }
 
 
+    @Override
+    public void onMapClick(@NonNull LatLng point) {
+        locked = false;
+    }
 }

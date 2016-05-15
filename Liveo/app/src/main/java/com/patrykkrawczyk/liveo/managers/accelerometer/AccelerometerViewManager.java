@@ -1,4 +1,4 @@
-package com.patrykkrawczyk.liveo.managers;
+package com.patrykkrawczyk.liveo.managers.accelerometer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
+import com.patrykkrawczyk.liveo.managers.StateManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,78 +24,76 @@ import java.util.Random;
 /**
  * Created by Patryk Krawczyk on 24.04.2016.
  */
-public class AccelerometerManager implements SensorEventListener{
+public class AccelerometerViewManager {
 
-    private final int UPDATE_THRESHOLD = 50;
-    private long lastUpdateTime;
-    private StateManager stateManager;
-    private SensorManager sensorManager;
-    private Sensor senAccelerometer;
     private ScatterChart accelerometerChart;
     private int colorPoint;
     private int colorGrid;
     private int maxRange;
     private static float[] calibration;
     private static boolean isCalibrated = false;
+    private boolean enabled = false;
 
-    public AccelerometerManager(Activity activity, ScatterChart chart) {
-        stateManager = StateManager.getInstance();
+    public AccelerometerViewManager(Activity activity, ScatterChart chart) {
+        this.accelerometerChart = chart;
+        accelerometerChart.setNoDataText(activity.getString(R.string.LIVEO_ACCELEROMETER_UNAVAILABLE));
 
         colorPoint = activity.getResources().getColor(R.color.colorAccent);
         colorGrid = activity.getResources().getColor(R.color.colorFont);
 
-        sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
-        senAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        maxRange = (int) senAccelerometer.getMaximumRange();
+        SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        this.accelerometerChart = chart;
-        initializeChart();
-        setChartValue(maxRange, maxRange);
+        if (sensor == null) {
+            setEnabled(false);
+        } else {
+            setEnabled(true);
+        }
+
+        if (isEnabled()) {
+            maxRange = (int) sensor.getMaximumRange();
+            initializeChart();
+        }
     }
 
-    public static void calibrate(CalibrateActivity calibrateActivity) {
-        SensorManager sensorManager = (SensorManager) calibrateActivity.getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(calibrateActivity, sensor , SensorManager.SENSOR_DELAY_FASTEST);
+    private void setEnabled(boolean state) {
+        enabled = state;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setChartValue(float x, float y) {
+        if (isEnabled()) {
+            ArrayList<String> xVals = new ArrayList<String>();
+            for (int i = 0; i <= maxRange * 2; i++) {
+                xVals.add((i) + "");
+            }
+
+            ArrayList<Entry> yVals = new ArrayList<>();
+
+            yVals.add(new Entry(maxRange + (int)(y - calibration[2]), maxRange + (int)(x - calibration[0])));
+            ScatterDataSet set = new ScatterDataSet(yVals, "ACCELEROMETER");
+            set.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
+            set.setScatterShapeSize(20f);
+            set.setColor(colorPoint);
+
+            ScatterData data = new ScatterData(xVals, set);
+            data.setHighlightEnabled(false);
+            data.setDrawValues(false);
+            accelerometerChart.setData(data);
+            accelerometerChart.invalidate();
+        }
     }
 
     public static void setCalibration(SensorEvent sensorEvent) {
-        calibration = sensorEvent.values;
+        if (sensorEvent != null)
+            calibration = sensorEvent.values;
         isCalibrated = true;
     }
 
     public static boolean isCalibrated() {
         return isCalibrated;
-    }
-
-    public void enable(boolean state) {
-        if (state) {
-            sensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_FASTEST);
-        } else {
-            sensorManager.unregisterListener(this);
-        }
-
-        stateManager.setAccelerometerState(state);
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            long currentTime = System.currentTimeMillis();
-
-            long diffTime = (currentTime - lastUpdateTime);
-            if (diffTime > UPDATE_THRESHOLD) {
-                lastUpdateTime = currentTime;
-                float z = event.values[0] - calibration[0];
-                float x = event.values[2] - calibration[2];
-                setChartValue(maxRange + (int)x, maxRange + (int)z);
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     private void initializeChart() {
@@ -148,29 +147,4 @@ public class AccelerometerManager implements SensorEventListener{
         yAxis.addLimitLine(limitY);
         yAxis.setDrawLimitLinesBehindData(true);
     }
-
-    public void setChartValue(int x, int y) {
-
-        ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i <= maxRange*2; i++) {
-            xVals.add((i) + "");
-        }
-
-        ArrayList<Entry> yVals = new ArrayList<>();
-        //for (int i = 0; i <= maxRange; i++) {
-            //yVals.add(new Entry(i, i));
-       // }
-        yVals.add(new Entry(x, y));
-        ScatterDataSet set = new ScatterDataSet(yVals, "ACCELEROMETER");
-        set.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
-        set.setScatterShapeSize(20f);
-        set.setColor(colorPoint);
-
-        ScatterData data = new ScatterData(xVals, set);
-        data.setHighlightEnabled(false);
-        data.setDrawValues(false);
-        accelerometerChart.setData(data);
-        accelerometerChart.invalidate();
-    }
-
 }

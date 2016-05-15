@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
-import com.patrykkrawczyk.liveo.managers.AccelerometerManager;
+import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
@@ -148,7 +148,7 @@ public class MenuFragment extends AnimatedFragment {
             ripple.performRipple(point);
 
             Intent intent;
-            if (AccelerometerManager.isCalibrated()) {
+            if (AccelerometerViewManager.isCalibrated()) {
                 intent = new Intent(getContext(), HubActivity.class);
             } else {
                 intent = new Intent(getContext(), CalibrateActivity.class);

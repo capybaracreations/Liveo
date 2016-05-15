@@ -5,24 +5,25 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.balysv.materialripple.MaterialRippleLayout;
 import com.github.mikephil.charting.charts.ScatterChart;
-import com.patrykkrawczyk.liveo.managers.AccelerometerManager;
-import com.patrykkrawczyk.liveo.managers.CpuManager;
-import com.patrykkrawczyk.liveo.managers.HeartRateManager;
-import com.patrykkrawczyk.liveo.managers.LocationManager;
-import com.patrykkrawczyk.liveo.managers.NotificationManager;
+import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerEvent;
+import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
+import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
+import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateEvent;
+import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateViewManager;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.managers.StateManager;
+import com.patrykkrawczyk.liveo.managers.location.LocationViewManager;
 import com.skyfishjy.library.RippleBackground;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,48 +33,43 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HubActivity extends AppCompatActivity {
 
-    @Bind(R.id.closeButtonIcon) MaterialIconView closeButtonIcon;
-    @Bind(R.id.closeButtonText) TextView closeButtonText;
-    @Bind(R.id.heartText) TextView heartText;
-    @Bind(R.id.heartRipple) RippleBackground heartRipple;
-    @Bind(R.id.accelerometerGraph) ScatterChart accelerometerGraph;
-    @Bind(R.id.locationButton)
-    FloatingActionButton locationButton;
-    private long lastPress;
+    @Bind(R.id.closeButtonIcon)     MaterialIconView closeButtonIcon;
+    @Bind(R.id.closeButtonText)     TextView closeButtonText;
+    @Bind(R.id.heartText)           TextView heartText;
+    @Bind(R.id.heartRipple)         RippleBackground heartRipple;
+    @Bind(R.id.accelerometerGraph)  ScatterChart accelerometerGraph;
+    @Bind(R.id.locationButton)      FloatingActionButton locationButton;
 
-    private CpuManager cpuManager;
+    private long lastPress;
+    private HeartRateViewManager heartRateViewManager;
+    private AccelerometerViewManager accelerometerViewManager;
     private AccelerometerManager accelerometerManager;
-    private NotificationManager notificationManager;
-    private StateManager stateManager;
-    private HeartRateManager heartRateManager;
-    private LocationManager locationManager;
+    private EventBus eventBus;
+    private LocationViewManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
 
+        eventBus = EventBus.getDefault();
         ButterKnife.bind(this);
 
-        cpuManager = CpuManager.getInstance(this);
-        notificationManager = NotificationManager.getInstance(this);
-        stateManager = StateManager.getInstance();
-
-        Intent incomingIntent = getIntent();
-        String action = incomingIntent.getAction();
-        if (action != null && action.equals(getString(R.string.LIVEO_ACTION_CLOSE)) == true) closeHub();
-
-        accelerometerManager = new AccelerometerManager(this, accelerometerGraph);
-        heartRateManager = new HeartRateManager(this, heartRipple, heartText);
-        locationManager = new LocationManager(this, savedInstanceState);
-
+        heartRateViewManager = new HeartRateViewManager(heartRipple, heartText);
+        accelerometerViewManager = new AccelerometerViewManager(this, accelerometerGraph);
+        accelerometerManager = new AccelerometerManager(this);
+        locationManager = new LocationViewManager(this);
     }
 
-    @OnTouch(R.id.heartRipple)
-    public boolean onHeart(View v, MotionEvent event) {
-        heartRateManager.add(100);
 
-        return true;
+    @Subscribe
+    public void onAccelerometerEvent(AccelerometerEvent event) {
+        accelerometerViewManager.setChartValue(event.x, event.y);
+    }
+
+    @Subscribe
+    public void onHeartRateEvent(HeartRateEvent event) {
+        heartRateViewManager.set(event.value);
     }
 
     @OnTouch(R.id.closeButton)
@@ -82,27 +78,19 @@ public class HubActivity extends AppCompatActivity {
             closeButtonIcon.setColor(getResources().getColor(R.color.colorAccent));
             closeButtonText.setTextColor(getResources().getColor(R.color.colorAccent));
 
-            onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
         }
         return true;
     }
 
-
-    private void enableMonitor(boolean state) {
-        stateManager.setMonitorState(state);
-        accelerometerManager.enable(state);
-        heartRateManager.enable(state);
-        locationManager.enable(state);
-
-        if (state) {
-            cpuManager.acquireCpu();
-            notificationManager.showNotification(this);
-        } else {
-            cpuManager.releaseCpu();
-            notificationManager.hideNotification();
-        }
+    @OnClick(R.id.locationButton)
+    public void onLocationButtonClick() {
+        locationManager.centerView();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -118,31 +106,19 @@ public class HubActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    private void closeHub() {
-        finish();
-        System.exit(0);
-    }
-
-
-    @OnClick(R.id.locationButton)
-    public void onLocationButtonClick() {
-        locationManager.centerView();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        enableMonitor(true);
+        if (!eventBus.isRegistered(this)) eventBus.register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        enableMonitor(false);
+        if (eventBus.isRegistered(this)) eventBus.unregister(this);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }
