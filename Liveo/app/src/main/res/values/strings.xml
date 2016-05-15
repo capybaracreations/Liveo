@@ -32,4 +32,5 @@
     <string name="LIVEO_MAPBOX_STYLE">mapbox://styles/capybara/cinxonr60004vbrnoauh24cxw\n</string>
     <string name="LIVEO_PRESS_BACK_AGAIN">Press back again to leave HUB</string>
     <string name="LIVEO_REGISTER_BUTTON"><a href="http://liveo.azurewebsites.net/register.php">Register</a></string>
+    <string name="LIVEO_CALIBRATE_INSTRUCTION">Place you phone in a holder and confirm to calibrate</string>
 </resources>

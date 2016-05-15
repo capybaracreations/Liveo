@@ -15,10 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Liveo">
         <service android:name="com.mapbox.mapboxsdk.telemetry.TelemetryService"/>
+
         <activity
             android:name=".activities.SplashScreenActivity"
-            android:theme="@style/SplashSceen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashSceen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -37,8 +38,9 @@
             android:name=".activities.TestingActivity"
             android:screenOrientation="portrait">
         </activity>
-
-
+        <activity android:name=".activities.CalibrateActivity"
+                  android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,6 +34,8 @@ public class AccelerometerManager implements SensorEventListener{
     private int colorPoint;
     private int colorGrid;
     private int maxRange;
+    private static float[] calibration;
+    private static boolean isCalibrated = false;
 
     public AccelerometerManager(Activity activity, ScatterChart chart) {
         stateManager = StateManager.getInstance();
@@ -47,6 +50,21 @@ public class AccelerometerManager implements SensorEventListener{
         this.accelerometerChart = chart;
         initializeChart();
         setChartValue(maxRange, maxRange);
+    }
+
+    public static void calibrate(CalibrateActivity calibrateActivity) {
+        SensorManager sensorManager = (SensorManager) calibrateActivity.getSystemService(Context.SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(calibrateActivity, sensor , SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    public static void setCalibration(SensorEvent sensorEvent) {
+        calibration = sensorEvent.values;
+        isCalibrated = true;
+    }
+
+    public static boolean isCalibrated() {
+        return isCalibrated;
     }
 
     public void enable(boolean state) {
@@ -67,9 +85,8 @@ public class AccelerometerManager implements SensorEventListener{
             long diffTime = (currentTime - lastUpdateTime);
             if (diffTime > UPDATE_THRESHOLD) {
                 lastUpdateTime = currentTime;
-
-                float z = event.values[0];
-                float x = event.values[2];
+                float z = event.values[0] - calibration[0];
+                float x = event.values[2] - calibration[2];
                 setChartValue(maxRange + (int)x, maxRange + (int)z);
             }
         }

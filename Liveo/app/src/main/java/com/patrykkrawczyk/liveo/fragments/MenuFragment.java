@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.net.NetworkInfo;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.patrykkrawczyk.liveo.Driver;
-import com.patrykkrawczyk.liveo.activities.MainActivity;
+import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
-import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.managers.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
@@ -147,8 +146,14 @@ public class MenuFragment extends AnimatedFragment {
             Point point = new Point((int) event.getRawX(), (int) event.getRawY());
             ripple.setRipplePersistent(true);
             ripple.performRipple(point);
-            //firstTimeRun = true;
-            Intent intent = new Intent(getContext(), HubActivity.class);
+
+            Intent intent;
+            if (AccelerometerManager.isCalibrated()) {
+                intent = new Intent(getContext(), HubActivity.class);
+            } else {
+                intent = new Intent(getContext(), CalibrateActivity.class);
+            }
+
             startActivity(intent);
             getActivity().finish();
         }
@@ -178,8 +183,6 @@ public class MenuFragment extends AnimatedFragment {
         }
         return true;
     }
-
-
 
     @Subscribe
     public void onBackKeyEvent(BackKeyEvent event) { }
