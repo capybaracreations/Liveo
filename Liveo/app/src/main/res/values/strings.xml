@@ -30,4 +30,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="LIVEO_MAPBOX_TOKEN">pk.eyJ1IjoiY2FweWJhcmEiLCJhIjoiY2lueGo5MWgwMDBydncya2x4ZXh2M3I5dyJ9.ArNA_6puuM4UZ1J_3Xq-3Q</string>
     <string name="LIVEO_MAPBOX_STYLE">mapbox://styles/capybara/cinxonr60004vbrnoauh24cxw\n</string>
+    <string name="LIVEO_PRESS_BACK_AGAIN">Press back again to leave HUB</string>
+    <string name="LIVEO_REGISTER_BUTTON"><a href="http://liveo.azurewebsites.net/register.php">Register</a></string>
 </resources>

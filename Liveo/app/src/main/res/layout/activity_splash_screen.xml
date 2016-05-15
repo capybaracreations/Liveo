@@ -74,6 +74,20 @@
                     android:inputType="numberPassword"
                     app:met_minCharacters="4"
                     android:hint="PIN"/>
+                <TextView
+                    android:alpha="0.75"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="9dp"
+                    android:id="@+id/registerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/LIVEO_REGISTER_BUTTON"
+                    android:gravity="center"
+                    android:textColor="@color/colorFont"
+                    android:textColorLink="@color/colorAccent"
+                    android:textSize="20sp"
+                    tools:ignore="MissingPrefix"
+                    fontPath="fonts/Roboto-Light.ttf"/>
                 <net.steamcrafted.materialiconlib.MaterialIconView
                     android:layout_marginTop="9dp"
                     android:id="@+id/submitButton"

@@ -22,6 +22,7 @@ import com.romainpiel.shimmer.ShimmerTextView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import android.text.InputFilter;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,6 +55,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     @Bind(R.id.submitButton)        MaterialIconView submitButton;
     @Bind(R.id.splashText)          ShimmerTextView splashText;
     @Bind(R.id.helloText)           TextView helloText;
+    @Bind(R.id.registerText)           TextView registerText;
     @Bind(R.id.loginForm)           LinearLayout loginForm;
     @Bind(R.id.loadingView)         AVLoadingIndicatorView loadingView;
 
@@ -85,6 +87,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     //    GuideManager.resetGuide(this); // TODO DELETE THIS
         GuideManager.loadGuideState(this);
 
+        registerText.setMovementMethod(LinkMovementMethod.getInstance());
 
         usernameEditText.setEnabled(false);
         pinEditText.setEnabled(false);

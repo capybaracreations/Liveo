@@ -86,6 +86,10 @@ public class AnimatedFragment extends Fragment {
                     .rippleDelayClick(false)
                     .rippleFadeDuration(100)
                     .create();
+        ripple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
     }
 
     private ArrayList<View> getAllChildren(View v) {

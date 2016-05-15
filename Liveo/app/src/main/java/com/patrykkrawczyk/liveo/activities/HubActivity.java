@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.github.mikephil.charting.charts.ScatterChart;
@@ -38,6 +39,7 @@ public class HubActivity extends AppCompatActivity {
     @Bind(R.id.accelerometerGraph) ScatterChart accelerometerGraph;
     @Bind(R.id.locationButton)
     FloatingActionButton locationButton;
+    private long lastPress;
 
     private CpuManager cpuManager;
     private AccelerometerManager accelerometerManager;
@@ -56,8 +58,6 @@ public class HubActivity extends AppCompatActivity {
         cpuManager = CpuManager.getInstance(this);
         notificationManager = NotificationManager.getInstance(this);
         stateManager = StateManager.getInstance();
-
-       // locationButton.setPadding(0,0,0,0);
 
         Intent incomingIntent = getIntent();
         String action = incomingIntent.getAction();
@@ -106,8 +106,15 @@ public class HubActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastPress > 3000) {
+            Toast.makeText(this, R.string.LIVEO_PRESS_BACK_AGAIN, Toast.LENGTH_SHORT).show();
+            lastPress = currentTime;
+        } else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
