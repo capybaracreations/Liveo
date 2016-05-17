@@ -1,13 +1,12 @@
 package com.patrykkrawczyk.liveo.managers.accelerometer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
+import com.patrykkrawczyk.liveo.MonitorService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,9 +22,10 @@ public class AccelerometerManager implements SensorEventListener {
     private boolean enabled = false;
     private EventBus eventBus;
 
-    public AccelerometerManager(Activity activity) {
+    public AccelerometerManager(MonitorService service) {
         eventBus = EventBus.getDefault();
-        sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+
+        sensorManager = (SensorManager) service.getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         if (sensor == null) {

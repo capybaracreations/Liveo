@@ -27,6 +27,8 @@ public interface INetwork {
 
     @FormUrlEncoded
     @POST("modify.php")
-    Call<ResponseBody> modify ();
+    Call<ResponseBody> modify (@Field("id") String id, @Field("firstName") String firstName,
+                               @Field("lastName") String lastName, @Field("registerNumber") String registerNumber,
+                               @Field("gender") String gender, @Field("ageGroup") String ageGroup);
 
 }

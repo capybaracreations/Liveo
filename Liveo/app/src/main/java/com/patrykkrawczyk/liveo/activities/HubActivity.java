@@ -21,6 +21,7 @@ import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
 import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateEvent;
 import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateViewManager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.managers.location.LocationEvent;
 import com.patrykkrawczyk.liveo.managers.location.LocationViewManager;
 import com.skyfishjy.library.RippleBackground;
 
@@ -47,7 +48,6 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     private long lastPress;
     private HeartRateViewManager heartRateViewManager;
     private AccelerometerViewManager accelerometerViewManager;
-    private AccelerometerManager accelerometerManager;
     private EventBus eventBus;
     private LocationViewManager locationManager;
     private MonitorService monitorService;
@@ -62,14 +62,17 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
 
         heartRateViewManager = new HeartRateViewManager(heartRipple, heartText);
         accelerometerViewManager = new AccelerometerViewManager(this, accelerometerGraph);
-        accelerometerManager = new AccelerometerManager(this);
         locationManager = new LocationViewManager(this);
     }
-
 
     @Subscribe
     public void onAccelerometerEvent(AccelerometerEvent event) {
         accelerometerViewManager.setChartValue(event.x, event.y);
+    }
+
+    @Subscribe
+    public void onLocationEvent(LocationEvent event) {
+        locationManager.animateCamera(event.location);
     }
 
     @Subscribe

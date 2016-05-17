@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.patrykkrawczyk.liveo.INetwork;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
@@ -29,8 +30,13 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnTouch;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
-public class DriverFragment extends AnimatedFragment {
+public class DriverFragment extends AnimatedFragment implements Callback<ResponseBody> {
 
 
     @Bind(R.id.firstNameEditText)   MaterialEditText firstNameEditText;
@@ -44,6 +50,17 @@ public class DriverFragment extends AnimatedFragment {
     @Bind(R.id.seniorSelection)     TextView seniorSelection;
 
     private EventBus eventBus;
+
+    @Override
+    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+    }
+
     enum Gender{
         MALE, FEMALE
     }
@@ -156,6 +173,15 @@ public class DriverFragment extends AnimatedFragment {
             //confirmButton.setColor(Color.RED);
             performRippleNoSwitch(event);
         } else {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(getString(R.string.LIVEO_API_URL))
+                    .build();
+            INetwork iNetwork = retrofit.create(INetwork.class);
+            Call<ResponseBody> call = iNetwork.modify(driver.getId(), driver.getFirstName(),
+                                                driver.getLastName(), driver.getRegisterNumber(),
+                                                driver.getGender(), driver.getAgeGroup());
+            call.enqueue(this);
+
             if (GuideManager.getStage() == 0) GuideManager.incrementStage();
             confirmButton.setColor(getResources().getColor(R.color.colorAccent));
             saveDriverData();

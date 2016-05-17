@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateEvent;
+import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
+import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -19,18 +19,21 @@ public class MonitorService extends Service {
     private EventBus eventBus;
     private LocalBinder binder = new LocalBinder();
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return binder;
-    }
+    private AccelerometerManager accelerometerManager;
+    private MyLocationManager locationManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         eventBus = EventBus.getDefault();
-        doLongRunningOperation();
+        accelerometerManager = new AccelerometerManager(this);
+        locationManager = new MyLocationManager(this);
+
+    }
+
+    public void kill() {
+        stopSelf();
     }
 
     @Override
@@ -38,19 +41,12 @@ public class MonitorService extends Service {
         super.onDestroy();
     }
 
-    public void kill() {
-        stopSelf();
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
     }
 
-    public void doLongRunningOperation() {
-        new Runnable() {
-            @Override
-            public void run() {
-                Log.d("PATRYCZEK", "kekek");
-            }
-        };
-        eventBus.post(new HeartRateEvent(50));
-    }
 
     public class LocalBinder extends Binder {
         public MonitorService getService() {
