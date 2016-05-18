@@ -38,14 +38,12 @@ import butterknife.OnClick;
 /**
  * Created by Patryk Krawczyk on 07.05.2016.
  */
-public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapClickListener, MapboxMap.OnScrollListener {
+public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapClickListener, MapboxMap.OnScrollListener, MapboxMap.OnMyLocationChangeListener {
 
     private MapboxMap mapboxMap;
     private SupportMapFragment mapFragment;
     private boolean enabled = false;
     private boolean locked = true;
-    private Icon markerIcon;
-    private MarkerOptions currentMarker = new MarkerOptions();
 
     public LocationViewManager(FragmentActivity activity) {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -67,10 +65,6 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
             transaction.add(R.id.mapContainer, mapFragment, "com.mapbox.map");
             transaction.commit();
 
-            IconFactory iconFactory = IconFactory.getInstance(activity);
-            Drawable iconDrawable = ContextCompat.getDrawable(activity, R.drawable.map_marker_circle);
-            markerIcon = iconFactory.fromDrawable(iconDrawable);
-
             mapFragment.getMapAsync(this);
         }
     }
@@ -83,31 +77,21 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     public void centerView() {
         locked = true;
 
-        if (currentMarker != null && enabled) {
-            CameraPosition position = new CameraPosition.Builder()
-                    .target(currentMarker.getPosition())
-                    .zoom(17)
-                    .tilt(45)
-                    .build();
-
-            mapboxMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(position));
+        if (enabled) {
+            animateCamera(mapboxMap.getMyLocation());
         }
     }
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setMyLocationEnabled(false);
+        mapboxMap.setMyLocationEnabled(true);
+        mapboxMap.setOnMyLocationChangeListener(this);
     }
 
     public void animateCamera(Location location) {
-        if (locked && location != null) {
+        if (locked && location != null && enabled) {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-            mapboxMap.removeMarker(currentMarker.getMarker());
-            currentMarker = new MarkerOptions().icon(markerIcon).position(latLng);
-            mapboxMap.addMarker(currentMarker);
 
             CameraPosition position = new CameraPosition.Builder()
                     .target(latLng)
@@ -125,4 +109,9 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
 
     @Override
     public void onScroll() { locked = false; }
+
+    @Override
+    public void onMyLocationChange(@Nullable Location location) {
+        animateCamera(location);
+    }
 }

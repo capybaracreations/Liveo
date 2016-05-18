@@ -20,12 +20,11 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class MyLocationManager implements LocationListener {
 
-    private EventBus eventBus;
     private boolean enabled = false;
     private static final int UPDATE_THRESHOLD = 100;
+    private static Location lastLocation;
 
     public MyLocationManager(MonitorService service) {
-        eventBus = EventBus.getDefault();
         LocationManager locationManager = (LocationManager) service.getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(service, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -37,10 +36,13 @@ public class MyLocationManager implements LocationListener {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, UPDATE_THRESHOLD, 10, this);
     }
 
+    public Location getLastLocation() {
+        return lastLocation;
+    }
 
     @Override
     public void onLocationChanged(Location location) {
-        eventBus.post(new LocationEvent(location));
+        if (location != null) lastLocation = location;
     }
 
     public boolean isEnabled() {
