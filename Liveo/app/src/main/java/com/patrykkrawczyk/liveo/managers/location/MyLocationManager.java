@@ -22,7 +22,7 @@ public class MyLocationManager implements LocationListener {
 
     private EventBus eventBus;
     private boolean enabled = false;
-    private static final int UPDATE_THRESHOLD = 5000;
+    private static final int UPDATE_THRESHOLD = 100;
 
     public MyLocationManager(MonitorService service) {
         eventBus = EventBus.getDefault();

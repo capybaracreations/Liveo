@@ -3,6 +3,7 @@ package com.patrykkrawczyk.liveo.managers.location;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,8 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.constants.Style;
@@ -24,6 +30,7 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.SupportMapFragment;
 import com.mapbox.mapboxsdk.maps.UiSettings;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.activities.HubActivity;
 import com.patrykkrawczyk.liveo.managers.StateManager;
 
 import butterknife.OnClick;
@@ -35,9 +42,10 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
 
     private MapboxMap mapboxMap;
     private SupportMapFragment mapFragment;
-    private StateManager stateManager;
     private boolean enabled = false;
     private boolean locked = true;
+    private Icon markerIcon;
+    private MarkerOptions currentMarker;
 
     public LocationViewManager(FragmentActivity activity) {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -46,8 +54,6 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
         }
 
         if (enabled) {
-            stateManager = StateManager.getInstance();
-
             MapboxMapOptions options = new MapboxMapOptions();
             options.accessToken(activity.getString(R.string.LIVEO_MAPBOX_TOKEN));
             options.styleUrl(activity.getString(R.string.LIVEO_MAPBOX_STYLE));
@@ -61,7 +67,12 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
             transaction.add(R.id.mapContainer, mapFragment, "com.mapbox.map");
             transaction.commit();
 
+            IconFactory iconFactory = IconFactory.getInstance(activity);
+            Drawable iconDrawable = ContextCompat.getDrawable(activity, R.drawable.map_marker_circle);
+            markerIcon = iconFactory.fromDrawable(iconDrawable);
+
             mapFragment.getMapAsync(this);
+            currentMarker = new MarkerOptions();
         }
     }
 
@@ -72,22 +83,35 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
 
     public void centerView() {
         locked = true;
-        animateCamera(mapboxMap.getMyLocation());
+
+        if (currentMarker != null && enabled) {
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(currentMarker.getPosition())
+                    .zoom(17)
+                    .tilt(45)
+                    .build();
+
+            mapboxMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(position));
+        }
     }
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-
-        mapboxMap.setMyLocationEnabled(true);
-
-        centerView();
+        mapboxMap.setMyLocationEnabled(false);
     }
 
     public void animateCamera(Location location) {
-        if (locked) {
+        if (locked && location != null) {
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+            mapboxMap.removeMarker(currentMarker.getMarker());
+            currentMarker = new MarkerOptions().icon(markerIcon).position(latLng);
+            mapboxMap.addMarker(currentMarker);
+
             CameraPosition position = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .target(latLng)
                     .zoom(17)
                     .tilt(45)
                     .build();
