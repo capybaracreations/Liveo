@@ -45,7 +45,7 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     private boolean enabled = false;
     private boolean locked = true;
     private Icon markerIcon;
-    private MarkerOptions currentMarker;
+    private MarkerOptions currentMarker = new MarkerOptions();
 
     public LocationViewManager(FragmentActivity activity) {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -72,7 +72,6 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
             markerIcon = iconFactory.fromDrawable(iconDrawable);
 
             mapFragment.getMapAsync(this);
-            currentMarker = new MarkerOptions();
         }
     }
 
