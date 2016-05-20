@@ -86,10 +86,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
             closeButtonIcon.setColor(getResources().getColor(R.color.colorAccent));
             closeButtonText.setTextColor(getResources().getColor(R.color.colorAccent));
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            if (monitorService != null) monitorService.kill();
+            goToMenu();
         }
         return true;
     }
@@ -99,6 +96,12 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         locationManager.centerView();
     }
 
+    private void goToMenu() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        if (monitorService != null) monitorService.kill();
+    }
 
     @Override
     public void onBackPressed() {
@@ -107,10 +110,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
             Toast.makeText(this, R.string.LIVEO_PRESS_BACK_AGAIN, Toast.LENGTH_SHORT).show();
             lastPress = currentTime;
         } else {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            if (monitorService != null) monitorService.kill();
+            goToMenu();
         }
     }
 

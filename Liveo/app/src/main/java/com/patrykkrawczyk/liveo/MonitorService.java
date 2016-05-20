@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
 
@@ -21,6 +23,7 @@ public class MonitorService extends Service {
 
     private AccelerometerManager accelerometerManager;
     private MyLocationManager locationManager;
+    private NotificationManager notificationManager;
 
     @Override
     public void onCreate() {
@@ -28,8 +31,10 @@ public class MonitorService extends Service {
 
         eventBus = EventBus.getDefault();
         accelerometerManager = new AccelerometerManager(this);
-        locationManager = new MyLocationManager(this);
+        locationManager      = new MyLocationManager(this);
+        notificationManager  = new NotificationManager(this);
 
+        Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }
 
     public void kill() {
@@ -38,6 +43,7 @@ public class MonitorService extends Service {
 
     @Override
     public void onDestroy() {
+        Log.d(getString(R.string.APP_TAG), "DESTROYYYY");
         super.onDestroy();
     }
 

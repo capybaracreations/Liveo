@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "720260644915",
+    "project_id": "liveo-1303"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720260644915:android:45b1a1f0a307ef78",
+        "android_client_info": {
+          "package_name": "com.patrykkrawczyk.liveo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDklvgsf0qifugPxWHv6Jr9CX4fR0tDa9Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-78100893-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
