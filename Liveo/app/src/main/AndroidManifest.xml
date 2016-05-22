@@ -2,21 +2,27 @@
 <manifest package="com.patrykkrawczyk.liveo"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="21"/>
+
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="com.samsung.accessory.permission.ACCESSORY_FRAMEWORK" />
-    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
-    <uses-permission android:name="com.samsung.wmanager.ENABLE_NOTIFICATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="com.samsung.accessory.permission.ACCESSORY_FRAMEWORK"/>
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
+    <uses-permission android:name="com.samsung.wmanager.ENABLE_NOTIFICATION"/>
     <uses-permission android:name="com.samsung.WATCH_APP_TYPE.Companion"/>
 
-    <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="21" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".AnalyticsApplication"
@@ -31,54 +37,53 @@
             android:name=".activities.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashSceen">
+        </activity>
+        <activity
+            android:name=".activities.HubActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.TestingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.CalibrateActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".managers.sap.ConsumerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AlertActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.HubActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".activities.TestingActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".activities.CalibrateActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".managers.sap.ConsumerActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            </activity>
 
         <service android:name=".MonitorService"/>
+        <service android:name=".managers.sap.ConsumerService"/>
 
-        <service android:name=".managers.sap.ConsumerService" />
-
-        <receiver android:name="com.samsung.android.sdk.accessory.RegisterUponInstallReceiver" >
+        <receiver android:name="com.samsung.android.sdk.accessory.RegisterUponInstallReceiver">
             <intent-filter>
-                <action android:name="com.samsung.accessory.action.REGISTER_AGENT" />
+                <action android:name="com.samsung.accessory.action.REGISTER_AGENT"/>
             </intent-filter>
         </receiver>
-        <receiver android:name="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver" >
+        <receiver android:name="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver">
             <intent-filter>
-                <action android:name="com.samsung.accessory.action.SERVICE_CONNECTION_REQUESTED" />
+                <action android:name="com.samsung.accessory.action.SERVICE_CONNECTION_REQUESTED"/>
             </intent-filter>
         </receiver>
 
         <meta-data
             android:name="AccessoryServicesLocation"
-            android:value="/res/xml/accessoryservices.xml" />
+            android:value="/res/xml/accessoryservices.xml"/>
         <meta-data
             android:name="GearAppType"
-            android:value="wgt" />
+            android:value="wgt"/>
+
+
     </application>
 
 </manifest>

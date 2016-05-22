@@ -36,7 +36,7 @@ public class MyLocationManager implements LocationListener {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, UPDATE_THRESHOLD, 10, this);
     }
 
-    public Location getLastLocation() {
+    public static Location getLastLocation() {
         return lastLocation;
     }
 
