@@ -23,6 +23,7 @@ import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateViewManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.location.LocationEvent;
 import com.patrykkrawczyk.liveo.managers.location.LocationViewManager;
+import com.patrykkrawczyk.liveo.managers.sap.ConsumerActivity;
 import com.skyfishjy.library.RippleBackground;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -93,7 +94,11 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {
-        locationManager.centerView();
+        //locationManager.centerView();
+        Intent intent = new Intent(this, ConsumerActivity.class);
+        startActivity(intent);
+        finish();
+        if (monitorService != null) monitorService.kill();
     }
 
     private void goToMenu() {

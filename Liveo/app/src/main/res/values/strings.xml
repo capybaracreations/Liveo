@@ -34,4 +34,14 @@
     <string name="LIVEO_REGISTER_BUTTON"><a href="http://liveo.azurewebsites.net/register.php">Register</a></string>
     <string name="LIVEO_CALIBRATE_INSTRUCTION">Place you phone in a holder and confirm to calibrate</string>
     <string name="LIVEO_ACCELEROMETER_UNAVAILABLE">Accelerometer not available</string>
+
+    <string name="ConnectionEstablishedMsg">Service Connection with HelloAccessory(P) has been established.</string>
+    <string name="ConnectionTerminateddMsg">Service Connection with HelloAccessory(P) has been terminated.</string>
+    <string name="ConnectionAlreadyExist">Service Connection has already been existed!!!</string>
+    <string name="ConnectionAlreadyDisconnected">Service Connection has already been disconnected!!!</string>
+    <string name="ConnectionFailure">Service Connection Failure</string>
+    <string name="NoPeersFound">No peers have been found!!!</string>
+    <string name="buttonConnect">Connect</string>
+    <string name="buttonDisconnect">Disconnect</string>
+    <string name="buttonSend">Send</string>
 </resources>
