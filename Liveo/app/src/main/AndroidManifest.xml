@@ -37,6 +37,11 @@
             android:name=".activities.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashSceen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.HubActivity"
@@ -55,12 +60,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activities.AlertActivity"
                   android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            </activity>
+        </activity>
 
         <service android:name=".MonitorService"/>
         <service android:name=".managers.sap.ConsumerService"/>

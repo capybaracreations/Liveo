@@ -95,10 +95,8 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {
         //locationManager.centerView();
-        Intent intent = new Intent(this, ConsumerActivity.class);
+        Intent intent = new Intent(this, AlertActivity.class);
         startActivity(intent);
-        finish();
-        if (monitorService != null) monitorService.kill();
     }
 
     private void goToMenu() {

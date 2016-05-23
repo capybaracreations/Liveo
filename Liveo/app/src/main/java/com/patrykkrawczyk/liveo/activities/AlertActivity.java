@@ -1,6 +1,7 @@
 package com.patrykkrawczyk.liveo.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
@@ -27,7 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AlertActivity extends AppCompatActivity {
 
-    private final long FULL_TIME = 30000;
+    private final long FULL_TIME = 15000;
 
     @Bind(R.id.progressBar)
     WaveLoadingView progressBar;
@@ -47,9 +48,8 @@ public class AlertActivity extends AppCompatActivity {
         vibratorEnabled = true;
 
         smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("phoneNo", null, "sms message", null, null);
 
-        timer = new CountDownTimer(30000, 1000) {
+        timer = new CountDownTimer(FULL_TIME, 1000) {
             public void onTick(long millisUntilFinished) {
                 timerProgress(millisUntilFinished);
             }
@@ -87,12 +87,12 @@ public class AlertActivity extends AppCompatActivity {
 
         message = "I had an accident. Please send help to my location: ";
         Location location = MyLocationManager.getLastLocation();
-        message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLatitude()) + ").";
-        message += "First name: " + driver.getFirstName();
-        message += "Last name: " + driver.getLastName();
-        message += "Gender: " + driver.getGender();
-        message += "Age group: " + driver.getAgeGroup();
-        message += "Registration: " + driver.getRegisterNumber();
+        message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLongitude()) + ")";
+        message += ". First name: " + driver.getFirstName();
+        message += ". Last name: " + driver.getLastName();
+        message += ". Gender: " + driver.getGender().toUpperCase();
+        message += ". Age group: " + driver.getAgeGroup().toUpperCase();
+        message += ". Registration: " + driver.getRegisterNumber().toUpperCase() + ".";
 
         sendSms(message, numbers);
     }
@@ -100,7 +100,7 @@ public class AlertActivity extends AppCompatActivity {
     private void timerProgress(long secondsLeft) {
         int progress = (int)Math.round(((double)secondsLeft)/FULL_TIME*100);
         progressBar.setProgressValue(progress);
-        progressBar.setCenterTitle(String.valueOf((int)(secondsLeft/1000)));
+        progressBar.setCenterTitle(String.valueOf((int)(secondsLeft/1000))+"s");
 
         if (vibratorEnabled) vibrator.vibrate(250);
     }
@@ -111,12 +111,20 @@ public class AlertActivity extends AppCompatActivity {
         vibratorEnabled = false;
         progressBar.setProgressValue(0);
         progressBar.setCenterTitle("...");
+
+        Intent intent = new Intent(this, HubActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void sendSms(String message, List<String> numbers) {
-        for (String number : numbers) {
-            if (smsManager != null)
-                smsManager.sendTextMessage(number, null, message, null, null);
+        if (smsManager != null) {
+            ArrayList<String> parts = smsManager.divideMessage(message);
+
+            for (String number : numbers) {
+                smsManager.sendMultipartTextMessage(number, null, parts, null, null);
+                    //smsManager.sendTextMessage(number, null, message, null, null);
+            }
         }
     }
 
