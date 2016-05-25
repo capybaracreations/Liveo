@@ -24,7 +24,7 @@ public class HeartRateViewManager {
         this.heartRateRipple = ripple;
         this.heartRateText = text;
 
-        setEnabled(true);
+        setEnabled(false);
     }
 
     private void setEnabled(boolean state) {

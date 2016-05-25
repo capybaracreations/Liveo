@@ -86,13 +86,14 @@ public class AlertActivity extends AppCompatActivity {
         if (!icePhoneNumber3.isEmpty()) numbers.add(icePhoneNumber3);
 
         message = "I had an accident. Please send help to my location: ";
-        Location location = MyLocationManager.getLastLocation();
+        Location location = MyLocationManager.getLastLocation(this);
         message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLongitude()) + ")";
         message += ". First name: " + driver.getFirstName();
         message += ". Last name: " + driver.getLastName();
         message += ". Gender: " + driver.getGender().toUpperCase();
         message += ". Age group: " + driver.getAgeGroup().toUpperCase();
-        message += ". Registration: " + driver.getRegisterNumber().toUpperCase() + ".";
+        message += ". Registration: " + driver.getAgeGroup().toUpperCase();
+        message += ". Passengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
 
         sendSms(message, numbers);
     }

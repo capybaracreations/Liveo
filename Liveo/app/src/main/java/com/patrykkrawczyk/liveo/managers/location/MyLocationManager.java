@@ -15,14 +15,16 @@ import com.patrykkrawczyk.liveo.MonitorService;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * Created by Patryk Krawczyk on 18.05.2016.
  */
-public class MyLocationManager implements LocationListener {
+public class MyLocationManager implements LocationListener
+{
 
-    private boolean enabled = false;
+    private static boolean enabled = false;
     private static final int UPDATE_THRESHOLD = 100;
-    private static Location lastLocation;
 
     public MyLocationManager(MonitorService service) {
         LocationManager locationManager = (LocationManager) service.getSystemService(Context.LOCATION_SERVICE);
@@ -32,27 +34,44 @@ public class MyLocationManager implements LocationListener {
             enabled = true;
         }
 
-        if (enabled)
+        if (enabled) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, UPDATE_THRESHOLD, 10, this);
+        }
     }
 
-    public static Location getLastLocation() {
-        return lastLocation;
+    @SuppressWarnings("MissingPermission")
+    public static Location getLastLocation(Context context) {
+        Location bestLocation = null;
+
+        if (enabled) {
+            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            List<String> providers = locationManager.getProviders(true);
+
+            for (String provider : providers) {
+                Location l = locationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+            }
+        }
+
+        return bestLocation;
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        if (location != null) lastLocation = location;
-    }
-
-    public boolean isEnabled() {
+    public static boolean isEnabled() {
         return enabled;
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
-    @Override
     public void onProviderEnabled(String provider) {}
+    @Override
+    public void onLocationChanged(Location location) {}
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
     @Override
     public void onProviderDisabled(String provider) {}
 }
