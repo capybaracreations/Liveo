@@ -46,9 +46,9 @@ dependencies {
     compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:4.0.1@aar'){
         transitive=true
     }
-    compile 'com.squareup.retrofit2:retrofit:2.0.1'
-    compile 'com.squareup.retrofit2:retrofit-converters:2.0.1'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:retrofit-converters:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.4'
     compile 'com.fasterxml.jackson.core:jackson-core:2.6.4'
@@ -59,5 +59,6 @@ dependencies {
 
     compile 'me.itangqi.waveloadingview:library:0.2.0'
     compile 'info.hoang8f:fbutton:1.0.5'
+
 }
 apply plugin: 'com.google.gms.google-services'

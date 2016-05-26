@@ -1,8 +1,15 @@
 package com.patrykkrawczyk.liveo.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.Contacts;
+import android.provider.ContactsContract;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -29,6 +36,8 @@ import butterknife.OnTouch;
 
 public class IceFragment extends AnimatedFragment {
 
+    private static final int PICK_CONTACT = 4444;
+    private int lastPickedContact = 0;
     private EventBus eventBus;
     @Bind(R.id.confirmButton)   MaterialIconView confirmButton;
     @Bind(R.id.ice1Name)     MaterialEditText ice1Name;
@@ -104,6 +113,74 @@ public class IceFragment extends AnimatedFragment {
             }
         }
         return true;
+    }
+
+    @OnTouch(R.id.contact1Button)
+    public boolean onContact1Button(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            onContactButton((MaterialIconView) view);
+        }
+        return true;
+    }
+
+    @OnTouch(R.id.contact2Button)
+    public boolean onContact2Button(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            onContactButton((MaterialIconView) view);
+        }
+        return true;
+    }
+
+    @OnTouch(R.id.contact3Button)
+    public boolean onContact3Button(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            onContactButton((MaterialIconView) view);
+        }
+        return true;
+    }
+
+    private void onContactButton(MaterialIconView view) {
+        Log.d("PATRYCZEK", view.getTag().toString());
+        try {
+            lastPickedContact = Integer.parseInt(view.getTag().toString());
+            Intent intent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts/people"));
+            startActivityForResult(intent, PICK_CONTACT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case (PICK_CONTACT) :
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c =  getActivity().getContentResolver().query(contactData, null, null, null, null);
+                    getActivity().startManagingCursor(c);
+                    if (c.moveToFirst()) {
+                        String name = c.getString(c.getColumnIndexOrThrow(Contacts.People.NAME));
+                        String number = c.getString(c.getColumnIndexOrThrow(Contacts.People.NUMBER));
+
+                        MaterialEditText nameET, numberET;
+                        if (lastPickedContact == 1) {
+                            nameET = ice1Name;
+                            numberET = ice1Phone;
+                        } else if (lastPickedContact == 2) {
+                            nameET = ice2Name;
+                            numberET = ice2Phone;
+                        } else {
+                            nameET = ice3Name;
+                            numberET = ice3Phone;
+                        }
+                        nameET.setText(name);
+                        numberET.setText(number);
+                    }
+                }
+                break;
+        }
     }
 
     private int validateFields() {

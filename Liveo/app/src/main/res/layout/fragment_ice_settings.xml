@@ -28,34 +28,51 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent">
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_weight="1"
+                        android:orientation="vertical"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent">
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/ice1Name"
-                            android:layout_marginRight="9dp"
-                            style="@style/materialEditText"
-                            app:met_iconLeft="@drawable/account"
-                            android:inputType="textNoSuggestions"
-                            android:hint="Name"/>
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/ice1Name"
+                                android:layout_marginRight="9dp"
+                                style="@style/materialEditText"
+                                app:met_iconLeft="@drawable/account"
+                                android:inputType="textNoSuggestions"
+                                android:hint="Name"/>
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent">
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/ice1Phone"
-                            android:layout_marginRight="9dp"
-                            style="@style/materialEditText"
-                            app:met_iconLeft="@drawable/phone"
-                            android:inputType="phone"
-                            android:hint="Phone"/>
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/ice1Phone"
+                                android:layout_marginRight="9dp"
+                                style="@style/materialEditText"
+                                app:met_iconLeft="@drawable/phone"
+                                android:inputType="phone"
+                                android:hint="Phone"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_margin="9dp"
+                    android:id="@+id/contact1Button"
+                    android:tag="1"
+                    android:layout_weight="3"
+                    app:materialIcon="account_plus"
+                    app:materialIconColor="@color/colorAccent"
+                    android:scaleType="center"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"/>
                 </LinearLayout>
             </TableRow>
 
@@ -72,34 +89,51 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent">
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_weight="1"
+                        android:orientation="vertical"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent">
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/ice2Name"
-                            android:layout_marginRight="9dp"
-                            style="@style/materialEditText"
-                            app:met_iconLeft="@drawable/account"
-                            android:inputType="textNoSuggestions"
-                            android:hint="Name"/>
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/ice2Name"
+                                android:layout_marginRight="9dp"
+                                style="@style/materialEditText"
+                                app:met_iconLeft="@drawable/account"
+                                android:inputType="textNoSuggestions"
+                                android:hint="Name"/>
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_weight="1"
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/ice2Phone"
+                                android:layout_marginRight="9dp"
+                                style="@style/materialEditText"
+                                app:met_iconLeft="@drawable/phone"
+                                android:inputType="phone"
+                                android:hint="Phone"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:layout_margin="9dp"
+                        android:id="@+id/contact2Button"
+                        android:tag="2"
+                        android:layout_weight="3"
+                        app:materialIcon="account_plus"
+                        app:materialIconColor="@color/colorAccent"
+                        android:scaleType="center"
                         android:layout_height="match_parent"
-                        android:layout_width="match_parent">
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/ice2Phone"
-                            android:layout_marginRight="9dp"
-                            style="@style/materialEditText"
-                            app:met_iconLeft="@drawable/phone"
-                            android:inputType="phone"
-                            android:hint="Phone"/>
-                    </RelativeLayout>
+                        android:layout_width="match_parent"/>
                 </LinearLayout>
             </TableRow>
 
@@ -116,35 +150,52 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent">
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_weight="1"
+                        android:orientation="vertical"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent">
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/ice3Name"
-                            android:layout_marginRight="9dp"
-                            android:layout_centerInParent="true"
-                            style="@style/materialEditText"
-                            app:met_iconLeft="@drawable/account"
-                            android:inputType="textNoSuggestions"
-                            android:hint="Name"/>
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/ice3Name"
+                                android:layout_marginRight="9dp"
+                                android:layout_centerInParent="true"
+                                style="@style/materialEditText"
+                                app:met_iconLeft="@drawable/account"
+                                android:inputType="textNoSuggestions"
+                                android:hint="Name"/>
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_weight="1"
+                        <RelativeLayout
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent">
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/ice3Phone"
+                                android:layout_marginRight="9dp"
+                                style="@style/materialEditText"
+                                app:met_iconLeft="@drawable/phone"
+                                android:inputType="phone"
+                                android:hint="Phone"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:layout_margin="9dp"
+                        android:id="@+id/contact3Button"
+                        android:tag="3"
+                        android:layout_weight="3"
+                        app:materialIcon="account_plus"
+                        app:materialIconColor="@color/colorAccent"
+                        android:scaleType="center"
                         android:layout_height="match_parent"
-                        android:layout_width="match_parent">
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/ice3Phone"
-                            android:layout_marginRight="9dp"
-                            style="@style/materialEditText"
-                            app:met_iconLeft="@drawable/phone"
-                            android:inputType="phone"
-                            android:hint="Phone"/>
-                    </RelativeLayout>
+                        android:layout_width="match_parent"/>
                 </LinearLayout>
             </TableRow>
 

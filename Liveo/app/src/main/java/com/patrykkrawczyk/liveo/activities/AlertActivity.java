@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.CountDownTimer;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 
 
@@ -28,7 +30,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AlertActivity extends AppCompatActivity {
 
-    private final long FULL_TIME = 15000;
+    private final long FULL_TIME = 5000;
 
     @Bind(R.id.progressBar)
     WaveLoadingView progressBar;
@@ -66,12 +68,19 @@ public class AlertActivity extends AppCompatActivity {
         progressBar.setProgressValue(0);
         progressBar.setCenterTitle("...");
         vibratorEnabled = false;
+        progressBar.invalidate();
 
-        prepareSms();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                prepareSms();
+            }
+        }).start();
     }
 
     private void prepareSms() {
-        String message;
+        if (Looper.myLooper() == Looper.getMainLooper()) Log.d("PATRYCZEK", "MAIN");
+        else Log.d("PATRYCZEK", "SEP");
         List<String> numbers = new ArrayList<>();
 
         Driver driver = Driver.getLocalDriver(this);
@@ -85,7 +94,7 @@ public class AlertActivity extends AppCompatActivity {
         if (!icePhoneNumber2.isEmpty()) numbers.add(icePhoneNumber2);
         if (!icePhoneNumber3.isEmpty()) numbers.add(icePhoneNumber3);
 
-        message = "I had an accident. Please send help to my location: ";
+        String message = "I had an accident. Please send help to my location: ";
         Location location = MyLocationManager.getLastLocation(this);
         message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLongitude()) + ")";
         message += ". First name: " + driver.getFirstName();
@@ -95,12 +104,12 @@ public class AlertActivity extends AppCompatActivity {
         message += ". Registration: " + driver.getAgeGroup().toUpperCase();
         message += ". Passengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
 
-        sendSms(message, numbers);
+        //sendSms(message, numbers);
     }
 
     private void timerProgress(long secondsLeft) {
         int progress = (int)Math.round(((double)secondsLeft)/FULL_TIME*100);
-        progressBar.setProgressValue(progress);
+        progressBar.setProgressValue(progress-1);
         progressBar.setCenterTitle(String.valueOf((int)(secondsLeft/1000))+"s");
 
         if (vibratorEnabled) vibrator.vibrate(250);
@@ -127,6 +136,14 @@ public class AlertActivity extends AppCompatActivity {
                     //smsManager.sendTextMessage(number, null, message, null, null);
             }
         }
+
+        moveToInformationScreen();
+    }
+
+    private void moveToInformationScreen() {
+        Intent intent = new Intent(this, HubActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

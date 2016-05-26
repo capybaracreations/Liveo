@@ -71,6 +71,7 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
     }
 
     AgeGroup ageGroup;
+    String id;
 
     public DriverFragment() {
         super(R.layout.fragment_driver_settings);
@@ -93,6 +94,7 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
     private void loadData() {
         SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
+        id = sharedPref.getString(getString(R.string.LIVEO_DRIVER_ID),  "");
         String fn = sharedPref.getString(getString(R.string.LIVEO_DRIVER_FIRSTNAME),  "");
         String ln = sharedPref.getString(getString(R.string.LIVEO_DRIVER_LASTNAME),  "");
         String rn = sharedPref.getString(getString(R.string.LIVEO_DRIVER_REGISTRATION),  "");
@@ -204,7 +206,7 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "adult";
         else if (ageGroup == AgeGroup.SENIOR) sAgeGroup = "senior";
 
-        driver.setId("0"); // TODO FIX THIS
+        driver.setId(id);
         driver.setFirstName(firstNameEditText.getText().toString());
         driver.setLastName(lastNameEditText.getText().toString());
         driver.setRegisterNumber(registrationNumberEditText.getText().toString());
@@ -256,6 +258,7 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "adult";
         else sAgeGroup = "senior";
 
+        editor.putString(getString(R.string.LIVEO_DRIVER_ID),            id);
         editor.putString(getString(R.string.LIVEO_DRIVER_FIRSTNAME),     firstNameEditText.getText().toString());
         editor.putString(getString(R.string.LIVEO_DRIVER_LASTNAME),      lastNameEditText.getText().toString());
         editor.putString(getString(R.string.LIVEO_DRIVER_REGISTRATION),  registrationNumberEditText.getText().toString());

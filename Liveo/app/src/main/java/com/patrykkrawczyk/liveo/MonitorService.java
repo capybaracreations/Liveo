@@ -3,12 +3,14 @@ package com.patrykkrawczyk.liveo;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
+import com.patrykkrawczyk.liveo.managers.data.DataBroadcaster;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,18 +26,24 @@ public class MonitorService extends Service {
     private AccelerometerManager accelerometerManager;
     private MyLocationManager locationManager;
     private NotificationManager notificationManager;
+    private DataBroadcaster dataBroadcaster;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        eventBus = EventBus.getDefault();
+        eventBus             = EventBus.getDefault();
         accelerometerManager = new AccelerometerManager(this);
         locationManager      = new MyLocationManager(this);
         notificationManager  = new NotificationManager(this);
+        dataBroadcaster      = DataBroadcaster.getDefault(this);
+
+        //dataBroadcaster.run(); // TODO: RUN THIS FOR DEPLOY
 
         Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }
+
 
     public void kill() {
         stopSelf();
@@ -44,6 +52,7 @@ public class MonitorService extends Service {
     @Override
     public void onDestroy() {
         Log.d(getString(R.string.APP_TAG), "DESTROYYYY");
+        dataBroadcaster.kill();
         super.onDestroy();
     }
 

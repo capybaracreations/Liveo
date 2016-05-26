@@ -21,6 +21,7 @@ public class AccelerometerManager implements SensorEventListener {
     private Sensor sensor;
     private boolean enabled = false;
     private EventBus eventBus;
+    private static SensorEvent lastSensorEvent;
 
     public AccelerometerManager(MonitorService service) {
         eventBus = EventBus.getDefault();
@@ -57,6 +58,7 @@ public class AccelerometerManager implements SensorEventListener {
             long diffTime = (currentTime - lastUpdateTime);
             if (diffTime > UPDATE_THRESHOLD) {
                 lastUpdateTime = currentTime;
+                lastSensorEvent = event;
                 eventBus.post(new AccelerometerEvent(event.values[0], event.values[2]));
             }
         }
@@ -64,4 +66,8 @@ public class AccelerometerManager implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+
+    public static SensorEvent getLastSensorEvent() {
+        return lastSensorEvent;
+    }
 }

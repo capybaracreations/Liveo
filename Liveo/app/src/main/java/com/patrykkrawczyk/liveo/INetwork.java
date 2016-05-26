@@ -11,22 +11,22 @@ import retrofit2.http.Query;
 public interface INetwork {
 
     @FormUrlEncoded
-    @POST("mobileLogin.php")
+    @POST("api/mobileLogin.php")
     Call<ResponseBody> login (@Field("username") String uername, @Field("pin") String pin);
 
     @FormUrlEncoded
-    @POST("data.php")
+    @POST("api/postData.php")
     Call<ResponseBody> data (@Field("id") String id, @Field("latitude") String latitude,
                              @Field("longitude") String longitude, @Field("heartRate") String heartRate,
                              @Field("accX") String accX, @Field("accY") String accY,
                              @Field("accZ") String accZ);
 
     @FormUrlEncoded
-    @POST("getDriver.php")
+    @POST("api/getDriver.php")
     Call<ResponseBody> driver (@Field("id") String id);
 
     @FormUrlEncoded
-    @POST("modify.php")
+    @POST("api/modify.php")
     Call<ResponseBody> modify (@Field("id") String id, @Field("firstName") String firstName,
                                @Field("lastName") String lastName, @Field("registerNumber") String registerNumber,
                                @Field("gender") String gender, @Field("ageGroup") String ageGroup);
