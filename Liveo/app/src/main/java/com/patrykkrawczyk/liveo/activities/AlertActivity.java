@@ -13,8 +13,17 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.services.commons.ServicesException;
+import com.mapbox.services.commons.models.Position;
+import com.mapbox.services.directions.v5.models.DirectionsResponse;
+import com.mapbox.services.geocoding.v5.GeocodingCriteria;
+import com.mapbox.services.geocoding.v5.MapboxGeocoding;
+import com.mapbox.services.geocoding.v5.models.GeocodingFeature;
+import com.mapbox.services.geocoding.v5.models.GeocodingResponse;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
@@ -26,9 +35,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.itangqi.waveloadingview.WaveLoadingView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class AlertActivity extends AppCompatActivity {
+public class AlertActivity extends AppCompatActivity implements Callback<GeocodingResponse> {
 
     private final long FULL_TIME = 5000;
 
@@ -38,6 +50,8 @@ public class AlertActivity extends AppCompatActivity {
     private Vibrator vibrator;
     private boolean vibratorEnabled = true;
     private SmsManager smsManager;
+    private String message = "";
+    private List<String> numbers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +95,6 @@ public class AlertActivity extends AppCompatActivity {
     private void prepareSms() {
         if (Looper.myLooper() == Looper.getMainLooper()) Log.d("PATRYCZEK", "MAIN");
         else Log.d("PATRYCZEK", "SEP");
-        List<String> numbers = new ArrayList<>();
 
         Driver driver = Driver.getLocalDriver(this);
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
@@ -94,17 +107,29 @@ public class AlertActivity extends AppCompatActivity {
         if (!icePhoneNumber2.isEmpty()) numbers.add(icePhoneNumber2);
         if (!icePhoneNumber3.isEmpty()) numbers.add(icePhoneNumber3);
 
-        String message = "I had an accident. Please send help to my location: ";
+        message = "I had an accident. Please send help to my location: ";
         Location location = MyLocationManager.getLastLocation(this);
         message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLongitude()) + ")";
-        message += ". First name: " + driver.getFirstName();
-        message += ". Last name: " + driver.getLastName();
-        message += ". Gender: " + driver.getGender().toUpperCase();
-        message += ". Age group: " + driver.getAgeGroup().toUpperCase();
-        message += ". Registration: " + driver.getAgeGroup().toUpperCase();
-        message += ". Passengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
+        message += ".\nFirst name: " + driver.getFirstName();
+        message += ".\nLast name: " + driver.getLastName();
+        message += ".\nGender: " + driver.getGender().toUpperCase();
+        message += ".\nAge group: " + driver.getAgeGroup().toUpperCase();
+        message += ".\nRegistration: " + driver.getRegisterNumber().toUpperCase();
+        message += ".\nPassengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
 
-        //sendSms(message, numbers);
+        try {
+            final Position position = Position.fromCoordinates(-73.989, 40.733);
+
+            MapboxGeocoding client = new MapboxGeocoding.Builder()
+                    .setAccessToken(getString(R.string.LIVEO_MAPBOX_TOKEN))
+                    .setCoordinates(position)
+                    .setType(GeocodingCriteria.TYPE_ADDRESS)
+                    .build();
+
+            client.enqueueCall(this);
+        } catch (ServicesException e) {
+            e.printStackTrace();
+        }
     }
 
     private void timerProgress(long secondsLeft) {
@@ -160,5 +185,23 @@ public class AlertActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onResponse(Call<GeocodingResponse> call, Response<GeocodingResponse> response) {
+        GeocodingResponse geocoding = response.body();
+
+        List<GeocodingFeature> features = geocoding.getFeatures();
+        if (features != null) {
+            GeocodingFeature feature = features.get(0);
+            message += "\nMy approx. location is: " + feature.getPlaceName() + ".";
+        }
+
+        sendSms(message, numbers);
+    }
+
+    @Override
+    public void onFailure(Call<GeocodingResponse> call, Throwable t) {
+        Log.e("PAI", "Error: " + t.getMessage());
     }
 }
