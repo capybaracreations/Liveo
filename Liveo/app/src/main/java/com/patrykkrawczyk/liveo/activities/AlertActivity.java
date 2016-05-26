@@ -118,7 +118,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         message += ".\nPassengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
 
         try {
-            final Position position = Position.fromCoordinates(-73.989, 40.733);
+            final Position position = Position.fromCoordinates(location.getLongitude(), location.getLatitude());
 
             MapboxGeocoding client = new MapboxGeocoding.Builder()
                     .setAccessToken(getString(R.string.LIVEO_MAPBOX_TOKEN))
@@ -192,9 +192,11 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         GeocodingResponse geocoding = response.body();
 
         List<GeocodingFeature> features = geocoding.getFeatures();
-        if (features != null) {
+        if (features != null && features.size() > 0) {
             GeocodingFeature feature = features.get(0);
-            message += "\nMy approx. location is: " + feature.getPlaceName() + ".";
+            if (!feature.getPlaceName().isEmpty()) {
+                message += "\nMy approx. location is: " + feature.getPlaceName() + ".";
+            }
         }
 
         sendSms(message, numbers);
