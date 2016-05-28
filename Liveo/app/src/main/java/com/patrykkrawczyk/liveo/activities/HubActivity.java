@@ -63,17 +63,12 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
 
         heartRateViewManager = new HeartRateViewManager(heartRipple, heartText);
         accelerometerViewManager = new AccelerometerViewManager(this, accelerometerGraph);
-        locationManager = new LocationViewManager(this);
+        locationManager = new LocationViewManager(this, savedInstanceState);
     }
 
     @Subscribe
     public void onAccelerometerEvent(AccelerometerEvent event) {
         accelerometerViewManager.setChartValue(event.x, event.y);
-    }
-
-    @Subscribe
-    public void onLocationEvent(LocationEvent event) {
-        locationManager.animateCamera(event.location);
     }
 
     @Subscribe
@@ -94,9 +89,9 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {
-        //locationManager.centerView();
-        Intent intent = new Intent(this, AlertActivity.class);
-        startActivity(intent);
+        locationManager.centerView();
+        //Intent intent = new Intent(this, AlertActivity.class);
+        //startActivity(intent);
     }
 
     private void goToMenu() {
@@ -120,6 +115,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     @Override
     protected void onResume() {
         super.onResume();
+        locationManager.onResume();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
         Intent bindIntent = new Intent(this, MonitorService.class);
         bindService(bindIntent, this, BIND_AUTO_CREATE);
@@ -128,6 +124,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     @Override
     protected void onPause() {
         super.onPause();
+        locationManager.onPause();
         if (eventBus.isRegistered(this)) eventBus.unregister(this);
         if (monitorService != null) unbindService(this);
     }
@@ -145,5 +142,24 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     @Override
     public void onServiceDisconnected(ComponentName name) {
         monitorService = null;
+    }
+
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        locationManager.onLowMemory();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        locationManager.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        locationManager.onSaveInstanceState(outState);
     }
 }

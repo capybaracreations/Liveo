@@ -39,7 +39,7 @@ public class MonitorService extends Service {
         notificationManager  = new NotificationManager(this);
         dataBroadcaster      = DataBroadcaster.getDefault(this);
 
-        //dataBroadcaster.run(); // TODO: RUN THIS FOR DEPLOY
+        dataBroadcaster.run(); // TODO: RUN THIS FOR DEPLOY
 
         Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }

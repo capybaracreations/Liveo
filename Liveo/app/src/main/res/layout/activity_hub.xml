@@ -70,10 +70,17 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-                <FrameLayout
-                    android:id="@+id/mapContainer"
+                <com.mapbox.mapboxsdk.maps.MapView
+                    android:id="@+id/mapView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    mapbox:access_token="@string/LIVEO_MAPBOX_TOKEN"
+                    mapbox:style_url="@string/style_mapbox_streets"
+                    mapbox:logo_enabled="false"
+                    mapbox:rotate_enabled="false"
+                    mapbox:compass_enabled="false"
+                    mapbox:attribution_enabled="false"
+                    mapbox:zoom="0"/>
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/locationButton"
                     android:layout_width="wrap_content"

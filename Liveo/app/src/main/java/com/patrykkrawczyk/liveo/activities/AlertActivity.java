@@ -158,7 +158,6 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
 
             for (String number : numbers) {
                 smsManager.sendMultipartTextMessage(number, null, parts, null, null);
-                    //smsManager.sendTextMessage(number, null, message, null, null);
             }
         }
 

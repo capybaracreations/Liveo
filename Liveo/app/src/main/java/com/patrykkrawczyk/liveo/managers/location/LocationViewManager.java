@@ -41,32 +41,19 @@ import butterknife.OnClick;
 public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapClickListener, MapboxMap.OnScrollListener, MapboxMap.OnMyLocationChangeListener {
 
     private MapboxMap mapboxMap;
-    private SupportMapFragment mapFragment;
     private boolean enabled = false;
     private boolean locked = true;
+    private MapView mapView;
 
-    public LocationViewManager(FragmentActivity activity) {
+    public LocationViewManager(FragmentActivity activity, Bundle savedInstanceState) {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             enabled = true;
         }
 
-        if (enabled) {
-            MapboxMapOptions options = new MapboxMapOptions();
-            options.accessToken(activity.getString(R.string.LIVEO_MAPBOX_TOKEN));
-            options.styleUrl(activity.getString(R.string.LIVEO_MAPBOX_STYLE));
-            options.attributionEnabled(false);
-            options.rotateGesturesEnabled(false);
-            options.compassEnabled(false);
-            options.logoEnabled(false);
-            mapFragment = SupportMapFragment.newInstance(options);
-
-            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.mapContainer, mapFragment, "com.mapbox.map");
-            transaction.commit();
-
-            mapFragment.getMapAsync(this);
-        }
+        mapView = (MapView) activity.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
     }
 
     public boolean isEnabled() {
@@ -99,8 +86,7 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
                     .tilt(45)
                     .build();
 
-            mapboxMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(position));
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position));
         }
     }
 
@@ -113,5 +99,20 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     @Override
     public void onMyLocationChange(@Nullable Location location) {
         animateCamera(location);
+    }
+
+    public void onLowMemory() {
+    }
+
+    public void onDestroy() {
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+    }
+
+    public void onPause() {
+    }
+
+    public void onResume() {
     }
 }
