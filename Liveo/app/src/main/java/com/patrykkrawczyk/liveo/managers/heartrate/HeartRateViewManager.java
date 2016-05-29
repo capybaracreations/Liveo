@@ -23,11 +23,9 @@ public class HeartRateViewManager {
     public HeartRateViewManager(RippleBackground ripple, TextView text) {
         this.heartRateRipple = ripple;
         this.heartRateText = text;
-
-        setEnabled(false);
     }
 
-    private void setEnabled(boolean state) {
+    public void setEnabled(boolean state) {
         enabled = state;
 
         if (!enabled) {
@@ -44,7 +42,9 @@ public class HeartRateViewManager {
 
     public void set(int value) {
         if (enabled) {
-            heartRateText.setText(String.valueOf(value));
+            if (value == 0) heartRateText.setText("Calibrating");
+            else if (value == -3) heartRateText.setText("NO HR");
+            else heartRateText.setText(String.valueOf(value));
         }
     }
 

@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved. 
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that 
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that
  * the following conditions are met:
- * 
- *     * Redistributions of source code must retain the above copyright notice, 
- *       this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright notice, 
- *       this list of conditions and the following disclaimer in the documentation and/or 
- *       other materials provided with the distribution. 
- *     * Neither the name of Samsung Electronics Co., Ltd. nor the names of its contributors may be used to endorse or 
+ *
+ *     * Redistributions of source code must retain the above copyright notice,
+ *       this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright notice,
+ *       this list of conditions and the following disclaimer in the documentation and/or
+ *       other materials provided with the distribution.
+ *     * Neither the name of Samsung Electronics Co., Ltd. nor the names of its contributors may be used to endorse or
  *       promote products derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
  * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY
@@ -25,6 +25,7 @@ package com.patrykkrawczyk.liveo.managers.sap;
 
 import java.io.IOException;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Binder;
@@ -33,7 +34,6 @@ import android.widget.Toast;
 import android.util.Log;
 
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateEvent;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.accessory.*;
 
@@ -41,12 +41,11 @@ import org.greenrobot.eventbus.EventBus;
 
 public class ConsumerService extends SAAgent {
     private static final String TAG = "Liveo";
-    private static final int CHANNEL_ID = 104;
+    private static final int HELLOACCESSORY_CHANNEL_ID = 104;
     private static final Class<ServiceConnection> SASOCKET_CLASS = ServiceConnection.class;
     private final IBinder mBinder = new LocalBinder();
     private ServiceConnection mConnectionHandler = null;
     Handler mHandler = new Handler();
-    private EventBus eventBus;
 
     public ConsumerService() {
         super(TAG, SASOCKET_CLASS);
@@ -55,10 +54,10 @@ public class ConsumerService extends SAAgent {
     @Override
     public void onCreate() {
         super.onCreate();
-        eventBus = EventBus.getDefault();
         SA mAccessory = new SA();
         try {
             mAccessory.initialize(this);
+            findPeerAgents();
         } catch (SsdkUnsupportedException e) {
             // try to handle SsdkUnsupportedException
             if (processUnsupportedException(e) == true) {
@@ -87,10 +86,8 @@ public class ConsumerService extends SAAgent {
                 requestServiceConnection(peerAgent);
         } else if (result == SAAgent.FINDPEER_DEVICE_NOT_CONNECTED) {
             Toast.makeText(getApplicationContext(), "FINDPEER_DEVICE_NOT_CONNECTED", Toast.LENGTH_LONG).show();
-            //updateTextView("Disconnected");
         } else if (result == SAAgent.FINDPEER_SERVICE_NOT_FOUND) {
             Toast.makeText(getApplicationContext(), "FINDPEER_SERVICE_NOT_FOUND", Toast.LENGTH_LONG).show();
-            //updateTextView("Disconnected");
         } else {
             Toast.makeText(getApplicationContext(), R.string.NoPeersFound, Toast.LENGTH_LONG).show();
         }
@@ -107,9 +104,8 @@ public class ConsumerService extends SAAgent {
     protected void onServiceConnectionResponse(SAPeerAgent peerAgent, SASocket socket, int result) {
         if (result == SAAgent.CONNECTION_SUCCESS) {
             this.mConnectionHandler = (ServiceConnection) socket;
-           // updateTextView("Connected");
+            EventBus.getDefault().post(new SapEvent("CONNECTED"));
         } else if (result == SAAgent.CONNECTION_ALREADY_EXIST) {
-            //updateTextView("Connected");
             Toast.makeText(getBaseContext(), "CONNECTION_ALREADY_EXIST", Toast.LENGTH_LONG).show();
         } else if (result == SAAgent.CONNECTION_DUPLICATE_REQUEST) {
             Toast.makeText(getBaseContext(), "CONNECTION_DUPLICATE_REQUEST", Toast.LENGTH_LONG).show();
@@ -152,16 +148,8 @@ public class ConsumerService extends SAAgent {
 
         @Override
         public void onReceive(int channelId, byte[] data) {
-            final String action = new String(data);
-
-            int hrValue = -10;
-            try {
-                hrValue = Integer.parseInt(action);
-            } catch (NumberFormatException e) {
-                // not a hr
-            }
-
-            if (hrValue != -10) eventBus.post(new HeartRateEvent(hrValue));
+            final String message = new String(data);
+            EventBus.getDefault().post(new SapEvent(message));
         }
 
         @Override
@@ -176,15 +164,11 @@ public class ConsumerService extends SAAgent {
         }
     }
 
-    public void findPeers() {
-        findPeerAgents();
-    }
-
     public boolean sendData(final String data) {
         boolean retvalue = false;
         if (mConnectionHandler != null) {
             try {
-                mConnectionHandler.send(CHANNEL_ID, data.getBytes());
+                mConnectionHandler.send(HELLOACCESSORY_CHANNEL_ID, data.getBytes());
                 retvalue = true;
             } catch (IOException e) {
                 e.printStackTrace();

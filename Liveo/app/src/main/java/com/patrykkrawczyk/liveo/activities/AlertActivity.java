@@ -25,8 +25,15 @@ import com.mapbox.services.geocoding.v5.MapboxGeocoding;
 import com.mapbox.services.geocoding.v5.models.GeocodingFeature;
 import com.mapbox.services.geocoding.v5.models.GeocodingResponse;
 import com.patrykkrawczyk.liveo.Driver;
+import com.patrykkrawczyk.liveo.MonitorService;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerEvent;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
+import com.patrykkrawczyk.liveo.managers.sap.SapEvent;
+import com.patrykkrawczyk.liveo.managers.sap.SapManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +49,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AlertActivity extends AppCompatActivity implements Callback<GeocodingResponse> {
 
-    private final long FULL_TIME = 5000;
+    private final long FULL_TIME = 30000;
 
     @Bind(R.id.progressBar)
     WaveLoadingView progressBar;
@@ -52,11 +59,15 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
     private SmsManager smsManager;
     private String message = "";
     private List<String> numbers = new ArrayList<>();
+    private SapManager sapManager;
+    private EventBus eventBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
+        eventBus = EventBus.getDefault();
+        sapManager = new SapManager(this);
 
         ButterKnife.bind(this);
 
@@ -140,12 +151,28 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         if (vibratorEnabled) vibrator.vibrate(250);
     }
 
+    @Subscribe
+    public void onSapEvent(SapEvent event) {
+        if (event.action.equals("CONNECTED")) {
+            sapManager.send("ALERT");
+        } else if (event.action.equals("ALERT_CANCEL")) {
+            safeButtonClick(null);
+        }
+    }
+
     @OnClick(R.id.safeButton)
     public void safeButtonClick(View view) {
-        timer.cancel();
-        vibratorEnabled = false;
-        progressBar.setProgressValue(0);
-        progressBar.setCenterTitle("...");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                sapManager.send("ALERT_CANCEL");
+                timer.cancel();
+                vibratorEnabled = false;
+                progressBar.setProgressValue(0);
+                progressBar.setCenterTitle("...");
+
+            }
+        });
 
         Intent intent = new Intent(this, HubActivity.class);
         startActivity(intent);
@@ -180,6 +207,20 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         if (timer != null) timer.cancel();
         super.onDestroy();
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!eventBus.isRegistered(this)) eventBus.register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (eventBus.isRegistered(this)) eventBus.unregister(this);
+    }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {

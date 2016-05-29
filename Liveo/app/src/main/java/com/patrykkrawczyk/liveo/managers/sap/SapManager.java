@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.patrykkrawczyk.liveo.MonitorService;
@@ -20,25 +21,25 @@ public class SapManager {
 
     private boolean mIsBound = false;
     private ConsumerService mConsumerService = null;
-    private MonitorService service;
+    private Context context;
     private EventBus eventBus;
 
-    public SapManager(MonitorService service) {
-        this.service = service;
+    public SapManager(Context context) {
+        this.context = context;
         eventBus = EventBus.getDefault();
-        mIsBound = service.bindService(new Intent(service, HubActivity.class), mConnection, Context.BIND_AUTO_CREATE);
+        mIsBound = context.bindService(new Intent(context, ConsumerService.class), mConnection, Context.BIND_AUTO_CREATE);
+        Log.d("PATRYCZEK", "x");
     }
 
-    public void connect() {
-        if (mIsBound == true && mConsumerService != null) {
-            mConsumerService.findPeers();
-        }
-    }
 
     public void disconnect() {
-        if (mIsBound == true) {
-            if (mConsumerService != null) mConsumerService.closeConnection();
-            service.unbindService(mConnection);
+        if (mIsBound == true && mConsumerService != null) {
+            if (mConsumerService.closeConnection() == false) {
+            }
+        }
+        // Un-bind service
+        if (mIsBound) {
+            context.unbindService(mConnection);
             mIsBound = false;
         }
     }
@@ -54,6 +55,7 @@ public class SapManager {
         public void onServiceConnected(ComponentName className, IBinder service) {
             mConsumerService = ((ConsumerService.LocalBinder) service).getService();
             //updateTextView("onServiceConnected");
+            Log.d("PATRYCZEK", "connected");
         }
 
         @Override
@@ -61,6 +63,7 @@ public class SapManager {
             mConsumerService = null;
             mIsBound = false;
             //updateTextView("onServiceDisconnected");
+            Log.d("PATRYCZEK", "disc");
         }
     };
 }

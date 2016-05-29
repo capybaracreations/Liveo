@@ -12,6 +12,7 @@ import com.patrykkrawczyk.liveo.managers.NotificationManager;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.data.DataBroadcaster;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
+import com.patrykkrawczyk.liveo.managers.sap.SapBroadcaster;
 import com.patrykkrawczyk.liveo.managers.sap.SapManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,6 +29,7 @@ public class MonitorService extends Service {
     private MyLocationManager locationManager;
     private NotificationManager notificationManager;
     private DataBroadcaster dataBroadcaster;
+    private SapBroadcaster sapBroadcaster;
     private SapManager sapManager;
 
 
@@ -41,24 +43,25 @@ public class MonitorService extends Service {
         notificationManager  = new NotificationManager(this);
         dataBroadcaster      = DataBroadcaster.getDefault(this);
         sapManager           = new SapManager(this);
+        sapBroadcaster       = SapBroadcaster.getDefault(this);
 
-        sapManager.connect();
-        dataBroadcaster.run();
+        //sapManager.connect();
+        //dataBroadcaster.run();
 
         Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }
 
-
-    public void kill() {
-        dataBroadcaster.kill();
-        sapManager.disconnect();
-        stopSelf();
+    public void sendData(String data) {
+        sapManager.send(data);
     }
 
     @Override
     public void onDestroy() {
+        accelerometerManager.setEnabled(false);
         dataBroadcaster.kill();
+        sapBroadcaster.kill();
         sapManager.disconnect();
+        stopSelf();
         super.onDestroy();
     }
 

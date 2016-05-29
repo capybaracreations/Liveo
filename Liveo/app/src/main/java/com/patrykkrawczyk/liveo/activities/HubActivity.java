@@ -16,13 +16,11 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.patrykkrawczyk.liveo.MonitorService;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerEvent;
-import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
-import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateEvent;
 import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateViewManager;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.managers.location.LocationEvent;
 import com.patrykkrawczyk.liveo.managers.location.LocationViewManager;
+import com.patrykkrawczyk.liveo.managers.sap.SapEvent;
 import com.skyfishjy.library.RippleBackground;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -51,6 +49,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     private EventBus eventBus;
     private LocationViewManager locationManager;
     private MonitorService monitorService;
+    private boolean isBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +70,28 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     }
 
     @Subscribe
-    public void onHeartRateEvent(HeartRateEvent event) {
-        heartRateViewManager.set(event.value);
+    public void onSapEvent(SapEvent event) {
+        final String action = event.action;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int value = -10;
+                try {
+                    value = Integer.valueOf(action);
+                } catch (NumberFormatException e) {
+                    if (action.equals("CONNECTED")) {
+                        heartRateViewManager.setEnabled(true);
+                    } else {
+                        heartRateViewManager.setEnabled(false);
+                    }
+                    return;
+                }
+
+                if (value != -10) {
+                    heartRateViewManager.set(value);
+                }
+            }
+        });
     }
 
     @OnTouch(R.id.closeButton)
@@ -88,16 +107,18 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {
-        locationManager.centerView();
-        //Intent intent = new Intent(this, AlertActivity.class);
-        //startActivity(intent);
+        //monitorService.connect();
+        //monitorService.sendData("ALERT");
+        //locationManager.centerView();
+        Intent intent = new Intent(this, AlertActivity.class);
+        startActivity(intent);
     }
 
     private void goToMenu() {
+        //if (monitorService != null) unbindService(this);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-        if (monitorService != null) monitorService.kill();
     }
 
     @Override
@@ -116,8 +137,11 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         super.onResume();
         locationManager.onResume();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
-        Intent bindIntent = new Intent(this, MonitorService.class);
-        bindService(bindIntent, this, BIND_AUTO_CREATE);
+        if (!isBound) {
+            Intent bindIntent = new Intent(this, MonitorService.class);
+            bindService(bindIntent, this, BIND_AUTO_CREATE);
+            isBound = true;
+        }
     }
 
     @Override
@@ -125,7 +149,11 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         super.onPause();
         locationManager.onPause();
         if (eventBus.isRegistered(this)) eventBus.unregister(this);
-        if (monitorService != null) unbindService(this);
+
+        if (monitorService != null && isBound) {
+            unbindService(this);
+            isBound = false;
+        }
     }
 
     @Override
@@ -149,6 +177,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         super.onLowMemory();
         locationManager.onLowMemory();
     }
+
 
     @Override
     protected void onDestroy() {

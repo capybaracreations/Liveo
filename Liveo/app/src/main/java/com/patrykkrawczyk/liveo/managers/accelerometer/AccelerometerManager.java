@@ -36,7 +36,7 @@ public class AccelerometerManager implements SensorEventListener {
         }
     }
 
-    private void setEnabled(boolean state) {
+    public void setEnabled(boolean state) {
         enabled = state;
 
         if (isEnabled()) {
