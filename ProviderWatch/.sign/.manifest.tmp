@@ -1,10 +1,13 @@
 HelloAccessoryProvider.wgt__DEL__ZyMzVTpIxG/uratgNFSCS3pyiVqjIZz/8G7P9A/2ZXs=
-config.xml__DEL__y74hSX+YPkABqsEmhWxTb5GyzZFqU+ULxCn6eV4RsWk=
-css/style.css__DEL__k3vo8v/SjYSUJx/JEgsQlVMRw7DZYiLkxFkVUqlPvik=
+alert.html__DEL__sTYxDzjO/aSN7paBxQl9AqXqdkuUMRX0IpC47LS8X0s=
+config.xml__DEL__knxAKozuGqttGiAjDCZq/vkEmGYFB1MYC+QoqyVPg1E=
+css/style.css__DEL__h8DcQb/dspVG7iQibOLblxltQbOVNKnKxdW/Cgu1hUM=
+home.html__DEL__zB8TH+dfhHyR1I3urc4mxio6s+kVUAl15AB72xxx0NM=
 icon.png__DEL__vPjxjOppORd6hn9Bw4sh06gqtDoJzoFbV/8e9FyIdvk=
-index.html__DEL__+a9Olyl5HVkulTPEdN6lXzBQzN5+IAsQr/x7WFVz8o0=
-js/app.js__DEL__Co6j9WhK1Pxn9nGdXcaTlD484SFq8Qm3B8pmG+RDd/U=
+index.html__DEL__4PsFnxRB6PghWyjcH2XBze3q4J5+O1E7XPmmAM97KjQ=
+js/app.js__DEL__KTgU/GfFJGqMjG8MkvcfbsQ+ftn8+0qQOGlX1zlksaA=
 js/circle-helper.js__DEL__BKx7DerWfWYNi8CA/22SN9NdJ1Fv2o2H7JSlgt2GHEY=
+js/jquery-1.12.4.min.js__DEL__ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=
 lib/tau/LICENSE.MIT__DEL__Y1T7o1YX8O1NYRTslkZ9eYiGL/PDhTcP3EgW1PekLkI=
 lib/tau/VERSION__DEL__mPEWYAv4vcFv1kCMsVk6Nc/zYmGbjCMF4BgtNeesWWk=
 lib/tau/wearable/js/tau.js__DEL__Mat74WGwt4fHpnqmmD5rXsz51fUkFsb9YNzadGDRmOM=
@@ -231,4 +234,4 @@ lib/tau/wearable/theme/default/tau.min.template__DEL__tptJIE6R7Yo+fRNwUsfYPGglXr
 lib/tau/wearable/theme/default/tau.template__DEL__460LMZvsIjIupkm64gpkKC76hZifwhJb9h2vogGs3Mc=
 res/xml/accessoryservices.xml__DEL__ZoYDuJQPJBKanVxH4GkQJ89Oq/nrYYfEv4RXnoN9+b8=
 version.txt__DEL__+g+itCzNHAfAXptB3DKpkZKeq64MOsIAZmWBbpHhWaA=
-author-signature.xml__DEL__fHDrjPq9l/vlFHbAv65flUaZe2PC8J+czxdCjwtFB1U=
+author-signature.xml__DEL__MLwkrJinLrIezRlF7fa9zJxOvgqvSVErWFhHRLXzUzE=
