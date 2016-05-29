@@ -61,7 +61,7 @@ connectionListener = {
     onrequest: function (peerAgent) {
 
         /* Check connecting peer by appName*/
-        if (peerAgent.appName === "HelloAccessoryConsumer") {
+        if (peerAgent.appName === "Liveo") {
             SAAgent.acceptServiceConnectionRequest(peerAgent);
 
         } else {
