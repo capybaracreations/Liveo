@@ -33,16 +33,20 @@ import android.widget.Toast;
 import android.util.Log;
 
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateEvent;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.accessory.*;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class ConsumerService extends SAAgent {
-    private static final String TAG = "HelloAccessory(C)";
-    private static final int HELLOACCESSORY_CHANNEL_ID = 104;
+    private static final String TAG = "Liveo";
+    private static final int CHANNEL_ID = 104;
     private static final Class<ServiceConnection> SASOCKET_CLASS = ServiceConnection.class;
     private final IBinder mBinder = new LocalBinder();
     private ServiceConnection mConnectionHandler = null;
     Handler mHandler = new Handler();
+    private EventBus eventBus;
 
     public ConsumerService() {
         super(TAG, SASOCKET_CLASS);
@@ -51,6 +55,7 @@ public class ConsumerService extends SAAgent {
     @Override
     public void onCreate() {
         super.onCreate();
+        eventBus = EventBus.getDefault();
         SA mAccessory = new SA();
         try {
             mAccessory.initialize(this);
@@ -82,10 +87,10 @@ public class ConsumerService extends SAAgent {
                 requestServiceConnection(peerAgent);
         } else if (result == SAAgent.FINDPEER_DEVICE_NOT_CONNECTED) {
             Toast.makeText(getApplicationContext(), "FINDPEER_DEVICE_NOT_CONNECTED", Toast.LENGTH_LONG).show();
-            updateTextView("Disconnected");
+            //updateTextView("Disconnected");
         } else if (result == SAAgent.FINDPEER_SERVICE_NOT_FOUND) {
             Toast.makeText(getApplicationContext(), "FINDPEER_SERVICE_NOT_FOUND", Toast.LENGTH_LONG).show();
-            updateTextView("Disconnected");
+            //updateTextView("Disconnected");
         } else {
             Toast.makeText(getApplicationContext(), R.string.NoPeersFound, Toast.LENGTH_LONG).show();
         }
@@ -102,9 +107,9 @@ public class ConsumerService extends SAAgent {
     protected void onServiceConnectionResponse(SAPeerAgent peerAgent, SASocket socket, int result) {
         if (result == SAAgent.CONNECTION_SUCCESS) {
             this.mConnectionHandler = (ServiceConnection) socket;
-            updateTextView("Connected");
+           // updateTextView("Connected");
         } else if (result == SAAgent.CONNECTION_ALREADY_EXIST) {
-            updateTextView("Connected");
+            //updateTextView("Connected");
             Toast.makeText(getBaseContext(), "CONNECTION_ALREADY_EXIST", Toast.LENGTH_LONG).show();
         } else if (result == SAAgent.CONNECTION_DUPLICATE_REQUEST) {
             Toast.makeText(getBaseContext(), "CONNECTION_DUPLICATE_REQUEST", Toast.LENGTH_LONG).show();
@@ -147,13 +152,20 @@ public class ConsumerService extends SAAgent {
 
         @Override
         public void onReceive(int channelId, byte[] data) {
-            final String message = new String(data);
-            addMessage("Received: ", message);
+            final String action = new String(data);
+
+            int hrValue = -10;
+            try {
+                hrValue = Integer.parseInt(action);
+            } catch (NumberFormatException e) {
+                // not a hr
+            }
+
+            if (hrValue != -10) eventBus.post(new HeartRateEvent(hrValue));
         }
 
         @Override
         protected void onServiceConnectionLost(int reason) {
-            updateTextView("Disconnected");
             closeConnection();
         }
     }
@@ -172,12 +184,11 @@ public class ConsumerService extends SAAgent {
         boolean retvalue = false;
         if (mConnectionHandler != null) {
             try {
-                mConnectionHandler.send(HELLOACCESSORY_CHANNEL_ID, data.getBytes());
+                mConnectionHandler.send(CHANNEL_ID, data.getBytes());
                 retvalue = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            addMessage("Sent: ", data);
         }
         return retvalue;
     }
@@ -214,22 +225,4 @@ public class ConsumerService extends SAAgent {
         return true;
     }
 
-    private void updateTextView(final String str) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                ConsumerActivity.updateTextView(str);
-            }
-        });
-    }
-
-    private void addMessage(final String prefix, final String data) {
-        final String strToUI = prefix.concat(data);
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                ConsumerActivity.addMessage(strToUI);
-            }
-        });
-    }
 }

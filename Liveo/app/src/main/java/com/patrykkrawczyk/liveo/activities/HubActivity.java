@@ -23,7 +23,6 @@ import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateViewManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.location.LocationEvent;
 import com.patrykkrawczyk.liveo.managers.location.LocationViewManager;
-import com.patrykkrawczyk.liveo.managers.sap.ConsumerActivity;
 import com.skyfishjy.library.RippleBackground;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;

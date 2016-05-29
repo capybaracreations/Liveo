@@ -56,9 +56,6 @@
         <activity
             android:name=".activities.CalibrateActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".managers.sap.ConsumerActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activities.AlertActivity"
                   android:screenOrientation="portrait">
         </activity>
