@@ -37,3 +37,6 @@ captures/
 *.ipr
 *.iws
 .idea/
+
+# Tizen IDE files
+.metadata/
