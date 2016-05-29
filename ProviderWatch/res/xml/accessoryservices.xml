@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <application name="HelloAccessoryProvider" >
+    <application name="Liveo" >
         <serviceProfile
-            id="/sample/hello"
-            name="helloaccessory"
-            autoLaunchAppId="UM2FcDkLYZ.HelloAccessoryProvider"
+            id="/liveo/sap"
+            name="liveo"
+            autoLaunchAppId="UM2FcDkLYZ.Liveo"
             role="provider"
             version="1.0"
             serviceLimit="ANY"
