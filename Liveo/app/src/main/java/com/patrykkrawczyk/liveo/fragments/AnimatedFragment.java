@@ -1,5 +1,6 @@
 package com.patrykkrawczyk.liveo.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,13 +29,14 @@ public class AnimatedFragment extends Fragment {
     public boolean touchEnabled = false;
 
     public enum Page {
-        MENU, PASSENGERS, DRIVER, ICE
+        MENU, DRIVER, ICE
     }
 
     protected MaterialRippleLayout ripple;
     protected int layoutId;
 
     public AnimatedFragment() {}
+    @SuppressLint("ValidFragment")
     public AnimatedFragment(int layoutId) {
         this.layoutId = layoutId;
     }

@@ -105,7 +105,7 @@ public class IceFragment extends AnimatedFragment {
                 touchEnabled = false;
                 if (GuideManager.getStage() == 1) GuideManager.incrementStage();
                 saveIce();
-                setIconColor(view);
+                //setIconColor(view);
                 ripple.setEnabled(false);
                 rippleChangePage(event, Page.MENU);
             } else {
@@ -239,7 +239,7 @@ public class IceFragment extends AnimatedFragment {
 //        if (validateFields() > 0) {
             if (eventBus.isRegistered(this)) eventBus.unregister(this);
             touchEnabled = false;
-                setIconColor(getActivity().findViewById(R.id.confirmButton));
+                //setIconColor(getActivity().findViewById(R.id.confirmButton));
 //            if (GuideManager.getStage() == 1) GuideManager.incrementStage();
 //            saveIce();
 //            ripple.setEnabled(false);

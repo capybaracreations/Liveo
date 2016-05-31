@@ -1,19 +1,33 @@
 package com.patrykkrawczyk.liveo.fragments;
 
+import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.Contacts;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.patrykkrawczyk.liveo.Driver;
+import com.patrykkrawczyk.liveo.LiveoApplication;
 import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
+import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
+import com.patrykkrawczyk.liveo.managers.IceContact;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
@@ -21,6 +35,7 @@ import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.events.ShowGuideEvent;
 import com.patrykkrawczyk.liveo.activities.HubActivity;
 import com.patrykkrawczyk.liveo.managers.StateManager;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -28,25 +43,23 @@ import net.steamcrafted.materialiconlib.MaterialIconView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.OnTouch;
 
 public class MenuFragment extends AnimatedFragment {
 
-    @Bind(R.id.driverButton) TableRow driverButton;
-    @Bind(R.id.passengersButton) TableRow passengersButton;
-    @Bind(R.id.iceButton) TableRow iceButton;
-    @Bind(R.id.triggerButton) TableRow triggerButton;
-    @Bind(R.id.triggerText) TextView triggerText;
-    @Bind(R.id.driverButtonIcon) MaterialIconView driverButtonIcon;
-    @Bind(R.id.iceButtonIcon) MaterialIconView iceButtonIcon;
-    @Bind(R.id.passengersButtonIcon) MaterialIconView passengersButtonIcon;
-    @Bind(R.id.triggerButtonIcon) MaterialIconView triggerButtonIcon;
+    @Bind(R.id.driverButton)  Button   driverButton;
+    @Bind(R.id.triggerButton) FrameLayout triggerButton;
+    @Bind(R.id.iceButton1)    LinearLayout iceButton1;
+    @Bind(R.id.iceButton2)    LinearLayout iceButton2;
+    @Bind(R.id.iceButton3)    LinearLayout iceButton3;
 
-    TextView driverName;
+    private int pickedContact = -1;
+    private static final int PICK_CONTACT = 4444;
     private static boolean firstTimeRun = true;
     private EventBus eventBus;
-    private StateManager stateManager;
 
     public MenuFragment() {
         super(R.layout.fragment_menu);
@@ -64,60 +77,26 @@ public class MenuFragment extends AnimatedFragment {
                 if (GuideManager.getStage() == 0)
                     GuideManager.showGuide(getActivity(), driverButton);
                 else if (GuideManager.getStage() == 1)
-                    GuideManager.showGuide(getActivity(), iceButton);
-                else if (GuideManager.getStage() == 2)
-                    GuideManager.showGuide(getActivity(), passengersButton);
+                    GuideManager.showGuide(getActivity(), iceButton2);
                 else GuideManager.finishGuide(getActivity());
             }
         }
 
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
-        stateManager = StateManager.getInstance();
 
-        driverName = (TextView) driverButton.findViewById(R.id.driverText);
+        loadIceViews();
+        /*driverName = (TextView) driverButton.findViewById(R.id.driverText);
         Driver driver = Driver.getLocalDriver(getContext());
         if (driver == null) driverName.setText("Driver");
-        else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());
-
-        loadPassenger();
-        checkState();
-
-    }
-
-    private void loadPassenger() {
-        SharedPreferences sharedPref    = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
-
-        String count = sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "");
-
-        if (!count.isEmpty()) {
-            if (count.equals("0")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_0_BOX_OUTLINE);
-            else if (count.equals("1")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_1_BOX_OUTLINE);
-            else if (count.equals("2")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_2_BOX_OUTLINE);
-            else if (count.equals("3")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_3_BOX_OUTLINE);
-            else if (count.equals("4")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.NUMERIC_4_BOX_OUTLINE);
-            else if (count.equals("5")) passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.DOTS_HORIZONTAL);
-        } else passengersButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.ACCOUNT_MULTIPLE);
-    }
-
-    private void checkState() {
-        boolean state = stateManager.getMonitorState();
-
-        if (state) {
-            triggerButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.PULSE);
-            triggerText.setText("HUB");
-        } else {
-            triggerButtonIcon.setIcon(MaterialDrawableBuilder.IconValue.PLAY);
-            triggerText.setText("START");
-        }
+        else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());*/
     }
 
     @Subscribe
     public void onShowGuideEvent(ShowGuideEvent event) {
         if (GuideManager.getShowGuide()) {
             if (GuideManager.getStage() == 0) GuideManager.showGuide(getActivity(), driverButton);
-            else if (GuideManager.getStage() == 1) GuideManager.showGuide(getActivity(), iceButton);
-            else if (GuideManager.getStage() == 2) GuideManager.showGuide(getActivity(), passengersButton);
+            else if (GuideManager.getStage() == 1) GuideManager.showGuide(getActivity(), iceButton2);
             else GuideManager.finishGuide(getActivity());
         }
     }
@@ -128,32 +107,149 @@ public class MenuFragment extends AnimatedFragment {
     }
 
 
-
-    private void onButtonTouch(View view, MotionEvent event, Page page) {
+    private void onButtonTouch(MotionEvent event, Page page) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
-            if (eventBus.isRegistered(this)) eventBus.unregister(this);
             touchEnabled = false;
             GuideManager.hideGuide();
-            setIconColor(view);
-            rippleChangePage(event, page);
+            eventBus.post(new SwitchPageEvent(page));
+            if (eventBus.isRegistered(this)) eventBus.unregister(this);
         }
     }
 
-    @OnTouch(R.id.triggerButton)
-    public boolean onTouchTrigger (View view, MotionEvent event) {
+    private void onIceClick(MotionEvent event, int contact) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
-            setIconColor(view);
-            Point point = new Point((int) event.getRawX(), (int) event.getRawY());
-            ripple.setRipplePersistent(true);
-            ripple.performRipple(point);
+            pickedContact = contact;
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, PICK_CONTACT);
+        }
+    }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case (PICK_CONTACT) :
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri contactData = data.getData();
+                    Cursor c =  getActivity().managedQuery(contactData, null, null, null, null);
+                    if (c.moveToFirst()) {
+                        String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                        String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        String number = "";
+
+                        String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        if (hasPhone.equalsIgnoreCase("1")) {
+                            c = getActivity().getContentResolver().query(
+                                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id, null, null);
+                            c.moveToFirst();
+                            number = c.getString(c.getColumnIndex("data1"));
+                        }
+
+                        Uri photoUri = getPhotoUri(id);
+
+                        
+                        IceContact contact = new IceContact(id, name, number, photoUri.toString());
+                        if (!contact.validate()) {
+                            contact = null;
+                        }
+
+                        LiveoApplication.iceContactList.set(pickedContact - 1, contact);
+                        loadIceViews();
+                        saveIceViews();
+                    }
+                }
+                break;
+        }
+    }
+
+    private void saveIceViews() {
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        List<IceContact> list = LiveoApplication.iceContactList;
+        IceContact ice1 = list.get(0);
+        IceContact ice2 = list.get(1);
+        IceContact ice3 = list.get(2);
+
+        if (ice1 == null) ice1 = new IceContact();
+        if (ice2 == null) ice2 = new IceContact();
+        if (ice3 == null) ice3 = new IceContact();
+
+        editor.putString(getString(R.string.LIVEO_ICE_1_ID), ice1.id);
+        editor.putString(getString(R.string.LIVEO_ICE_1_URI), ice1.photoUri);
+        editor.putString(getString(R.string.LIVEO_ICE_1_NAME), ice1.name);
+        editor.putString(getString(R.string.LIVEO_ICE_1_PHONE), ice1.number);
+
+        editor.putString(getString(R.string.LIVEO_ICE_2_ID), ice2.id);
+        editor.putString(getString(R.string.LIVEO_ICE_2_URI), ice2.photoUri);
+        editor.putString(getString(R.string.LIVEO_ICE_2_NAME), ice2.name);
+        editor.putString(getString(R.string.LIVEO_ICE_2_PHONE), ice2.number);
+
+        editor.putString(getString(R.string.LIVEO_ICE_3_ID), ice3.id);
+        editor.putString(getString(R.string.LIVEO_ICE_3_URI), ice3.photoUri);
+        editor.putString(getString(R.string.LIVEO_ICE_3_NAME), ice3.name);
+        editor.putString(getString(R.string.LIVEO_ICE_3_PHONE), ice3.number);
+
+        editor.apply();
+    }
+
+    private void loadIceViews() {
+        List<IceContact> list = LiveoApplication.iceContactList;
+        IceContact ice1 = list.get(0);
+        IceContact ice2 = list.get(1);
+        IceContact ice3 = list.get(2);
+
+        if (ice1 == null) markEmpty(iceButton1);
+        else markFilled(iceButton1, ice1);
+        if (ice2 == null) markEmpty(iceButton2);
+        else markFilled(iceButton2, ice2);
+        if (ice3 == null) markEmpty(iceButton3);
+        else markFilled(iceButton3, ice3);
+    }
+
+    private void markFilled(LinearLayout layout, IceContact contact) {
+        SelectableRoundedImageView icon = (SelectableRoundedImageView) layout.getChildAt(0);
+        TextView label = (TextView) layout.getChildAt(1);
+
+        label.setTextColor(getActivity().getResources().getColor(R.color.BLACK));
+        label.setText(contact.name);
+
+        icon.setBorderColor(getActivity().getResources().getColor(R.color.BLACK));
+
+        if (contact.photoUri != null) {
+            icon.setImageURI(Uri.parse(contact.photoUri));
+        } else {
+            icon.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.account));
+        }
+
+        if (icon.getDrawable() == null) {
+            icon.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.account));
+        }
+    }
+
+    private void markEmpty(LinearLayout layout) {
+        SelectableRoundedImageView icon = (SelectableRoundedImageView) layout.getChildAt(0);
+        TextView label = (TextView) layout.getChildAt(1);
+
+        label.setTextColor(getActivity().getResources().getColor(R.color.newAccent));
+        label.setText("ADD");
+
+        icon.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.plus));
+        icon.setBorderColor(getActivity().getResources().getColor(R.color.newAccent));
+    }
+
+    @OnTouch(R.id.triggerButton)
+    public boolean onTouchTrigger(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
             Intent intent;
             if (AccelerometerViewManager.isCalibrated()) {
                 intent = new Intent(getContext(), HubActivity.class);
             } else {
                 intent = new Intent(getContext(), CalibrateActivity.class);
             }
-
             startActivity(intent);
             getActivity().finish();
         }
@@ -161,25 +257,31 @@ public class MenuFragment extends AnimatedFragment {
     }
 
     @OnTouch(R.id.driverButton)
-    public boolean onTouchDriver (View view, MotionEvent event) {
+    public boolean onTouchDriver(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 0)) {
-            onButtonTouch(view, event, Page.DRIVER);
+            onButtonTouch(event, Page.DRIVER);
         }
         return true;
     }
 
-    @OnTouch(R.id.iceButton)
-    public boolean onTouchIce (View view, MotionEvent event) {
+    @OnTouch(R.id.iceButton1)
+    public boolean onTouchIce1(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onButtonTouch(view, event, Page.ICE);
+            onIceClick(event, 1);
         }
         return true;
     }
-
-    @OnTouch(R.id.passengersButton)
-    public boolean onTouchPassengers (View view, MotionEvent event) {
-        if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 2)) {
-            onButtonTouch(view, event, Page.PASSENGERS);
+    @OnTouch(R.id.iceButton2)
+    public boolean onTouchIce2(View view, MotionEvent event) {
+        if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
+            onIceClick(event, 2);
+        }
+        return true;
+    }
+    @OnTouch(R.id.iceButton3)
+    public boolean onTouchIce3(View view, MotionEvent event) {
+        if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
+            onIceClick(event, 3);
         }
         return true;
     }
@@ -187,14 +289,28 @@ public class MenuFragment extends AnimatedFragment {
     @Subscribe
     public void onBackKeyEvent(BackKeyEvent event) { }
 
-    @Override
-    protected void setIconColor(View view) {
-        LinearLayout viewGroup = (LinearLayout)((ViewGroup) view).getChildAt(0);
-        MaterialIconView icon = (MaterialIconView) ((TableRow)(viewGroup.getChildAt(0))).getChildAt(0);
-        TextView textView = (TextView) ((TableRow)(viewGroup.getChildAt(1))).getChildAt(0);
-        icon.setColor(getResources().getColor(R.color.colorAccent));
-        textView.setTextColor(getResources().getColor(R.color.colorAccent));
+    public Uri getPhotoUri(String id) {
+        try {
+            Cursor cur = getActivity().getContentResolver().query(
+                    ContactsContract.Data.CONTENT_URI,
+                    null,
+                    ContactsContract.Data.CONTACT_ID + "=" + id + " AND "
+                            + ContactsContract.Data.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
+                    null);
+            if (cur != null) {
+                if (!cur.moveToFirst()) {
+                    return null; // no photo
+                }
+            } else {
+                return null; // error in cursor process
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long
+                .parseLong(id));
+        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
-
-
 }

@@ -7,7 +7,6 @@ import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
 import com.patrykkrawczyk.liveo.fragments.DriverFragment;
 import com.patrykkrawczyk.liveo.fragments.IceFragment;
 import com.patrykkrawczyk.liveo.fragments.MenuFragment;
-import com.patrykkrawczyk.liveo.fragments.PassengerFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -46,8 +45,7 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         AnimatedFragment newFragment;
         int position = 1;
 
-        if (page == AnimatedFragment.Page.PASSENGERS) newFragment = new PassengerFragment();
-        else if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverFragment();
+        if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverFragment();
         else if (page == AnimatedFragment.Page.ICE) newFragment = new IceFragment();
         else {
             newFragment = new MenuFragment();

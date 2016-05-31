@@ -2,7 +2,9 @@ package com.patrykkrawczyk.liveo.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,8 +16,10 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.INetwork;
+import com.patrykkrawczyk.liveo.LiveoApplication;
 import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
+import com.patrykkrawczyk.liveo.managers.IceContact;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -87,6 +91,8 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     //    GuideManager.resetGuide(this); // TODO DELETE THIS
         GuideManager.loadGuideState(this);
 
+        loadIceContacts();
+
         registerText.setMovementMethod(LinkMovementMethod.getInstance());
 
         usernameEditText.setEnabled(false);
@@ -110,6 +116,33 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
             @Override
             public boolean onTouch(View v, MotionEvent event) { return true; }
         });
+    }
+
+    private void loadIceContacts() {
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+
+        String s1i = sharedPref.getString(getString(R.string.LIVEO_ICE_1_ID),    "");
+        String s1u = sharedPref.getString(getString(R.string.LIVEO_ICE_1_URI),   "");
+        String s1n = sharedPref.getString(getString(R.string.LIVEO_ICE_1_NAME),  "");
+        String s1p = sharedPref.getString(getString(R.string.LIVEO_ICE_1_PHONE),  "");
+
+        String s2i = sharedPref.getString(getString(R.string.LIVEO_ICE_2_ID),    "");
+        String s2u = sharedPref.getString(getString(R.string.LIVEO_ICE_2_URI),   "");
+        String s2n = sharedPref.getString(getString(R.string.LIVEO_ICE_2_NAME),  "");
+        String s2p = sharedPref.getString(getString(R.string.LIVEO_ICE_2_PHONE),  "");
+
+        String s3i = sharedPref.getString(getString(R.string.LIVEO_ICE_3_ID),    "");
+        String s3u = sharedPref.getString(getString(R.string.LIVEO_ICE_3_URI),   "");
+        String s3n = sharedPref.getString(getString(R.string.LIVEO_ICE_3_NAME),  "");
+        String s3p = sharedPref.getString(getString(R.string.LIVEO_ICE_3_PHONE),  "");
+
+        IceContact ice1 = new IceContact(s1i, s1n, s1p, s1u);
+        IceContact ice2 = new IceContact(s2i, s2n, s2p, s2u);
+        IceContact ice3 = new IceContact(s3i, s3n, s3p, s3u);
+
+        if (ice1.validate()) LiveoApplication.iceContactList.set(0, ice1);
+        if (ice2.validate()) LiveoApplication.iceContactList.set(1, ice2);
+        if (ice3.validate()) LiveoApplication.iceContactList.set(2, ice3);
     }
 
     private void afterLogoShow() {

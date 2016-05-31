@@ -11,13 +11,18 @@
     <string name="LIVEO_DRIVER_REGISTRATION">liveoRegistration</string>
     <string name="LIVEO_GUIDE_STAGE">liveoGuideStage</string>
     <string name="LIVEO_GUIDE_SHOW">liveoGuideShow</string>
-    <string name="LIVEO_PASSENGERS_COUNT">liveoPassengersCount</string>
+    <string name="LIVEO_ICE_1_ID">liveIce1Id</string>
+    <string name="LIVEO_ICE_1_URI">liveIce1Uri</string>
     <string name="LIVEO_ICE_1_NAME">liveIce1Name</string>
     <string name="LIVEO_ICE_1_PHONE">liveIce1Phone</string>
     <string name="LIVEO_ICE_2_NAME">liveIce2Name</string>
     <string name="LIVEO_ICE_2_PHONE">liveIce2Phone</string>
+    <string name="LIVEO_ICE_2_ID">liveIce2Id</string>
+    <string name="LIVEO_ICE_2_URI">liveIce2Uri</string>
     <string name="LIVEO_ICE_3_NAME">liveIce3Name</string>
     <string name="LIVEO_ICE_3_PHONE">liveIce3Phone</string>
+    <string name="LIVEO_ICE_3_ID">liveIce3Id</string>
+    <string name="LIVEO_ICE_3_URI">liveIce3Uri</string>
     <string name="LIVEO_WAKE_LOCK">LiveoWakeLockTag</string>
     <string name="LIVEO_IS_RUNNING">false</string>
     <string name="LIVEO_SLOGAN">You\'re safe</string>
@@ -25,7 +30,6 @@
     <string-array name="guide_description">
         <item>Provide your personal details</item>
         <item>Decide who should be contacted</item>
-        <item>Select number of additional passengers in car</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="LIVEO_MAPBOX_TOKEN">pk.eyJ1IjoiY2FweWJhcmEiLCJhIjoiY2lueGo5MWgwMDBydncya2x4ZXh2M3I5dyJ9.ArNA_6puuM4UZ1J_3Xq-3Q</string>

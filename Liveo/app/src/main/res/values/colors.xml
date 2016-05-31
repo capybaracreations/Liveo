@@ -16,5 +16,6 @@
     <color name="showcaseBackground">#dc000000</color>
     <color name="colorRipple">#448AFF</color>
     <color name="colorLogo">#448AFF</color>
+    <color name="newAccent">#1fc1a0</color>
 
 </resources>

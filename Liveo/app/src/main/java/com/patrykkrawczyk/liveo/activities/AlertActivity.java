@@ -125,8 +125,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         message += ".\nLast name: " + driver.getLastName();
         message += ".\nGender: " + driver.getGender().toUpperCase();
         message += ".\nAge group: " + driver.getAgeGroup().toUpperCase();
-        message += ".\nRegistration: " + driver.getRegisterNumber().toUpperCase();
-        message += ".\nPassengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
+        message += ".\nRegistration: " + driver.getRegisterNumber().toUpperCase() + ".";
 
         try {
             final Position position = Position.fromCoordinates(location.getLongitude(), location.getLatitude());
