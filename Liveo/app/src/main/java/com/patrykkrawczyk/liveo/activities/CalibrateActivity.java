@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
-import com.balysv.materialripple.MaterialRippleLayout;
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
 
@@ -27,8 +29,9 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 
     @Bind(R.id.submitButton)
     MaterialIconView submitButton;
-    protected MaterialRippleLayout ripple;
-    protected final int RIPPLE_SPEED = 400;
+    @Bind(R.id.calibrateImage)
+    ImageView calibrateImage;
+
     private SensorManager sensorManager;
     private Sensor sensor;
     private SensorEvent calibration;
@@ -39,26 +42,10 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
         setContentView(R.layout.activity_calibrate);
 
         ButterKnife.bind(this);
+        SVG svg = SVGParser.getSVGFromResource(getResources(),
+                R.raw.carholder);
 
-        ripple = MaterialRippleLayout.on(findViewById(R.id.rippleView))
-                .rippleOverlay(true)
-                .rippleColor(getResources().getColor(R.color.colorRipple))
-                .rippleAlpha((float)0.20)
-                .ripplePersistent(false)
-                .rippleDuration(RIPPLE_SPEED)
-                .rippleDelayClick(false)
-                .rippleFadeDuration(100)
-                .create();
-
-        ripple.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-
-        ripple.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) { return true; }
-        });
+        calibrateImage.setImageDrawable(svg.createPictureDrawable());
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -75,10 +62,7 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
     @OnTouch(R.id.submitButton)
     public boolean onSubmitButton(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            submitButton.setColor(getResources().getColor(R.color.colorAccent));
-            Point point = new Point((int)event.getRawX(), (int)event.getRawY());
-            ripple.performRipple(point);
-
+            submitButton.setColor(getResources().getColor(R.color.newAccent));
             AccelerometerViewManager.setCalibration(calibration);
             sensorManager.unregisterListener(this);
 

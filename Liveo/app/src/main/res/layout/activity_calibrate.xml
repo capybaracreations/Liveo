@@ -1,66 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
+
+<android.support.percent.PercentRelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimary"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.CalibrateActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.percent.PercentRelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        app:layout_heightPercent="100%"
+        app:layout_widthPercent="100%">
 
-        <View
-            android:clickable="false"
-            android:background="@color/colorPrimary"
-            android:id="@+id/rippleView"
+        <ImageView
+            android:background="@color/newAccent"
+            android:id="@+id/calibrateImage"
+            android:layerType="software"
+            android:layout_weight="8"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="10"
-            app:layout_heightPercent="100%"
-            app:layout_widthPercent="100%">
-
-            <ImageView
-                android:src="@drawable/calibrate"
-                android:layout_weight="8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="9dp"
-                android:id="@+id/instructionText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/LIVEO_CALIBRATE_INSTRUCTION"
-                android:gravity="center"
-                android:textColor="@color/colorFont"
-                android:textSize="20sp"
-                tools:ignore="MissingPrefix"
-                fontPath="fonts/Roboto-Light.ttf"/>
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:layout_weight="1"
-                android:layout_marginTop="9dp"
-                android:id="@+id/submitButton"
-                android:scaleType="fitXY"
-                android:layout_gravity="center"
-                app:materialIcon="check"
-                app:materialIconColor="@color/colorFont"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"/>
-        </LinearLayout>
+        <TextView
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="9dp"
+            android:id="@+id/instructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/LIVEO_CALIBRATE_INSTRUCTION"
+            android:gravity="center"
+            android:textColor="@color/colorFont"
+            android:textSize="20sp"
+            tools:ignore="MissingPrefix"
+            fontPath="fonts/Roboto-Light.ttf"/>
+        <net.steamcrafted.materialiconlib.MaterialIconView
+            android:layout_weight="1"
+            android:layout_marginTop="9dp"
+            android:id="@+id/submitButton"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            app:materialIcon="check"
+            app:materialIconColor="@color/colorFont"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"/>
+    </LinearLayout>
 
 
-    </android.support.percent.PercentRelativeLayout>
+</android.support.percent.PercentRelativeLayout>
 
-</FrameLayout>

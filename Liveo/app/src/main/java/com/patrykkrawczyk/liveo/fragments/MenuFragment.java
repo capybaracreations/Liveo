@@ -47,6 +47,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnTouch;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MenuFragment extends AnimatedFragment {
 
@@ -119,8 +120,47 @@ public class MenuFragment extends AnimatedFragment {
     private void onIceClick(MotionEvent event, int contact) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
             pickedContact = contact;
-            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(intent, PICK_CONTACT);
+            IceContact iceContact = LiveoApplication.iceContactList.get(pickedContact-1);
+
+            if (iceContact == null) {
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT);
+            } else {
+                LinearLayout layout = null;
+                if (pickedContact == 1) layout = iceButton1;
+                else if (pickedContact == 2) layout = iceButton2;
+                else if (pickedContact == 3) layout = iceButton3;
+                TextView label = (TextView) layout.getChildAt(1);
+
+                if (label.getText().equals("ADD")) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    startActivityForResult(intent, PICK_CONTACT);
+                } else {
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("")
+                            .setCancelText("DELETE")
+                            .setConfirmText("MODIFY")
+                            .showCancelButton(true)
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                                    startActivityForResult(intent, PICK_CONTACT);
+                                    sDialog.cancel();
+                                }
+                            })
+                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    LiveoApplication.iceContactList.set(pickedContact - 1, null);
+                                    loadIceViews();
+                                    saveIceViews();
+                                    sDialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+            }
         }
     }
 
