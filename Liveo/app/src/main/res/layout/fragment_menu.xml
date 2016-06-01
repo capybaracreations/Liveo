@@ -52,7 +52,7 @@
                     android:layout_marginLeft="11dp"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:textColor="@color/BLACK"
+                    android:textColor="@color/newFont"
                     android:text="Driver Information"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -100,7 +100,7 @@
                     android:layout_marginLeft="11dp"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:textColor="@color/BLACK"
+                    android:textColor="@color/newFont"
                     android:text="ICE Contacts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -121,7 +121,7 @@
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
                             app:sriv_border_width="1dip"
-                            app:sriv_border_color="#000"
+                            app:sriv_border_color="@color/newFont"
                             app:sriv_oval="true"
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"/>
@@ -131,7 +131,7 @@
                             android:textSize="18sp"
                             android:gravity="center"
                             android:layout_weight="2"
-                            android:textColor="@color/BLACK"
+                            android:textColor="@color/newFont"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="PAWEL"/>
@@ -149,7 +149,7 @@
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
                             app:sriv_border_width="1dip"
-                            app:sriv_border_color="#000"
+                            app:sriv_border_color="@color/newFont"
                             app:sriv_oval="true"
                             android:layout_height="match_parent"
                             android:layout_width="match_parent"/>
@@ -158,7 +158,7 @@
                             tools:ignore="MissingPrefix"
                             android:textSize="18sp"
                             android:gravity="center"
-                            android:textColor="@color/BLACK"
+                            android:textColor="@color/newFont"
                             android:layout_weight="2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -237,7 +237,7 @@
                     android:textSize="16sp"
                     android:gravity="bottom"
                     android:text="Check connection"
-                    android:textColor="@color/BLACK"
+                    android:textColor="@color/newFont"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
@@ -247,7 +247,7 @@
                     android:textSize="16sp"
                     android:gravity="top"
                     android:text="Check GPS"
-                    android:textColor="@color/BLACK"
+                    android:textColor="@color/newFont"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

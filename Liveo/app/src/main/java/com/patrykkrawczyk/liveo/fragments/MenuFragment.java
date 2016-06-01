@@ -137,28 +137,28 @@ public class MenuFragment extends AnimatedFragment {
                     startActivityForResult(intent, PICK_CONTACT);
                 } else {
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("")
-                            .setCancelText("DELETE")
-                            .setConfirmText("MODIFY")
-                            .showCancelButton(true)
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sDialog) {
-                                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                                    startActivityForResult(intent, PICK_CONTACT);
-                                    sDialog.cancel();
-                                }
-                            })
-                            .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sDialog) {
-                                    LiveoApplication.iceContactList.set(pickedContact - 1, null);
-                                    loadIceViews();
-                                    saveIceViews();
-                                    sDialog.cancel();
-                                }
-                            })
-                            .show();
+                        .setTitleText("")
+                        .setCancelText("DELETE")
+                        .setConfirmText("MODIFY")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                                startActivityForResult(intent, PICK_CONTACT);
+                                sDialog.cancel();
+                            }
+                        })
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                LiveoApplication.iceContactList.set(pickedContact - 1, null);
+                                loadIceViews();
+                                saveIceViews();
+                                sDialog.cancel();
+                            }
+                        })
+                        .show();
                 }
             }
         }
@@ -254,10 +254,10 @@ public class MenuFragment extends AnimatedFragment {
         SelectableRoundedImageView icon = (SelectableRoundedImageView) layout.getChildAt(0);
         TextView label = (TextView) layout.getChildAt(1);
 
-        label.setTextColor(getActivity().getResources().getColor(R.color.BLACK));
+        label.setTextColor(getActivity().getResources().getColor(R.color.newFont));
         label.setText(contact.name);
 
-        icon.setBorderColor(getActivity().getResources().getColor(R.color.BLACK));
+        icon.setBorderColor(getActivity().getResources().getColor(R.color.newFont));
 
         if (contact.photoUri != null) {
             icon.setImageURI(Uri.parse(contact.photoUri));

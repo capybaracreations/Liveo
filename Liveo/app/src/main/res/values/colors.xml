@@ -9,15 +9,17 @@
 
     <color name="BLACK">#000000</color>
     <color name="WHITE">#FFFFFF</color>
-    <color name="RED">#F44336</color>
     <color name="GREEN">#4caf50</color>
 
     <color name="SHIMMER">#ffffff</color>
     <color name="showcaseBackground">#dc000000</color>
     <color name="colorRipple">#448AFF</color>
     <color name="colorLogo">#448AFF</color>
-    <color name="newAccent">#1fc1a0</color>
 
+
+    <color name="newAccent">#1fc1a0</color>
     <color name="background">#f2f2f2</color>
+    <color name="newFont">#cc000000</color>
+    <color name="alert">#DD6B55</color>
 
 </resources>

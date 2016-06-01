@@ -29,8 +29,6 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 
     @Bind(R.id.submitButton)
     MaterialIconView submitButton;
-    @Bind(R.id.calibrateImage)
-    ImageView calibrateImage;
 
     private SensorManager sensorManager;
     private Sensor sensor;
@@ -42,10 +40,6 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
         setContentView(R.layout.activity_calibrate);
 
         ButterKnife.bind(this);
-        SVG svg = SVGParser.getSVGFromResource(getResources(),
-                R.raw.carholder);
-
-        calibrateImage.setImageDrawable(svg.createPictureDrawable());
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

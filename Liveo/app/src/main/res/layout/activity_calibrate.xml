@@ -18,8 +18,7 @@
         app:layout_widthPercent="100%">
 
         <ImageView
-            android:background="@color/newAccent"
-            android:id="@+id/calibrateImage"
+            android:src="@drawable/calibrate"
             android:layerType="software"
             android:layout_weight="8"
             android:layout_width="match_parent"

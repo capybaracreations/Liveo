@@ -59,14 +59,12 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     @Bind(R.id.submitButton)        MaterialIconView submitButton;
     @Bind(R.id.splashText)          ShimmerTextView splashText;
     @Bind(R.id.helloText)           TextView helloText;
-    @Bind(R.id.registerText)           TextView registerText;
+    @Bind(R.id.registerText)        TextView registerText;
     @Bind(R.id.loginForm)           LinearLayout loginForm;
     @Bind(R.id.loadingView)         AVLoadingIndicatorView loadingView;
 
     private Shimmer shimmer;
     private Driver driver;
-    protected final int RIPPLE_SPEED = 400;
-    protected MaterialRippleLayout ripple;
     Retrofit retrofit;
 
     @Override
@@ -99,23 +97,6 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
         pinEditText.setEnabled(false);
         submitButton.setEnabled(false);
 
-        ripple = MaterialRippleLayout.on(findViewById(R.id.rippleView))
-                .rippleOverlay(true)
-                .rippleColor(getResources().getColor(R.color.colorRipple))
-                .rippleAlpha((float)0.20)
-                .ripplePersistent(false)
-                .rippleDuration(RIPPLE_SPEED)
-                .rippleDelayClick(false)
-                .rippleFadeDuration(100)
-                .create();
-        ripple.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-        ripple.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) { return true; }
-        });
     }
 
     private void loadIceContacts() {
@@ -172,8 +153,6 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     @OnTouch(R.id.submitButton)
     public boolean onSubmitButton(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP && submitButton.isEnabled()) {
-            Point point = new Point((int)event.getRawX(), (int)event.getRawY());
-            ripple.performRipple(point);
             validate();
         }
         return true;
@@ -229,7 +208,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
                         .playOn(view);
             }
         } else {
-            submitButton.setColor(getResources().getColor(R.color.colorAccent));
+            submitButton.setColor(getResources().getColor(R.color.newAccent));
             usernameEditText.setEnabled(false);
             pinEditText.setEnabled(false);
             submitButton.setEnabled(false);
@@ -247,7 +226,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
         if (response.code() == 400) {
             onFailure(null, null);
-            submitButton.setColor(getResources().getColor(R.color.RED));
+            submitButton.setColor(getResources().getColor(R.color.alert));
         } else {
             try {
                 String body = response.body().string();
