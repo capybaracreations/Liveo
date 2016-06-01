@@ -18,19 +18,19 @@
     </style>
 
     <style name="ShowcaseTheme" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">@color/showcaseBackground</item>
-        <item name="sv_showcaseColor">@color/colorAccent</item>
+        <item name="sv_backgroundColor">@color/newFont</item>
+        <item name="sv_showcaseColor">@color/background</item>
         <item name="sv_titleTextAppearance">@style/CustomTitle2</item>
         <item name="sv_detailTextAppearance">@style/CustomText2</item>
         <item name="sv_buttonText">Next</item>
     </style>
 
     <style name="CustomTitle2" >
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/background</item>
     </style>
 
     <style name="CustomText2" >
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/background</item>
     </style>
 
     <style name="materialEditText">
@@ -47,12 +47,12 @@
         <item name="met_iconPadding">0dp</item>
         <item name="met_floatingLabel">highlight</item>
         <item name="met_floatingLabelTextSize">18sp</item>
-        <item name="met_baseColor">@color/colorAccent</item>
-        <item name="met_primaryColor">@color/colorAccent</item>
-        <item name="met_textColor">@color/colorFont</item>
-        <item name="met_textColorHint">@color/colorFont</item>
-        <item name="met_underlineColor">@color/WHITE</item>
-        <item name="met_floatingLabelTextColor">@color/colorAccent</item>
+        <item name="met_baseColor">@color/newAccent</item>
+        <item name="met_primaryColor">@color/newAccent</item>
+        <item name="met_textColor">@color/newFont</item>
+        <item name="met_textColorHint">@color/newFont</item>
+        <item name="met_underlineColor">@color/newFont</item>
+        <item name="met_floatingLabelTextColor">@color/BLACK</item>
     </style>
 
     <style name="splashEditText">
@@ -74,7 +74,7 @@
         <item name="met_textColor">@color/newFont</item>
         <item name="met_textColorHint">@color/newFont</item>
         <item name="met_underlineColor">@color/newFont</item>
-        <item name="met_floatingLabelTextColor">@color/newAccent</item>
+        <item name="met_floatingLabelTextColor">@color/BLACK</item>
     </style>
 
 

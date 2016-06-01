@@ -9,46 +9,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+
+    <ImageView
+        android:layout_alignParentTop="true"
+        android:id="@+id/calibrateImage"
+        android:layout_margin="15dp"
+        android:src="@drawable/calibrate"
+        android:layerType="software"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="10"
-        app:layout_heightPercent="100%"
-        app:layout_widthPercent="100%">
+        app:layout_heightPercent="60%"
+        app:layout_widthPercent="100%"/>
 
-        <ImageView
-            android:src="@drawable/calibrate"
-            android:layerType="software"
-            android:layout_weight="8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="9dp"
-            android:id="@+id/instructionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/LIVEO_CALIBRATE_INSTRUCTION"
-            android:gravity="center"
-            android:textColor="@color/colorFont"
-            android:textSize="20sp"
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/Roboto-Light.ttf"/>
-        <net.steamcrafted.materialiconlib.MaterialIconView
-            android:layout_weight="1"
-            android:layout_marginTop="9dp"
-            android:id="@+id/submitButton"
-            android:scaleType="fitXY"
-            android:layout_gravity="center"
-            app:materialIcon="check"
-            app:materialIconColor="@color/colorFont"
-            android:layout_height="50dp"
-            android:layout_width="match_parent"/>
-    </LinearLayout>
+    <TextView
+        app:layout_heightPercent="20%"
+        app:layout_widthPercent="100%"
+        android:layout_below="@id/calibrateImage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/instructionText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/LIVEO_CALIBRATE_INSTRUCTION"
+        android:gravity="center"
+        android:textColor="@color/colorFont"
+        android:textSize="20sp"
+        tools:ignore="MissingPrefix"
+        fontPath="fonts/Roboto-Light.ttf"/>
+    <net.steamcrafted.materialiconlib.MaterialIconView
+        android:layout_below="@id/instructionText"
+        app:layout_heightPercent="20%"
+        app:layout_widthPercent="100%"
+        android:id="@+id/submitButton"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        app:materialIcon="check"
+        app:materialIconColor="@color/colorFont"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
 
 </android.support.percent.PercentRelativeLayout>

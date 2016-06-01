@@ -14,6 +14,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,77 +29,91 @@
             tools:ignore="MissingPrefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#3a4f62"
+            android:textColor="@color/colorSecondary"
             android:textSize="75sp"
             android:layout_centerInParent="true"/>
 
         <FrameLayout
-            android:layout_centerInParent="true"
             android:layout_height="match_parent"
             android:layout_width="match_parent">
-            <LinearLayout
-                android:alpha="0"
+            <android.support.v7.widget.CardView
+                android:layout_below="@id/splashText"
                 android:id="@+id/loginForm"
-                android:gravity="center"
+                android:alpha="0"
+                android:background="#ffffff"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center">
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:layout_marginTop="25dp"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                card_view:cardPreventCornerOverlap="false"
+                card_view:contentPadding="0dp">
+                <LinearLayout
                     android:gravity="center"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:id="@+id/usernameEditText"
-                    app:met_clearButton="false"
-                    android:layout_centerInParent="true"
-                    style="@style/splashEditText"
-                    android:inputType="textNoSuggestions"
-                    android:hint="Username"/>
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:gravity="center"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:id="@+id/pinEditText"
-                    android:layout_centerInParent="true"
-                    style="@style/splashEditText"
-                    app:met_clearButton="false"
-                    android:inputType="numberPassword"
-                    app:met_minCharacters="4"
-                    android:hint="PIN"/>
-                <TextView
-                    android:alpha="0.75"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginBottom="9dp"
-                    android:id="@+id/registerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/LIVEO_REGISTER_BUTTON"
-                    android:gravity="center"
-                    android:textColor="@color/newFont"
-                    android:textColorLink="@color/newAccent"
-                    android:textSize="20sp"
-                    tools:ignore="MissingPrefix"
-                    fontPath="fonts/Roboto-Light.ttf"/>
-                <net.steamcrafted.materialiconlib.MaterialIconView
-                    android:layout_marginTop="9dp"
-                    android:id="@+id/submitButton"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center"
-                    app:materialIcon="check"
-                    app:materialIconColor="@color/newFont"
-                    android:layout_height="75dp"
-                    android:layout_width="match_parent"/>
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/loadingView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    app:indicator="BallPulse"
-                    app:indicator_color="@color/newAccent"/>
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center">
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_marginTop="25dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:id="@+id/usernameEditText"
+                        app:met_clearButton="false"
+                        android:layout_centerInParent="true"
+                        style="@style/splashEditText"
+                        android:inputType="textNoSuggestions"
+                        android:hint="Username"/>
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        app:met_errorColor="@color/newAccent"
+                        android:gravity="center"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:id="@+id/pinEditText"
+                        android:layout_centerInParent="true"
+                        style="@style/splashEditText"
+                        app:met_clearButton="false"
+                        android:inputType="numberPassword"
+                        app:met_minCharacters="4"
+                        android:hint="PIN"/>
+                    <TextView
+                        android:alpha="0.75"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:id="@+id/registerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/LIVEO_REGISTER_BUTTON"
+                        android:gravity="center"
+                        android:textColor="@color/newFont"
+                        android:textColorLink="@color/newAccent"
+                        android:textSize="20sp"
+                        tools:ignore="MissingPrefix"
+                        fontPath="fonts/Roboto-Light.ttf"/>
+                    <net.steamcrafted.materialiconlib.MaterialIconView
+                        android:layout_marginTop="9dp"
+                        android:id="@+id/submitButton"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center"
+                        app:materialIcon="check"
+                        app:materialIconColor="@color/newFont"
+                        android:layout_height="75dp"
+                        android:layout_width="match_parent"/>
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/loadingView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        app:indicator="BallPulse"
+                        app:indicator_color="@color/newAccent"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
             <TextView
                 android:layout_gravity="center"
                 android:gravity="center"

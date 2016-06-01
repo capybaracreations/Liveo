@@ -74,7 +74,7 @@ public class GuideManager implements OnShowcaseEventListener {
         instance.guide.setTitleTextAlignment(Layout.Alignment.ALIGN_CENTER);
         instance.guide.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
 
-        if (instance.tutorialStage == 2) instance.guide.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
+        if (instance.tutorialStage == 1) instance.guide.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
 
         instance.saveState(activity);
 
@@ -114,6 +114,7 @@ public class GuideManager implements OnShowcaseEventListener {
         instance.tutorialStage = 4;
         instance.showGuide = false;
         instance.saveState(activity);
+        instance.guide.hide();
     }
 
     public static void resetGuide(Activity activity) {

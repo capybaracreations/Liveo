@@ -108,8 +108,9 @@ public class MenuFragment extends AnimatedFragment {
     }
 
 
-    private void onButtonTouch(MotionEvent event, Page page) {
+    private void onButtonTouch(MotionEvent event, Page page, View view) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            animateViewTouch(view);
             touchEnabled = false;
             GuideManager.hideGuide();
             eventBus.post(new SwitchPageEvent(page));
@@ -117,8 +118,9 @@ public class MenuFragment extends AnimatedFragment {
         }
     }
 
-    private void onIceClick(MotionEvent event, int contact) {
+    private void onIceClick(MotionEvent event, int contact, View view) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            animateViewTouch(view);
             pickedContact = contact;
             IceContact iceContact = LiveoApplication.iceContactList.get(pickedContact-1);
 
@@ -196,6 +198,10 @@ public class MenuFragment extends AnimatedFragment {
                             contact = null;
                         }
 
+                        if (GuideManager.getStage() == 1) {
+                            GuideManager.incrementStage();
+                            eventBus.post(new ShowGuideEvent());
+                        }
                         LiveoApplication.iceContactList.set(pickedContact - 1, contact);
                         loadIceViews();
                         saveIceViews();
@@ -284,6 +290,7 @@ public class MenuFragment extends AnimatedFragment {
     @OnTouch(R.id.triggerButton)
     public boolean onTouchTrigger(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+            animateViewTouch(view);
             Intent intent;
             if (AccelerometerViewManager.isCalibrated()) {
                 intent = new Intent(getContext(), HubActivity.class);
@@ -299,7 +306,7 @@ public class MenuFragment extends AnimatedFragment {
     @OnTouch(R.id.driverButton)
     public boolean onTouchDriver(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 0)) {
-            onButtonTouch(event, Page.DRIVER);
+            onButtonTouch(event, Page.DRIVER, view);
         }
         return true;
     }
@@ -307,21 +314,21 @@ public class MenuFragment extends AnimatedFragment {
     @OnTouch(R.id.iceButton1)
     public boolean onTouchIce1(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onIceClick(event, 1);
+            onIceClick(event, 1, view);
         }
         return true;
     }
     @OnTouch(R.id.iceButton2)
     public boolean onTouchIce2(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onIceClick(event, 2);
+            onIceClick(event, 2, view);
         }
         return true;
     }
     @OnTouch(R.id.iceButton3)
     public boolean onTouchIce3(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onIceClick(event, 3);
+            onIceClick(event, 3, view);
         }
         return true;
     }

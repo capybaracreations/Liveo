@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.balysv.materialripple.MaterialRippleLayout;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,12 +24,14 @@ import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import android.support.v7.widget.CardView;
 import android.text.InputFilter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,7 +61,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     @Bind(R.id.splashText)          ShimmerTextView splashText;
     @Bind(R.id.helloText)           TextView helloText;
     @Bind(R.id.registerText)        TextView registerText;
-    @Bind(R.id.loginForm)           LinearLayout loginForm;
+    @Bind(R.id.loginForm)           CardView loginForm;
     @Bind(R.id.loadingView)         AVLoadingIndicatorView loadingView;
 
     private Shimmer shimmer;
@@ -78,7 +79,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
                 .baseUrl(getString(R.string.LIVEO_API_URL))
                 .build();
 
-        shimmer = new Shimmer().setDuration(SPLASH_DISPLAY_LENGTH);
+        shimmer = new Shimmer().setDuration(SPLASH_DISPLAY_LENGTH/3*2);
 
         YoYo.with(Techniques.FadeIn)
                 .withListener(setupShowAnimator())
@@ -153,6 +154,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     @OnTouch(R.id.submitButton)
     public boolean onSubmitButton(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP && submitButton.isEnabled()) {
+            animateViewTouch(v);
             validate();
         }
         return true;
@@ -341,6 +343,13 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
 
             }
         };
+    }
+
+    private void animateViewTouch(View view) {
+        YoYo.with(Techniques.Pulse)
+                .interpolate(new AccelerateInterpolator())
+                .duration(500)
+                .playOn(view);
     }
 
     @Override
