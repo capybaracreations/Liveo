@@ -127,7 +127,7 @@
                     app:rb_scale="3">
                     <ImageView
                         android:layout_centerInParent="true"
-                        android:src="@drawable/phone2"
+                        android:src="@drawable/heart"
                         android:layout_width="match_parent"
                         android:layout_height="75dp" />
                     <TextView

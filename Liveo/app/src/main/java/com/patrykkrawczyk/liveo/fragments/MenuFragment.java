@@ -290,15 +290,14 @@ public class MenuFragment extends AnimatedFragment {
     @OnTouch(R.id.triggerButton)
     public boolean onTouchTrigger(View view, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
-            animateViewTouch(view);
-            Intent intent;
             if (AccelerometerViewManager.isCalibrated()) {
-                intent = new Intent(getContext(), HubActivity.class);
+                animateViewTouch(view);
+                Intent intent = new Intent(getContext(), HubActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             } else {
-                intent = new Intent(getContext(), CalibrateActivity.class);
+                onButtonTouch(event, Page.CALIBRATION, view);
             }
-            startActivity(intent);
-            getActivity().finish();
         }
         return true;
     }

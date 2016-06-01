@@ -31,7 +31,7 @@ public class AnimatedFragment extends Fragment {
     public boolean touchEnabled = false;
 
     public enum Page {
-        MENU, DRIVER
+        MENU, DRIVER, CALIBRATION
     }
 
     protected int layoutId;

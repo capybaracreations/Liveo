@@ -1,83 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
+
+
+<android.support.percent.PercentRelativeLayout
     android:background="@color/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/menuLayout"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="*" >
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        app:layout_heightPercent="80%"
+        android:layout_alignParentTop="true"
+        android:id="@+id/driverCard"
+        android:background="#ffffff"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:contentPadding="0dp">
+
         <LinearLayout
             android:orientation="vertical"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            app:layout_heightPercent="100%"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <TableRow
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:id="@+id/firstNameEditText"
-                        android:layout_centerInParent="true"
-                        style="@style/materialEditText"
-                        android:inputType="textNoSuggestions"
-                        android:layout_weight="1"
-                        android:hint="First Name"/>
-                </RelativeLayout>
-            </TableRow>
-            <TableRow
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:id="@+id/lastNameEditText"
-                        android:layout_centerInParent="true"
-                        style="@style/materialEditText"
-                        android:inputType="textNoSuggestions"
-                        android:layout_weight="1"
-                        android:hint="Last Name"/>
-                </RelativeLayout>
-            </TableRow>
-            <TableRow
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:id="@+id/registrationNumberEditText"
-                        android:layout_centerInParent="true"
-                        style="@style/materialEditText"
-                        android:inputType="textNoSuggestions"
-                        android:layout_weight="1"
-                        android:hint="Registration Number"/>
-                </RelativeLayout>
-            </TableRow>
-
-
-            <TableRow
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/firstNameEditText"
+                style="@style/materialEditText"
+                android:inputType="textNoSuggestions"
+                android:hint="First Name"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/lastNameEditText"
+                style="@style/materialEditText"
+                android:inputType="textNoSuggestions"
+                android:hint="Last Name"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/registrationNumberEditText"
+                style="@style/materialEditText"
+                android:inputType="textNoSuggestions"
+                android:hint="Registration Number"/>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent">
                 <net.steamcrafted.materialiconlib.MaterialIconView
                     android:layout_weight="1"
@@ -95,70 +87,67 @@
                     android:scaleType="center"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"/>
-            </TableRow>
+            </LinearLayout>
 
-            <TableRow
+            <LinearLayout
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
-                <LinearLayout
-                    android:orientation="horizontal"
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/teenSelection"
+                    android:textColor="@color/newFont"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/teenSelection"
-                        android:textColor="@color/newFont"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textStyle="bold"
-                        android:textSize="30sp"
-                        fontPath="fonts/Roboto-Medium.ttf"
-                        android:text="TEEN" />
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/adultSelection"
-                        android:textColor="@color/newFont"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textStyle="bold"
-                        android:textSize="30sp"
-                        fontPath="fonts/Roboto-Medium.ttf"
-                        android:text="ADULT"/>
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/seniorSelection"
-                        android:textColor="@color/newFont"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="1"
-                        android:textStyle="bold"
-                        fontPath="fonts/Roboto-Bold.ttf"
-                        android:textSize="30sp"
-                        android:text="SENIOR"/>
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/confirmButton"
-                    app:materialIcon="check"
-                    app:materialIconColor="@color/newFont"
-                    android:scaleType="center"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    fontPath="fonts/Roboto-Medium.ttf"
+                    android:text="TEEN" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/adultSelection"
+                    android:textColor="@color/newFont"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_width="match_parent"/>
-            </TableRow>
-        </LinearLayout>
-</TableLayout>
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    fontPath="fonts/Roboto-Medium.ttf"
+                    android:text="ADULT"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/seniorSelection"
+                    android:textColor="@color/newFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    fontPath="fonts/Roboto-Bold.ttf"
+                    android:textSize="30sp"
+                    android:text="SENIOR"/>
+            </LinearLayout>
 
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <net.steamcrafted.materialiconlib.MaterialIconView
+        app:layout_heightPercent="20%"
+        android:layout_below="@id/driverCard"
+        android:id="@+id/confirmButton"
+        app:materialIcon="check"
+        app:materialIconColor="@color/newFont"
+        android:scaleType="center"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+</android.support.percent.PercentRelativeLayout>
 
 
 

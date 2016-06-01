@@ -143,11 +143,6 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         return true;
     }
 
-    @OnTouch(R.id.menuLayout)
-    public boolean onMenuTouch(View v, MotionEvent event) {
-        return false;
-    }
-
     @Subscribe
     public void onScrollStoppedEvent(ScrollStoppedEvent event) {
         touchEnabled = true;
