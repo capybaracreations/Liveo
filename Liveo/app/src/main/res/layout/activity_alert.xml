@@ -39,7 +39,7 @@
             app:wlv_titleCenterSize="24sp"
             app:wlv_waveAmplitude="70"
             android:layout_margin="24dp"
-            app:wlv_waveColor="@color/alert"/>
+            app:wlv_waveColor="@color/disabled"/>
         <info.hoang8f.widget.FButton
             android:id="@+id/safeButton"
             android:textColor="#ffffff"

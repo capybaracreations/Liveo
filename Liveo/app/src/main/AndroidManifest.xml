@@ -80,8 +80,16 @@
             android:name="GearAppType"
             android:value="wgt"/>
 
-        <activity android:name=".activities.TestingActivity">
-        </activity>
+        <activity android:name=".activities.TestingActivity"/>
+
+        <receiver android:name=".ConnectionChangeReceiver"
+                  android:label="NetworkConnection"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -1,16 +1,21 @@
 package com.patrykkrawczyk.liveo.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.location.GpsStatus;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +27,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.joooonho.SelectableRoundedImageView;
+import com.patrykkrawczyk.liveo.ConnectionChangeReceiver;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.LiveoApplication;
 import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
@@ -49,14 +55,38 @@ import butterknife.Bind;
 import butterknife.OnTouch;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MenuFragment extends AnimatedFragment {
+public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener {
 
-    @Bind(R.id.driverButton)  Button   driverButton;
-    @Bind(R.id.triggerButton) FrameLayout triggerButton;
-    @Bind(R.id.iceButton1)    LinearLayout iceButton1;
-    @Bind(R.id.iceButton2)    LinearLayout iceButton2;
-    @Bind(R.id.iceButton3)    LinearLayout iceButton3;
+    @Bind(R.id.menuConnectionIcon)
+    MaterialIconView menuConnectionIcon;
+    @Bind(R.id.menuGpsIcon)
+    MaterialIconView menuGpsIcon;
 
+    @Bind(R.id.driverButton)
+    Button driverButton;
+    @Bind(R.id.triggerButton)
+    FrameLayout triggerButton;
+    @Bind(R.id.iceButton1)
+    LinearLayout iceButton1;
+    @Bind(R.id.iceButton2)
+    LinearLayout iceButton2;
+    @Bind(R.id.iceButton3)
+    LinearLayout iceButton3;
+
+    @Bind(R.id.menuDriverFirstName)
+    TextView menuDriverFirstName;
+    @Bind(R.id.menuDriverLastName)
+    TextView menuDriverLastName;
+    @Bind(R.id.menuDriverAgeGroup)
+    TextView menuDriverAgeGroup;
+    @Bind(R.id.menuDriverGender)
+    TextView menuDriverGender;
+    @Bind(R.id.menuDriverRegNumber)
+    TextView menuDriverRegNumber;
+    @Bind(R.id.menuDriverGenderIcon)
+    MaterialIconView menuDriverGenderIcon;
+
+    LocationManager locationManager;
     private int pickedContact = -1;
     private static final int PICK_CONTACT = 4444;
     private static boolean firstTimeRun = true;
@@ -86,11 +116,44 @@ public class MenuFragment extends AnimatedFragment {
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
 
+        ConnectionChangeReceiver ccr = new ConnectionChangeReceiver();
+
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            locationManager.addGpsStatusListener(this);
+        }
+
+
+        loadDriverViews();
         loadIceViews();
         /*driverName = (TextView) driverButton.findViewById(R.id.driverText);
         Driver driver = Driver.getLocalDriver(getContext());
         if (driver == null) driverName.setText("Driver");
         else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());*/
+    }
+
+    private void loadDriverViews() {
+        Driver driver = Driver.getLocalDriver(getActivity());
+
+        if (!driver.getFirstName().isEmpty()) menuDriverFirstName.setText(driver.getFirstName());
+        else menuDriverGender.setText("EMPTY");
+        if (!driver.getLastName().isEmpty()) menuDriverLastName.setText(driver.getLastName());
+        else menuDriverLastName.setText("EMPTY");
+        if (!driver.getAgeGroup().isEmpty()) menuDriverAgeGroup.setText(driver.getAgeGroup());
+        else menuDriverAgeGroup.setText("EMPTY");
+
+        if (!driver.getRegisterNumber().isEmpty()) menuDriverRegNumber.setText(driver.getRegisterNumber());
+        else menuDriverRegNumber.setText("EMPTY");
+
+        if (!driver.getGender().isEmpty()) {
+            menuDriverGender.setText(driver.getGender());
+            if (driver.getGender().equals("MALE"))
+                menuDriverGenderIcon.setIcon(MaterialDrawableBuilder.IconValue.GENDER_MALE);
+            else menuDriverGenderIcon.setIcon(MaterialDrawableBuilder.IconValue.GENDER_FEMALE);
+        } else
+            menuDriverGender.setText("EMPTY");
     }
 
     @Subscribe
@@ -284,7 +347,7 @@ public class MenuFragment extends AnimatedFragment {
         label.setTextColor(getActivity().getResources().getColor(R.color.newAccent));
         label.setText("ADD");
 
-        icon.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.plus));
+        icon.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.plus_circle));
         icon.setBorderColor(getActivity().getResources().getColor(R.color.newAccent));
     }
 
@@ -359,5 +422,14 @@ public class MenuFragment extends AnimatedFragment {
         Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long
                 .parseLong(id));
         return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+    }
+
+    @Override
+    public void onGpsStatusChanged(int event) {
+        if (event == GpsStatus.GPS_EVENT_STARTED) {
+            menuGpsIcon.setColor(getResources().getColor(R.color.enabled));
+        } else if (event == GpsStatus.GPS_EVENT_STOPPED) {
+            menuGpsIcon.setColor(getResources().getColor(R.color.disabled));
+        }
     }
 }

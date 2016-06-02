@@ -105,28 +105,28 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         if (!ln.isEmpty()) lastNameEditText.setText(ln);
         if (!rn.isEmpty()) registrationNumberEditText.setText(rn);
         if (!g.isEmpty()) {
-            if (g.equals("male")) {
+            if (g.equals("MALE")) {
                 gender = Gender.MALE;
                 femaleSelection.setColor(getResources().getColor(R.color.newFont));
                 maleSelection.setColor(getResources().getColor(R.color.newAccent));
-            } else if (g.equals("female")) {
+            } else if (g.equals("FEMALE")) {
                 gender = Gender.FEMALE;
                 maleSelection.setColor(getResources().getColor(R.color.newFont));
                 femaleSelection.setColor(getResources().getColor(R.color.newAccent));
             }
         }
         if (!ag.isEmpty()) {
-            if (ag.equals("teen")) {
+            if (ag.equals("TEEN")) {
                 ageGroup = AgeGroup.TEEN;
                 adultSelection.setTextColor(getResources().getColor(R.color.newFont));
                 teenSelection.setTextColor(getResources().getColor(R.color.newAccent));
                 seniorSelection.setTextColor(getResources().getColor(R.color.newFont));
-            } else if (ag.equals("adult")) {
+            } else if (ag.equals("ADULT")) {
                 ageGroup = AgeGroup.ADULT;
                 teenSelection.setTextColor(getResources().getColor(R.color.newFont));
                 adultSelection.setTextColor(getResources().getColor(R.color.newAccent));
                 seniorSelection.setTextColor(getResources().getColor(R.color.newFont));
-            } else if (ag.equals("senior")) {
+            } else if (ag.equals("SENIOR")) {
                 ageGroup = AgeGroup.SENIOR;
                 teenSelection.setTextColor(getResources().getColor(R.color.newFont));
                 seniorSelection.setTextColor(getResources().getColor(R.color.newAccent));
@@ -203,12 +203,12 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         String sGender = "";
         String sAgeGroup = "";
 
-        if (gender == Gender.MALE) sGender = "male";
-        else if (gender == Gender.FEMALE) sGender = "female";
+        if (gender == Gender.MALE) sGender = "MALE";
+        else if (gender == Gender.FEMALE) sGender = "FEMALE";
 
-        if (ageGroup == AgeGroup.TEEN) sAgeGroup = "teen";
-        else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "adult";
-        else if (ageGroup == AgeGroup.SENIOR) sAgeGroup = "senior";
+        if (ageGroup == AgeGroup.TEEN) sAgeGroup = "TEEN";
+        else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "ADULT";
+        else if (ageGroup == AgeGroup.SENIOR) sAgeGroup = "SENIOR";
 
         driver.setId(id);
         driver.setFirstName(firstNameEditText.getText().toString());

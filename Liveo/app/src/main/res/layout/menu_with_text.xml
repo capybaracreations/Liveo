@@ -68,7 +68,7 @@
                             android:layout_height="match_parent">
                             <net.steamcrafted.materialiconlib.MaterialIconView
                                 style="@style/driverInformationIcon"
-                                app:materialIconColor="@color/colorSecondary"
+                                app:materialIconColor="@color/newAccent"
                                 app:materialIcon="account"/>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -94,7 +94,7 @@
                             android:layout_height="match_parent">
                             <net.steamcrafted.materialiconlib.MaterialIconView
                                 style="@style/driverInformationIcon"
-                                app:materialIconColor="@color/colorSecondary"
+                                app:materialIconColor="@color/newAccent"
                                 app:materialIcon="account_switch"/>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -120,7 +120,7 @@
                             android:layout_height="match_parent">
                             <net.steamcrafted.materialiconlib.MaterialIconView
                                 style="@style/driverInformationIcon"
-                                app:materialIconColor="@color/colorSecondary"
+                                app:materialIconColor="@color/newAccent"
                                 app:materialIcon="car"/>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -154,7 +154,7 @@
                             android:layout_height="match_parent">
                             <net.steamcrafted.materialiconlib.MaterialIconView
                                 style="@style/driverInformationIcon"
-                                app:materialIconColor="@color/colorSecondary"
+                                app:materialIconColor="@color/newAccent"
                                 app:materialIcon="account"/>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -181,7 +181,7 @@
                             <net.steamcrafted.materialiconlib.MaterialIconView
                                 android:id="@+id/menuDriverGenderIcon"
                                 style="@style/driverInformationIcon"
-                                app:materialIconColor="@color/colorSecondary"
+                                app:materialIconColor="@color/newAccent"
                                 app:materialIcon="gender_male_female"/>
                             <LinearLayout
                                 android:layout_weight="1"
@@ -205,7 +205,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <Button
-                                android:layout_marginBottom="-11dp"
+                                android:layout_marginRight="11dp"
                                 android:background="#00000000"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentRight="true"
@@ -217,7 +217,7 @@
                                 android:text="MODIFY"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-                            </RelativeLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -378,10 +378,6 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_weight="1"
@@ -389,27 +385,52 @@
                     android:layout_height="match_parent">
                     <net.steamcrafted.materialiconlib.MaterialIconView
                         android:id="@+id/menuConnectionIcon"
-                        android:scaleType="center"
+                        android:scaleType="fitEnd"
                         android:layout_marginRight="9dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         app:materialIconColor="@color/newAccent"
                         app:materialIcon="wifi"/>
+                    <TextView
+                        android:id="@+id/menuConnectionIconText"
+                        android:layout_weight="1"
+                        fontPath="fonts/Roboto-Regular.ttf"
+                        tools:ignore="MissingPrefix"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical|bottom"
+                        android:text="Check connection"
+                        android:textColor="@color/newFont"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                     <net.steamcrafted.materialiconlib.MaterialIconView
                         android:id="@+id/menuGpsIcon"
-                        android:scaleType="center"
+                        android:scaleType="fitStart"
                         android:layout_marginRight="9dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         app:materialIconColor="@color/newAccent"
                         app:materialIcon="crosshairs_gps"/>
+                    <TextView
+                        android:id="@+id/menuGpsText"
+                        android:layout_weight="1"
+                        fontPath="fonts/Roboto-Regular.ttf"
+                        tools:ignore="MissingPrefix"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical|top"
+                        android:text="Check GPS"
+                        android:textColor="@color/newFont"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
                 </LinearLayout>
-                <Space
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+
             </LinearLayout>
         </LinearLayout>
 
