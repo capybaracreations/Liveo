@@ -255,9 +255,10 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
                         }
 
                         Uri photoUri = getPhotoUri(id);
+                        String strUri = null;
+                        if (photoUri != null) strUri = photoUri.toString();
 
-
-                        IceContact contact = new IceContact(id, name, number, photoUri.toString());
+                        IceContact contact = new IceContact(id, name, number, strUri);
                         if (!contact.validate()) {
                             contact = null;
                         }

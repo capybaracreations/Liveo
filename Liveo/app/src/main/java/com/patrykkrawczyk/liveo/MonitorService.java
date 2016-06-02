@@ -43,10 +43,10 @@ public class MonitorService extends Service {
         notificationManager  = new NotificationManager(this);
         dataBroadcaster      = DataBroadcaster.getDefault(this);
         sapManager           = new SapManager(this);
-        //sapBroadcaster       = SapBroadcaster.getDefault(this);
+        sapBroadcaster       = SapBroadcaster.getDefault(this);
 
         //sapManager.connect();
-        //dataBroadcaster.run();
+        dataBroadcaster.run();
 
         Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }

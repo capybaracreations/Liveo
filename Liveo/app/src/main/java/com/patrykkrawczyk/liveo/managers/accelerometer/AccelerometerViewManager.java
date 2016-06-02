@@ -38,8 +38,8 @@ public class AccelerometerViewManager {
         this.accelerometerChart = chart;
         accelerometerChart.setNoDataText(activity.getString(R.string.LIVEO_ACCELEROMETER_UNAVAILABLE));
 
-        colorPoint = activity.getResources().getColor(R.color.colorAccent);
-        colorGrid = activity.getResources().getColor(R.color.colorFont);
+        colorPoint = activity.getResources().getColor(R.color.newAccent);
+        colorGrid = activity.getResources().getColor(R.color.newFont);
 
         SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

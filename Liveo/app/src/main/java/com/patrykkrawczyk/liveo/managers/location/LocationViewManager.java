@@ -91,7 +91,7 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     }
 
     @Override
-    public void onMapClick(@NonNull LatLng point) { locked = false; }
+    public void onMapClick(@NonNull LatLng point) { centerView(); locked = false; }
 
     @Override
     public void onScroll() { locked = false; }
