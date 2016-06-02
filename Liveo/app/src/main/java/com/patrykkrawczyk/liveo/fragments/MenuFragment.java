@@ -179,6 +179,7 @@ public class MenuFragment extends AnimatedFragment {
                     if (c.moveToFirst()) {
                         String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
                         String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        name = name.split(" ")[0];
                         String number = "";
 
                         String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
@@ -192,7 +193,7 @@ public class MenuFragment extends AnimatedFragment {
 
                         Uri photoUri = getPhotoUri(id);
 
-                        
+
                         IceContact contact = new IceContact(id, name, number, photoUri.toString());
                         if (!contact.validate()) {
                             contact = null;
