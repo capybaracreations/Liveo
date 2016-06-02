@@ -77,5 +77,33 @@
         <item name="met_floatingLabelTextColor">@color/BLACK</item>
     </style>
 
+    <style name="driverInformationIcon">
+        <item name="android:scaleType">center</item>
+        <item name="android:layout_marginRight">9dp</item>
+        <item name="android:gravity">bottom|left</item>
+        <item name="android:text">Label</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="driverInformationLabel">
+        <item name="android:color">@color/newFont</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:gravity">bottom|left</item>
+        <item name="android:text">Label</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="driverInformationText">
+        <item name="android:color">@color/newFont</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:gravity">left|top</item>
+        <item name="android:text">EMPTY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 
 </resources>
