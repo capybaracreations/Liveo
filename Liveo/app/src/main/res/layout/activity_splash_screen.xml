@@ -24,7 +24,7 @@
         <com.romainpiel.shimmer.ShimmerTextView
             app:reflectionColor="@color/newAccent"
             android:id="@+id/splashText"
-            fontPath="fonts/Roboto-Thin.ttf"
+            fontPath="fonts/Roboto-Regular.ttf"
             android:text="LIVEO"
             tools:ignore="MissingPrefix"
             android:layout_width="wrap_content"

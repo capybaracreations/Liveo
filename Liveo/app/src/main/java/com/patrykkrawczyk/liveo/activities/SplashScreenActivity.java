@@ -79,7 +79,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
                 .baseUrl(getString(R.string.LIVEO_API_URL))
                 .build();
 
-        shimmer = new Shimmer().setDuration(SPLASH_DISPLAY_LENGTH/3*2);
+        shimmer = new Shimmer().setDuration(SPLASH_DISPLAY_LENGTH/2);
 
         YoYo.with(Techniques.FadeIn)
                 .withListener(setupShowAnimator())
