@@ -66,7 +66,9 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
 
     private Shimmer shimmer;
     private Driver driver;
-    Retrofit retrofit;
+    private Retrofit retrofit;
+    private String[] credentials;
+    private boolean immediateLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -100,6 +102,16 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
 
     }
 
+    private String[] loadLoginState() {
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+
+        String username = sharedPref.getString(getString(R.string.LIVEO_LOGIN_USERNAME),    "");
+        String pin = sharedPref.getString(getString(R.string.LIVEO_LOGIN_PIN),    "");
+        String[] credentials = {username, pin};
+
+        return credentials;
+    }
+
     private void loadIceContacts() {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
@@ -130,7 +142,26 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
     private void afterLogoShow() {
         shimmer.start(splashText);
 
-        driver = Driver.getLocalDriver(this);
+        credentials = loadLoginState();
+        if (credentials[0].isEmpty() || credentials[1].isEmpty()) {
+            usernameEditText.setEnabled(true);
+            pinEditText.setEnabled(true);
+            submitButton.setEnabled(true);
+
+            YoYo.with(Techniques.FadeIn)
+                    .interpolate(new AccelerateInterpolator())
+                    .duration(SPLASH_DISPLAY_LENGTH)
+                    .playOn(loginForm);
+        } else {
+            immediateLogin = true;
+            //loadingView.setVisibility(View.VISIBLE);
+            INetwork login = retrofit.create(INetwork.class);
+            Call<ResponseBody> call = login.login(credentials[0], credentials[1]);
+
+            call.enqueue(this);
+        }
+
+        /*driver = Driver.getLocalDriver(this);
         if (driver != null) {
             helloText.setText("Hello\n" + driver.getFirstName() + " " + driver.getLastName());
             YoYo.with(Techniques.FadeIn)
@@ -147,7 +178,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
                     .interpolate(new AccelerateInterpolator())
                     .duration(SPLASH_DISPLAY_LENGTH)
                     .playOn(loginForm);
-        }
+        }*/
 
     }
 
@@ -215,8 +246,11 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
             pinEditText.setEnabled(false);
             submitButton.setEnabled(false);
 
+            credentials[0] = usernameEditText.getText().toString();
+            credentials[1] = pinEditText.getText().toString();
+
             INetwork login = retrofit.create(INetwork.class);
-            Call<ResponseBody> call = login.login(usernameEditText.getText().toString(), pinEditText.getText().toString());
+            Call<ResponseBody> call = login.login(credentials[0], credentials[1]);
 
             call.enqueue(this);
             loadingView.setVisibility(View.VISIBLE);
@@ -230,19 +264,31 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
             onFailure(null, null);
             submitButton.setColor(getResources().getColor(R.color.alert));
         } else {
+            //loadingView.setVisibility(View.INVISIBLE);
             try {
                 String body = response.body().string();
                 ObjectMapper mapper = new ObjectMapper();
                 driver = mapper.readValue(body, Driver.class);
 
                 if (driver != null) {
+                    SharedPreferences preferences = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+
+                    editor.putString(getString(R.string.LIVEO_LOGIN_USERNAME), credentials[0]);
+                    editor.putString(getString(R.string.LIVEO_LOGIN_PIN), credentials[1]);
+                    editor.apply();
+
                     if (Driver.setCurrentDriver(this, driver)) {
+                        if (!immediateLogin) {
                             YoYo.with(Techniques.FadeOut)
                                     .withListener(setupFormAnimator())
-                                    .delay(SPLASH_DISPLAY_LENGTH/2)
+                                    .delay(SPLASH_DISPLAY_LENGTH / 2)
                                     .interpolate(new AccelerateInterpolator())
                                     .duration(SPLASH_DISPLAY_LENGTH)
                                     .playOn(loginForm);
+                        } else {
+                            afterFormHide();
+                        }
 
                     } else {
                         onFailure(null, null);

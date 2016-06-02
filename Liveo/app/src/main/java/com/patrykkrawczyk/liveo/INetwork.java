@@ -19,7 +19,7 @@ public interface INetwork {
     Call<ResponseBody> data (@Field("id") String id, @Field("latitude") String latitude,
                              @Field("longitude") String longitude, @Field("heartRate") String heartRate,
                              @Field("accX") String accX, @Field("accY") String accY,
-                             @Field("accZ") String accZ);
+                             @Field("accZ") String accZ, @Field("trip") String trip);
 
     @FormUrlEncoded
     @POST("api/getDriver.php")

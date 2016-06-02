@@ -9,6 +9,7 @@
     <string name="LIVEO_DRIVER_GENDER">liveoGender</string>
     <string name="LIVEO_DRIVER_AGEGROUP">liveoAgeGroup</string>
     <string name="LIVEO_DRIVER_REGISTRATION">liveoRegistration</string>
+    <string name="LIVEO_DRIVER_TRIP">liveoTrip</string>
     <string name="LIVEO_GUIDE_STAGE">liveoGuideStage</string>
     <string name="LIVEO_GUIDE_SHOW">liveoGuideShow</string>
     <string name="LIVEO_ICE_1_ID">liveIce1Id</string>
@@ -48,4 +49,6 @@
     <string name="buttonConnect">Connect</string>
     <string name="buttonDisconnect">Disconnect</string>
     <string name="buttonSend">Send</string>
+    <string name="LIVEO_LOGIN_PIN">liveoLoginPin</string>
+    <string name="LIVEO_LOGIN_USERNAME">liveoLoginUsername</string>
 </resources>

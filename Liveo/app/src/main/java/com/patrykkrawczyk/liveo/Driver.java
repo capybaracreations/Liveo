@@ -12,17 +12,19 @@ public class Driver {
     private String gender;
     private String ageGroup;
     private String registerNumber;
+    private String current_trip;
 
     public Driver() {
     }
 
-    public Driver(String id, String firstName, String lastName, String gender, String ageGroup, String registerNumber) {
+    public Driver(String id, String firstName, String lastName, String gender, String ageGroup, String registerNumber, String current_trip) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.ageGroup = ageGroup;
         this.registerNumber = registerNumber;
+        this.current_trip = current_trip;
     }
 
     /**
@@ -109,6 +111,13 @@ public class Driver {
         this.registerNumber = registerNumber;
     }
 
+    public String getCurrentTrip() {
+        return current_trip;
+    }
+    public void setCurrentTrip(String current_trip) {
+        this.current_trip = current_trip;
+    }
+
     public static Driver getLocalDriver(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
@@ -118,8 +127,9 @@ public class Driver {
         String cGender = preferences.getString(context.getString(R.string.LIVEO_DRIVER_GENDER), "");
         String cAgeGroup = preferences.getString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), "");
         String cRegistration = preferences.getString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), "");
+        String cTrip = preferences.getString(context.getString(R.string.LIVEO_DRIVER_TRIP), "");
 
-        Driver driver = new Driver(cId, cFirstName, cLastName, cGender, cAgeGroup, cRegistration);
+        Driver driver = new Driver(cId, cFirstName, cLastName, cGender, cAgeGroup, cRegistration, cTrip);
 
         if (validateDriver(driver)) return driver;
         else return null;
@@ -136,6 +146,7 @@ public class Driver {
             editor.putString(context.getString(R.string.LIVEO_DRIVER_GENDER), driver.getGender());
             editor.putString(context.getString(R.string.LIVEO_DRIVER_AGEGROUP), driver.getAgeGroup());
             editor.putString(context.getString(R.string.LIVEO_DRIVER_REGISTRATION), driver.getRegisterNumber());
+            editor.putString(context.getString(R.string.LIVEO_DRIVER_TRIP), driver.getCurrentTrip());
             editor.apply();
 
             return true;
