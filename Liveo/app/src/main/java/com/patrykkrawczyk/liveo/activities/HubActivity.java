@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -22,7 +21,7 @@ import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.location.LocationViewManager;
 import com.patrykkrawczyk.liveo.managers.sap.SapEvent;
 import com.skyfishjy.library.RippleBackground;
-
+import com.github.clans.fab.FloatingActionButton;
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,8 +35,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HubActivity extends AppCompatActivity implements ServiceConnection {
 
-    @Bind(R.id.closeButtonIcon)     MaterialIconView closeButtonIcon;
-    @Bind(R.id.closeButtonText)     TextView closeButtonText;
     @Bind(R.id.heartText)           TextView heartText;
     @Bind(R.id.heartRipple)         RippleBackground heartRipple;
     @Bind(R.id.accelerometerGraph)  ScatterChart accelerometerGraph;
@@ -94,7 +91,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         });
     }
 
-    @OnTouch(R.id.closeButton)
+    /*@OnTouch(R.id.closeButton)
     public boolean onCloseButton(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             closeButtonIcon.setColor(getResources().getColor(R.color.colorAccent));
@@ -103,7 +100,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
             goToMenu();
         }
         return true;
-    }
+    }*/
 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {

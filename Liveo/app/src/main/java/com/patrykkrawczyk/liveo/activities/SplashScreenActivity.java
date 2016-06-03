@@ -184,10 +184,14 @@ public class SplashScreenActivity extends AppCompatActivity implements Callback<
 
     @OnTouch(R.id.submitButton)
     public boolean onSubmitButton(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && submitButton.isEnabled()) {
-            animateViewTouch(v);
-            validate();
+        if (submitButton.isEnabled()) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                validate();
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
+
         return true;
     }
 

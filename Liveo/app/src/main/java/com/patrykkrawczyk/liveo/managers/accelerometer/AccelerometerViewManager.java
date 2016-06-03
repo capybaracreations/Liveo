@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 import com.github.mikephil.charting.charts.ScatterChart;
@@ -15,11 +14,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
-import com.patrykkrawczyk.liveo.managers.StateManager;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Patryk Krawczyk on 24.04.2016.

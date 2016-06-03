@@ -8,29 +8,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.location.GpsStatus;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.patrykkrawczyk.liveo.ConnectionChangeReceiver;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.LiveoApplication;
-import com.patrykkrawczyk.liveo.activities.CalibrateActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.managers.IceContact;
@@ -40,8 +33,6 @@ import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.events.ShowGuideEvent;
 import com.patrykkrawczyk.liveo.activities.HubActivity;
-import com.patrykkrawczyk.liveo.managers.StateManager;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -170,10 +161,10 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
         touchEnabled = true;
     }
 
-
     private void onButtonTouch(MotionEvent event, Page page, View view) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             animateViewTouch(view);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
             touchEnabled = false;
             GuideManager.hideGuide();
             eventBus.post(new SwitchPageEvent(page));
@@ -182,48 +173,51 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
     }
 
     private void onIceClick(MotionEvent event, int contact, View view) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
-            animateViewTouch(view);
-            pickedContact = contact;
-            IceContact iceContact = LiveoApplication.iceContactList.get(pickedContact-1);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(view);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                pickedContact = contact;
+                IceContact iceContact = LiveoApplication.iceContactList.get(pickedContact-1);
 
-            if (iceContact == null) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, PICK_CONTACT);
-            } else {
-                LinearLayout layout = null;
-                if (pickedContact == 1) layout = iceButton1;
-                else if (pickedContact == 2) layout = iceButton2;
-                else if (pickedContact == 3) layout = iceButton3;
-                TextView label = (TextView) layout.getChildAt(1);
-
-                if (label.getText().equals("ADD")) {
+                if (iceContact == null) {
                     Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                     startActivityForResult(intent, PICK_CONTACT);
                 } else {
-                    new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("")
-                        .setCancelText("DELETE")
-                        .setConfirmText("MODIFY")
-                        .showCancelButton(true)
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                                startActivityForResult(intent, PICK_CONTACT);
-                                sDialog.cancel();
-                            }
-                        })
-                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                LiveoApplication.iceContactList.set(pickedContact - 1, null);
-                                loadIceViews();
-                                saveIceViews();
-                                sDialog.cancel();
-                            }
-                        })
-                        .show();
+                    LinearLayout layout = null;
+                    if (pickedContact == 1) layout = iceButton1;
+                    else if (pickedContact == 2) layout = iceButton2;
+                    else if (pickedContact == 3) layout = iceButton3;
+                    TextView label = (TextView) layout.getChildAt(1);
+
+                    if (label.getText().equals("ADD")) {
+                        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                        startActivityForResult(intent, PICK_CONTACT);
+                    } else {
+                        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("")
+                                .setCancelText("DELETE")
+                                .setConfirmText("MODIFY")
+                                .showCancelButton(true)
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                                        startActivityForResult(intent, PICK_CONTACT);
+                                        sDialog.cancel();
+                                    }
+                                })
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        LiveoApplication.iceContactList.set(pickedContact - 1, null);
+                                        loadIceViews();
+                                        saveIceViews();
+                                        sDialog.cancel();
+                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         }
@@ -354,14 +348,17 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
 
     @OnTouch(R.id.triggerButton)
     public boolean onTouchTrigger(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && touchEnabled) {
-            if (AccelerometerViewManager.isCalibrated()) {
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (AccelerometerViewManager.isCalibrated()) {
+                    Intent intent = new Intent(getContext(), HubActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                } else {
+                    onButtonTouch(event, Page.CALIBRATION, view);
+                }
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 animateViewTouch(view);
-                Intent intent = new Intent(getContext(), HubActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            } else {
-                onButtonTouch(event, Page.CALIBRATION, view);
             }
         }
         return true;
@@ -370,7 +367,9 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
     @OnTouch(R.id.driverButton)
     public boolean onTouchDriver(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 0)) {
-            onButtonTouch(event, Page.DRIVER, view);
+            if (touchEnabled) {
+                onButtonTouch(event, Page.DRIVER, view);
+            }
         }
         return true;
     }
@@ -378,21 +377,27 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
     @OnTouch(R.id.iceButton1)
     public boolean onTouchIce1(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onIceClick(event, 1, view);
+            if (touchEnabled) {
+                onIceClick(event, 1, view);
+            }
         }
         return true;
     }
     @OnTouch(R.id.iceButton2)
     public boolean onTouchIce2(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onIceClick(event, 2, view);
+            if (touchEnabled) {
+                onIceClick(event, 2, view);
+            }
         }
         return true;
     }
     @OnTouch(R.id.iceButton3)
     public boolean onTouchIce3(View view, MotionEvent event) {
         if (!GuideManager.getShowGuide() || (GuideManager.getShowGuide() && GuideManager.getStage() == 1)) {
-            onIceClick(event, 3, view);
+            if (touchEnabled) {
+                onIceClick(event, 3, view);
+            }
         }
         return true;
     }

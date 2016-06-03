@@ -72,17 +72,19 @@ public class CalibrateFragment extends AnimatedFragment implements SensorEventLi
 
     @OnTouch(R.id.submitButton)
     public boolean onSubmitButton(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            animateViewTouch(v);
-            submitButton.setColor(getResources().getColor(R.color.newAccent));
-            AccelerometerViewManager.setCalibration(calibration);
-            sensorManager.unregisterListener(this);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                submitButton.setColor(getResources().getColor(R.color.newAccent));
+                AccelerometerViewManager.setCalibration(calibration);
+                sensorManager.unregisterListener(this);
 
-            Intent intent = new Intent(getContext(), HubActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+                Intent intent = new Intent(getContext(), HubActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
-
         return true;
     }
 

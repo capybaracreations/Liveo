@@ -22,7 +22,7 @@
         android:layout_gravity="center" >
 
         <com.romainpiel.shimmer.ShimmerTextView
-            app:reflectionColor="@color/newAccent"
+            app:reflectionColor="@color/disabled"
             android:id="@+id/splashText"
             fontPath="fonts/Roboto-Regular.ttf"
             android:text="LIVEO"
