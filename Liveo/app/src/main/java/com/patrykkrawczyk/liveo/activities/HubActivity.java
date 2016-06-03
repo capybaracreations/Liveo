@@ -91,16 +91,13 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         });
     }
 
-    /*@OnTouch(R.id.closeButton)
+    @OnTouch(R.id.stopButton)
     public boolean onCloseButton(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            closeButtonIcon.setColor(getResources().getColor(R.color.colorAccent));
-            closeButtonText.setTextColor(getResources().getColor(R.color.colorAccent));
-
             goToMenu();
         }
         return true;
-    }*/
+    }
 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {
