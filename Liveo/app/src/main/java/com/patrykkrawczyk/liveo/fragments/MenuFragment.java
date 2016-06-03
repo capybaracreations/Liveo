@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.GpsStatus;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
@@ -23,7 +25,9 @@ import android.widget.TextView;
 import com.joooonho.SelectableRoundedImageView;
 import com.patrykkrawczyk.liveo.ConnectionChangeReceiver;
 import com.patrykkrawczyk.liveo.Driver;
+import com.patrykkrawczyk.liveo.GpsStatusEvent;
 import com.patrykkrawczyk.liveo.LiveoApplication;
+import com.patrykkrawczyk.liveo.NetworkStateEvent;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.managers.IceContact;
@@ -46,7 +50,7 @@ import butterknife.Bind;
 import butterknife.OnTouch;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener {
+public class MenuFragment extends AnimatedFragment {
 
     @Bind(R.id.menuConnectionIcon)
     MaterialIconView menuConnectionIcon;
@@ -107,22 +111,16 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
         eventBus = EventBus.getDefault();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
 
-        ConnectionChangeReceiver ccr = new ConnectionChangeReceiver();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo       = connectivityManager.getActiveNetworkInfo();
+        EventBus.getDefault().post(new NetworkStateEvent(activeNetInfo != null));
 
-
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.addGpsStatusListener(this);
-        }
-
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean state = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        EventBus.getDefault().post(new GpsStatusEvent(state));
 
         loadDriverViews();
         loadIceViews();
-        /*driverName = (TextView) driverButton.findViewById(R.id.driverText);
-        Driver driver = Driver.getLocalDriver(getContext());
-        if (driver == null) driverName.setText("Driver");
-        else driverName.setText(driver.getFirstName().toUpperCase() + " " + driver.getLastName().toUpperCase());*/
     }
 
     private void loadDriverViews() {
@@ -430,12 +428,15 @@ public class MenuFragment extends AnimatedFragment implements GpsStatus.Listener
         return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
-    @Override
-    public void onGpsStatusChanged(int event) {
-        if (event == GpsStatus.GPS_EVENT_STARTED) {
-            menuGpsIcon.setColor(getResources().getColor(R.color.enabled));
-        } else if (event == GpsStatus.GPS_EVENT_STOPPED) {
-            menuGpsIcon.setColor(getResources().getColor(R.color.disabled));
-        }
+    @Subscribe
+    public void onGpsStatusEvent(GpsStatusEvent event) {
+        if (event.state) menuGpsIcon.setColor(getResources().getColor(R.color.enabled));
+        else             menuGpsIcon.setColor(getResources().getColor(R.color.disabled));
+    }
+
+    @Subscribe
+    public void onNetworkStateEvent(NetworkStateEvent event) {
+        if (event.state) menuConnectionIcon.setColor(getResources().getColor(R.color.enabled));
+        else             menuConnectionIcon.setColor(getResources().getColor(R.color.disabled));
     }
 }

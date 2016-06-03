@@ -394,7 +394,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:materialIconColor="@color/newAccent"
+                        app:materialIconColor="@color/newFont"
                         app:materialIcon="wifi"/>
                     <net.steamcrafted.materialiconlib.MaterialIconView
                         android:id="@+id/menuGpsIcon"
@@ -403,7 +403,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:materialIconColor="@color/newAccent"
+                        app:materialIconColor="@color/newFont"
                         app:materialIcon="crosshairs_gps"/>
                 </LinearLayout>
                 <Space

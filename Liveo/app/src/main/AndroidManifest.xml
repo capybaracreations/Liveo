@@ -84,6 +84,13 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".GpsChangeReceiver"
+            android:label="GpsConnection">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED"/>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".activities.InformationActivity">
         </activity>
