@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.location.GpsStatus;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -17,11 +18,14 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.joooonho.SelectableRoundedImageView;
 import com.patrykkrawczyk.liveo.ConnectionChangeReceiver;
 import com.patrykkrawczyk.liveo.Driver;
@@ -86,6 +90,8 @@ public class MenuFragment extends AnimatedFragment {
     private static final int PICK_CONTACT = 4444;
     private static boolean firstTimeRun = true;
     private EventBus eventBus;
+    private boolean gpsEnabled;
+    private boolean networkEnabled;
 
     public MenuFragment() {
         super(R.layout.fragment_menu);
@@ -348,18 +354,42 @@ public class MenuFragment extends AnimatedFragment {
     public boolean onTouchTrigger(View view, MotionEvent event) {
         if (touchEnabled) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (AccelerometerViewManager.isCalibrated()) {
-                    Intent intent = new Intent(getContext(), HubActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                } else {
-                    onButtonTouch(event, Page.CALIBRATION, view);
+                if (validateConnectivity()) {
+                    if (AccelerometerViewManager.isCalibrated()) {
+                        Intent intent = new Intent(getContext(), HubActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else {
+                        onButtonTouch(event, Page.CALIBRATION, view);
+                    }
                 }
             } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 animateViewTouch(view);
             }
         }
         return true;
+    }
+
+    private boolean validateConnectivity() {
+        boolean result = true;
+
+        if (!gpsEnabled) {
+            YoYo.with(Techniques.Shake)
+                    .interpolate(new AccelerateInterpolator())
+                    .duration(1000)
+                    .playOn(menuGpsIcon);
+            result = false;
+        }
+
+        if (!networkEnabled) {
+            YoYo.with(Techniques.Shake)
+                    .interpolate(new AccelerateInterpolator())
+                    .duration(1000)
+                    .playOn(menuConnectionIcon);
+            result = false;
+        }
+
+        return result;
     }
 
     @OnTouch(R.id.driverButton)
@@ -432,11 +462,13 @@ public class MenuFragment extends AnimatedFragment {
     public void onGpsStatusEvent(GpsStatusEvent event) {
         if (event.state) menuGpsIcon.setColor(getResources().getColor(R.color.enabled));
         else             menuGpsIcon.setColor(getResources().getColor(R.color.disabled));
+        gpsEnabled = event.state;
     }
 
     @Subscribe
     public void onNetworkStateEvent(NetworkStateEvent event) {
         if (event.state) menuConnectionIcon.setColor(getResources().getColor(R.color.enabled));
         else             menuConnectionIcon.setColor(getResources().getColor(R.color.disabled));
+        networkEnabled = event.state;
     }
 }

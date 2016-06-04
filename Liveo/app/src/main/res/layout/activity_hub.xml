@@ -80,14 +80,15 @@
             fab:fab_colorRipple="@color/newAccent"/>
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/stopButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="11dp"
             android:scaleType="fitXY"
+            fab:menu_fab_size="normal"
             android:layout_gravity="bottom|center_horizontal"
             android:src="@drawable/stop"
-            fab:fab_colorNormal="@color/newAccent"
-            fab:fab_colorRipple="@color/newAccent"/>
+            fab:fab_colorNormal="@color/disabled"
+            fab:fab_colorRipple="@color/disabled"/>
     </FrameLayout>
 
 
