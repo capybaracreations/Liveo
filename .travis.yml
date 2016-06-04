@@ -16,4 +16,4 @@ deploy:
   on:
     tags: true
 script:
-- "./gradlew clean build"
+- "./Liveo/gradlew clean build"
