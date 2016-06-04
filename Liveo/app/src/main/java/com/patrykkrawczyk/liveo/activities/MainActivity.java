@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
+import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.ToxicBakery.viewpager.transforms.StackTransformer;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.MenuPagerAdapter;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         mainViewPager.addOnPageChangeListener(this);
 
         //mainViewPager.setPageTransformer(true, new ZoomOutTranformer());
-        mainViewPager.setPageTransformer(true, new StackTransformer());
+        mainViewPager.setPageTransformer(true, new DefaultTransformer());
         //mainViewPager.setPageTransformer(true, new CubeOutTransformer());
     }
 

@@ -8,10 +8,31 @@
                                                  android:fitsSystemWindows="true"
                                                  tools:context="com.patrykkrawczyk.liveo.activities.MainActivity">
 
-    <com.patrykkrawczyk.liveo.MyViewPager
-        android:background="@color/BLACK"
-        android:id="@+id/mainViewPager"
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleLabel"
+        fontPath="fonts/Roboto-Medium.ttf"
+        tools:ignore="MissingPrefix"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textColor="@color/WHITE"
+        android:text="Liveo"
+        android:background="@color/colorSecondary"
+        app:layout_heightPercent="10%"
+        app:layout_widthPercent="100%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+        <com.patrykkrawczyk.liveo.MyViewPager
+            android:layout_below="@id/titleLabel"
+            app:layout_heightPercent="90%"
+            app:layout_widthPercent="100%"
+            android:background="@color/background"
+            android:id="@+id/mainViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.percent.PercentRelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

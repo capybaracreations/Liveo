@@ -4,10 +4,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.patrykkrawczyk.liveo.fragments.AnimatedFragment;
+import com.patrykkrawczyk.liveo.fragments.CalibrateFragment;
 import com.patrykkrawczyk.liveo.fragments.DriverFragment;
-import com.patrykkrawczyk.liveo.fragments.IceFragment;
 import com.patrykkrawczyk.liveo.fragments.MenuFragment;
-import com.patrykkrawczyk.liveo.fragments.PassengerFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -46,9 +45,8 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         AnimatedFragment newFragment;
         int position = 1;
 
-        if (page == AnimatedFragment.Page.PASSENGERS) newFragment = new PassengerFragment();
-        else if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverFragment();
-        else if (page == AnimatedFragment.Page.ICE) newFragment = new IceFragment();
+        if (page == AnimatedFragment.Page.DRIVER) newFragment = new DriverFragment();
+        else if (page == AnimatedFragment.Page.CALIBRATION) newFragment = new CalibrateFragment();
         else {
             newFragment = new MenuFragment();
             position = 0;

@@ -105,47 +105,46 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         if (!ln.isEmpty()) lastNameEditText.setText(ln);
         if (!rn.isEmpty()) registrationNumberEditText.setText(rn);
         if (!g.isEmpty()) {
-            if (g.equals("male")) {
+            if (g.equals("MALE")) {
                 gender = Gender.MALE;
-                femaleSelection.setColor(Color.WHITE);
-                maleSelection.setColor(getResources().getColor(R.color.colorAccent));
-            } else if (g.equals("female")) {
+                femaleSelection.setColor(getResources().getColor(R.color.newFont));
+                maleSelection.setColor(getResources().getColor(R.color.newAccent));
+            } else if (g.equals("FEMALE")) {
                 gender = Gender.FEMALE;
-                maleSelection.setColor(Color.WHITE);
-                femaleSelection.setColor(getResources().getColor(R.color.colorAccent));
+                maleSelection.setColor(getResources().getColor(R.color.newFont));
+                femaleSelection.setColor(getResources().getColor(R.color.newAccent));
             }
         }
         if (!ag.isEmpty()) {
-            if (ag.equals("teen")) {
+            if (ag.equals("TEEN")) {
                 ageGroup = AgeGroup.TEEN;
-                adultSelection.setTextColor(Color.WHITE);
-                teenSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-                seniorSelection.setTextColor(Color.WHITE);
-            } else if (ag.equals("adult")) {
+                adultSelection.setTextColor(getResources().getColor(R.color.newFont));
+                teenSelection.setTextColor(getResources().getColor(R.color.newAccent));
+                seniorSelection.setTextColor(getResources().getColor(R.color.newFont));
+            } else if (ag.equals("ADULT")) {
                 ageGroup = AgeGroup.ADULT;
-                teenSelection.setTextColor(Color.WHITE);
-                adultSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-                seniorSelection.setTextColor(Color.WHITE);
-            } else if (ag.equals("senior")) {
+                teenSelection.setTextColor(getResources().getColor(R.color.newFont));
+                adultSelection.setTextColor(getResources().getColor(R.color.newAccent));
+                seniorSelection.setTextColor(getResources().getColor(R.color.newFont));
+            } else if (ag.equals("SENIOR")) {
                 ageGroup = AgeGroup.SENIOR;
-                teenSelection.setTextColor(Color.WHITE);
-                seniorSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-                adultSelection.setTextColor(Color.WHITE);
+                teenSelection.setTextColor(getResources().getColor(R.color.newFont));
+                seniorSelection.setTextColor(getResources().getColor(R.color.newAccent));
+                adultSelection.setTextColor(getResources().getColor(R.color.newFont));
             }
         }
     }
 
     @OnTouch(R.id.confirmButton)
     public boolean onTouchConfirm(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
-            performCheck(event);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                performCheck(v);
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
         return true;
-    }
-
-    @OnTouch(R.id.menuLayout)
-    public boolean onMenuTouch(View v, MotionEvent event) {
-        return false;
     }
 
     @Subscribe
@@ -155,25 +154,33 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
 
     @Subscribe
     public void onBackKeyEvent(BackKeyEvent event) {
-//        Driver driver = validateData();
+        Driver driver = validateData();
 
-//        if (driver != null)  {
-//            if (GuideManager.getStage() == 0) GuideManager.incrementStage();
-//            confirmButton.setColor(getResources().getColor(R.color.colorAccent));
-//            saveDriverData();
-//            Driver.setCurrentDriver(getContext(), driver);
+        if (driver != null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(getString(R.string.LIVEO_API_URL))
+                    .build();
+            INetwork iNetwork = retrofit.create(INetwork.class);
+            Call<ResponseBody> call = iNetwork.modify(driver.getId(), driver.getFirstName(),
+                    driver.getLastName(), driver.getRegisterNumber(),
+                    driver.getGender(), driver.getAgeGroup());
+            call.enqueue(this);
+
+            if (GuideManager.getStage() == 0) GuideManager.incrementStage();
+            saveDriverData();
+            Driver.setCurrentDriver(getContext(), driver);
             if (eventBus.isRegistered(this)) eventBus.unregister(this);
             touchEnabled = false;
-            eventBus.post(new SwitchPageEvent(Page.MENU));
-//        }
+            changePage(Page.MENU);
+        }
     }
 
-    private void performCheck(MotionEvent event) {
+    private void performCheck(View view) {
         Driver driver = validateData();
 
         if (driver == null) {
             //confirmButton.setColor(Color.RED);
-            performRippleNoSwitch(event);
+
         } else {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(getString(R.string.LIVEO_API_URL))
@@ -184,13 +191,14 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
                                                 driver.getGender(), driver.getAgeGroup());
             call.enqueue(this);
 
+            if (view != null) animateViewTouch(view);
             if (GuideManager.getStage() == 0) GuideManager.incrementStage();
-            confirmButton.setColor(getResources().getColor(R.color.colorAccent));
+            confirmButton.setColor(getResources().getColor(R.color.newAccent));
             saveDriverData();
             Driver.setCurrentDriver(getContext(), driver);
-            rippleChangePage(event, Page.MENU);
             if (eventBus.isRegistered(this)) eventBus.unregister(this);
             touchEnabled = false;
+            changePage(Page.MENU);
         }
     }
 
@@ -199,12 +207,12 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         String sGender = "";
         String sAgeGroup = "";
 
-        if (gender == Gender.MALE) sGender = "male";
-        else if (gender == Gender.FEMALE) sGender = "female";
+        if (gender == Gender.MALE) sGender = "MALE";
+        else if (gender == Gender.FEMALE) sGender = "FEMALE";
 
-        if (ageGroup == AgeGroup.TEEN) sAgeGroup = "teen";
-        else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "adult";
-        else if (ageGroup == AgeGroup.SENIOR) sAgeGroup = "senior";
+        if (ageGroup == AgeGroup.TEEN) sAgeGroup = "TEEN";
+        else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "ADULT";
+        else if (ageGroup == AgeGroup.SENIOR) sAgeGroup = "SENIOR";
 
         driver.setId(id);
         driver.setFirstName(firstNameEditText.getText().toString());
@@ -251,12 +259,12 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
         String sGender;
         String sAgeGroup;
 
-        if (gender == Gender.MALE) sGender = "male";
-        else sGender = "female";
+        if (gender == Gender.MALE) sGender = "MALE";
+        else sGender = "FEMALE";
 
-        if (ageGroup == AgeGroup.TEEN) sAgeGroup = "teen";
-        else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "adult";
-        else sAgeGroup = "senior";
+        if (ageGroup == AgeGroup.TEEN) sAgeGroup = "TEEN";
+        else if (ageGroup == AgeGroup.ADULT) sAgeGroup = "ADULT";
+        else sAgeGroup = "SENIOR";
 
         editor.putString(getString(R.string.LIVEO_DRIVER_ID),            id);
         editor.putString(getString(R.string.LIVEO_DRIVER_FIRSTNAME),     firstNameEditText.getText().toString());
@@ -270,59 +278,79 @@ public class DriverFragment extends AnimatedFragment implements Callback<Respons
 
     @OnTouch(R.id.maleSelection)
     public boolean onTouchMale(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
-            gender = Gender.MALE;
-            femaleSelection.setColor(Color.WHITE);
-            maleSelection.setColor(getResources().getColor(R.color.colorAccent));
-            performRippleNoSwitch(event);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                gender = Gender.MALE;
+                femaleSelection.setColor(getResources().getColor(R.color.newFont));
+                maleSelection.setColor(getResources().getColor(R.color.newAccent));
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
+
         return true;
     }
 
     @OnTouch(R.id.femaleSelection)
     public boolean onTouchFemale(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
-            gender = Gender.FEMALE;
-            femaleSelection.setColor(getResources().getColor(R.color.colorAccent));
-            maleSelection.setColor(Color.WHITE);
-            performRippleNoSwitch(event);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                gender = Gender.FEMALE;
+                femaleSelection.setColor(getResources().getColor(R.color.newAccent));
+                maleSelection.setColor(getResources().getColor(R.color.newFont));
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
+
         return true;
     }
 
     @OnTouch(R.id.teenSelection)
     public boolean onTouchTeen(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
-            ageGroup = AgeGroup.TEEN;
-            teenSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-            adultSelection.setTextColor(Color.WHITE);
-            seniorSelection.setTextColor(Color.WHITE);
-            performRippleNoSwitch(event);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                ageGroup = AgeGroup.TEEN;
+                teenSelection.setTextColor(getResources().getColor(R.color.newAccent));
+                adultSelection.setTextColor(getResources().getColor(R.color.newFont));
+                seniorSelection.setTextColor(getResources().getColor(R.color.newFont));
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
+
         return true;
     }
 
     @OnTouch(R.id.adultSelection)
     public boolean onTouchAdult(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
-            ageGroup = AgeGroup.ADULT;
-            teenSelection.setTextColor(Color.WHITE);
-            adultSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-            seniorSelection.setTextColor(Color.WHITE);
-            performRippleNoSwitch(event);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                ageGroup = AgeGroup.ADULT;
+                teenSelection.setTextColor(getResources().getColor(R.color.newFont));
+                adultSelection.setTextColor(getResources().getColor(R.color.newAccent));
+                seniorSelection.setTextColor(getResources().getColor(R.color.newFont));
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
+
         return true;
     }
 
     @OnTouch(R.id.seniorSelection)
     public boolean onTouchSenior(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP && touchEnabled) {
-            ageGroup = AgeGroup.SENIOR;
-            teenSelection.setTextColor(Color.WHITE);
-            adultSelection.setTextColor(Color.WHITE);
-            seniorSelection.setTextColor(getResources().getColor(R.color.colorAccent));
-            performRippleNoSwitch(event);
+        if (touchEnabled) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                ageGroup = AgeGroup.SENIOR;
+                teenSelection.setTextColor(getResources().getColor(R.color.newFont));
+                adultSelection.setTextColor(getResources().getColor(R.color.newFont));
+                seniorSelection.setTextColor(getResources().getColor(R.color.newAccent));
+            } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                animateViewTouch(v);
+            }
         }
+
         return true;
     }
 

@@ -49,7 +49,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AlertActivity extends AppCompatActivity implements Callback<GeocodingResponse> {
 
-    private final long FULL_TIME = 30000;
+    private final long FULL_TIME = 10000;
 
     @Bind(R.id.progressBar)
     WaveLoadingView progressBar;
@@ -125,8 +125,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         message += ".\nLast name: " + driver.getLastName();
         message += ".\nGender: " + driver.getGender().toUpperCase();
         message += ".\nAge group: " + driver.getAgeGroup().toUpperCase();
-        message += ".\nRegistration: " + driver.getRegisterNumber().toUpperCase();
-        message += ".\nPassengers: " + sharedPref.getString(getString(R.string.LIVEO_PASSENGERS_COUNT),  "0") + ".";
+        message += ".\nRegistration: " + driver.getRegisterNumber().toUpperCase() + ".";
 
         try {
             final Position position = Position.fromCoordinates(location.getLongitude(), location.getLatitude());
@@ -192,7 +191,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
     }
 
     private void moveToInformationScreen() {
-        Intent intent = new Intent(this, HubActivity.class);
+        Intent intent = new Intent(this, InformationActivity.class);
         startActivity(intent);
         finish();
     }
@@ -244,6 +243,6 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
 
     @Override
     public void onFailure(Call<GeocodingResponse> call, Throwable t) {
-        Log.e("PAI", "Error: " + t.getMessage());
+        Log.e("PATRYCZEK", "Error: " + t.getMessage());
     }
 }

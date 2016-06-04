@@ -78,7 +78,7 @@ public class DataBroadcaster implements Callback<ResponseBody> {
 
                 if (driver != null && location != null && sensorEvent != null) {
                     INetwork data = retrofit.create(INetwork.class);
-                    String id, latitude, longitude, heartRate, accX, accY, accZ;
+                    String id, latitude, longitude, heartRate, accX, accY, accZ, trip;
 
                     id = driver.getId();
 
@@ -90,7 +90,9 @@ public class DataBroadcaster implements Callback<ResponseBody> {
                     accY = String.valueOf(sensorEvent.values[1]);
                     accZ = String.valueOf(sensorEvent.values[2]);
 
-                    Call<ResponseBody> call = data.data(id, latitude, longitude, heartRate, accX, accY, accZ);
+                    trip = driver.getCurrentTrip();
+
+                    Call<ResponseBody> call = data.data(id, latitude, longitude, heartRate, accX, accY, accZ, trip+1);
                     call.enqueue(instance);
                 }
             }

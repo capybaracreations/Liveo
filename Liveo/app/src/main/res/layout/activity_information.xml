@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.percent.PercentRelativeLayout
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/informationCard"
+        android:background="#ffffff"
+        android:layout_margin="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="80%"
+        app:layout_widthPercent="100%"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:contentPadding="0dp">
+
+        <LinearLayout
+            android:layout_margin="11dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="First Name:"
+                    style="@style/informationScreenLabel"/>
+                <TextView
+                    android:id="@+id/informationFirstName"
+                    style="@style/informationScreenText"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Last Name:"
+                    style="@style/informationScreenLabel"/>
+                <TextView
+                    android:id="@+id/informationLastName"
+                    style="@style/informationScreenText"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Age Group:"
+                    style="@style/informationScreenLabel"/>
+                <TextView
+                    android:id="@+id/informationAgeGroup"
+                    style="@style/informationScreenText"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Gender:"
+                    style="@style/informationScreenLabel"/>
+                <TextView
+                    android:id="@+id/informationGender"
+                    style="@style/informationScreenText"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Reg. Number:"
+                    style="@style/informationScreenLabel"/>
+                <TextView
+                    android:id="@+id/informationRegNumber"
+                    style="@style/informationScreenText"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <info.hoang8f.widget.FButton
+        android:layout_below="@id/informationCard"
+        app:layout_heightPercent="20%"
+        android:id="@+id/informationCloseButton"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:layout_margin="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        fbutton:buttonColor="@color/newAccent"
+        fbutton:shadowEnabled="true"
+        android:text="CLOSE"
+        fbutton:shadowHeight="10dp"
+        fbutton:cornerRadius="5dp"/>
+
+</android.support.percent.PercentRelativeLayout>

@@ -2,19 +2,26 @@
 <resources>
 
     <color name="colorPrimary">#303030</color>
-    <color name="colorSecondary">#424242</color>
     <color name="colorAccent">#ffd600</color>
     <color name="colorAccent2">#1DE9B6</color>
-    <color name="colorFont">#FFFFFF</color>
+    <color name="colorFont">#000000</color>
 
     <color name="BLACK">#000000</color>
     <color name="WHITE">#FFFFFF</color>
-    <color name="RED">#F44336</color>
     <color name="GREEN">#4caf50</color>
 
     <color name="SHIMMER">#ffffff</color>
-    <color name="showcaseBackground">#dc000000</color>
     <color name="colorRipple">#448AFF</color>
     <color name="colorLogo">#448AFF</color>
+
+
+    <color name="colorSecondary">#3a4f62</color>
+    <color name="showcaseBackground">#dc000000</color>
+    <color name="enabled">#85a911</color>
+    <color name="disabled">#db4437</color>
+    <color name="newAccent">#1fc1a0</color>
+    <color name="background">#f2f2f2</color>
+    <color name="newFont">#cc000000</color>
+    <color name="alert">#DD6B55</color>
 
 </resources>

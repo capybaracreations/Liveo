@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
+
+<android.support.percent.PercentRelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimary"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.CalibrateActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <View
-            android:clickable="false"
-            android:background="@color/colorPrimary"
-            android:id="@+id/rippleView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+    <android.support.v7.widget.CardView
+        android:id="@+id/calibrateCard"
+        android:background="#ffffff"
+        android:layout_margin="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="80%"
+        app:layout_widthPercent="100%"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:contentPadding="0dp">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="10"
-            app:layout_heightPercent="100%"
-            app:layout_widthPercent="100%">
-
+            android:layout_height="match_parent">
             <ImageView
+                android:layout_weight="1"
+                android:id="@+id/calibrateImage"
+                android:layout_margin="15dp"
                 android:src="@drawable/calibrate"
-                android:layout_weight="8"
+                android:layerType="software"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_weight="1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="9dp"
+                android:layout_weight="3"
+                android:layout_margin="15dp"
                 android:id="@+id/instructionText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/LIVEO_CALIBRATE_INSTRUCTION"
                 android:gravity="center"
-                android:textColor="@color/colorFont"
+                android:textColor="@color/newFont"
                 android:textSize="20sp"
                 tools:ignore="MissingPrefix"
                 fontPath="fonts/Roboto-Light.ttf"/>
-            <net.steamcrafted.materialiconlib.MaterialIconView
-                android:layout_weight="1"
-                android:layout_marginTop="9dp"
-                android:id="@+id/submitButton"
-                android:scaleType="fitXY"
-                android:layout_gravity="center"
-                app:materialIcon="check"
-                app:materialIconColor="@color/colorFont"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"/>
         </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <net.steamcrafted.materialiconlib.MaterialIconView
+        android:layout_below="@id/calibrateCard"
+        app:layout_heightPercent="20%"
+        app:layout_widthPercent="100%"
+        android:id="@+id/submitButton"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        app:materialIcon="check"
+        app:materialIconColor="@color/newFont"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
 
-    </android.support.percent.PercentRelativeLayout>
+</android.support.percent.PercentRelativeLayout>
 
-</FrameLayout>

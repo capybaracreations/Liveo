@@ -1,5 +1,6 @@
 package com.patrykkrawczyk.liveo.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 
-import com.balysv.materialripple.MaterialRippleLayout;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 
@@ -28,13 +31,13 @@ public class AnimatedFragment extends Fragment {
     public boolean touchEnabled = false;
 
     public enum Page {
-        MENU, PASSENGERS, DRIVER, ICE
+        MENU, DRIVER, CALIBRATION
     }
 
-    protected MaterialRippleLayout ripple;
     protected int layoutId;
 
     public AnimatedFragment() {}
+    @SuppressLint("ValidFragment")
     public AnimatedFragment(int layoutId) {
         this.layoutId = layoutId;
     }
@@ -46,73 +49,24 @@ public class AnimatedFragment extends Fragment {
         View view = inflater.inflate(layoutId, container, false);
         ButterKnife.bind(this, view);
 
-        ArrayList<View> viewList = getAllChildren(view);
-        for (View v:viewList) {
-            if (v.getId() == R.id.rippleView) {
-                addRippleEffect(v);
-                break;
-            }
-        }
-
         return view;
     }
-
 
     protected void setIconColor(View view) {
         MaterialIconView icon = (MaterialIconView) view;
         icon.setColor(getResources().getColor(R.color.colorAccent));
     }
 
-    protected void rippleChangePage(MotionEvent event, Page page) {
-        Point point = new Point((int) event.getRawX(), (int) event.getRawY());
-        ripple.setRipplePersistent(true);
-        ripple.performRipple(point);
+    protected void changePage(Page page) {
         EventBus.getDefault().post(new SwitchPageEvent(page));
     }
 
-    protected void performRippleNoSwitch(MotionEvent event) {
-        Point point = new Point((int) event.getRawX(), (int) event.getRawY());
-        ripple.setRipplePersistent(false);
-        ripple.performRipple(point);
-    }
 
-    protected void addRippleEffect(View view) {
-        ripple = MaterialRippleLayout.on(view)
-                    .rippleOverlay(true)
-                    .rippleColor(getResources().getColor(R.color.colorRipple))
-                    .rippleAlpha((float)0.20)
-                    .ripplePersistent(true)
-                    .rippleDuration((int)(ANIMATION_SPEED*0.75))
-                    .rippleDelayClick(false)
-                    .rippleFadeDuration(100)
-                    .create();
-        ripple.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-    }
 
-    private ArrayList<View> getAllChildren(View v) {
-
-        if (!(v instanceof ViewGroup)) {
-            ArrayList<View> viewArrayList = new ArrayList<>();
-            viewArrayList.add(v);
-            return viewArrayList;
-        }
-
-        ArrayList<View> result = new ArrayList<>();
-
-        ViewGroup viewGroup = (ViewGroup) v;
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-
-            View child = viewGroup.getChildAt(i);
-
-            ArrayList<View> viewArrayList = new ArrayList<>();
-            viewArrayList.add(v);
-            viewArrayList.addAll(getAllChildren(child));
-
-            result.addAll(viewArrayList);
-        }
-        return result;
+    protected void animateViewTouch(View view) {
+        YoYo.with(Techniques.Pulse)
+                .interpolate(new AccelerateInterpolator())
+                .duration(500)
+                .playOn(view);
     }
 }

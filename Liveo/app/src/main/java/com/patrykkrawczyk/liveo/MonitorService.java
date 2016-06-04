@@ -46,7 +46,7 @@ public class MonitorService extends Service {
         sapBroadcaster       = SapBroadcaster.getDefault(this);
 
         //sapManager.connect();
-        //dataBroadcaster.run();
+        dataBroadcaster.run();
 
         Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }

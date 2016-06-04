@@ -18,19 +18,19 @@
     </style>
 
     <style name="ShowcaseTheme" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">@color/showcaseBackground</item>
-        <item name="sv_showcaseColor">@color/colorAccent</item>
+        <item name="sv_backgroundColor">@color/newFont</item>
+        <item name="sv_showcaseColor">@color/background</item>
         <item name="sv_titleTextAppearance">@style/CustomTitle2</item>
         <item name="sv_detailTextAppearance">@style/CustomText2</item>
         <item name="sv_buttonText">Next</item>
     </style>
 
     <style name="CustomTitle2" >
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/background</item>
     </style>
 
     <style name="CustomText2" >
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/background</item>
     </style>
 
     <style name="materialEditText">
@@ -47,12 +47,81 @@
         <item name="met_iconPadding">0dp</item>
         <item name="met_floatingLabel">highlight</item>
         <item name="met_floatingLabelTextSize">18sp</item>
-        <item name="met_baseColor">@color/colorAccent</item>
-        <item name="met_primaryColor">@color/colorAccent</item>
-        <item name="met_textColor">@color/colorFont</item>
-        <item name="met_textColorHint">@color/colorFont</item>
-        <item name="met_underlineColor">@color/WHITE</item>
-        <item name="met_floatingLabelTextColor">@color/colorAccent</item>
+        <item name="met_baseColor">@color/newAccent</item>
+        <item name="met_primaryColor">@color/newAccent</item>
+        <item name="met_textColor">@color/newFont</item>
+        <item name="met_textColorHint">@color/newFont</item>
+        <item name="met_underlineColor">@color/newFont</item>
+        <item name="met_floatingLabelTextColor">@color/BLACK</item>
+    </style>
+
+    <style name="splashEditText">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:hint">Label</item>
+        <item name="android:textCursorDrawable">@drawable/text_cursor</item>
+        <item name="android:textSize">20dp</item>
+        <item name="met_typeface">fonts/Roboto-Light.ttf</item>
+        <item name="met_accentTypeface">fonts/Roboto-Light.ttf</item>
+        <item name="met_clearButton">true</item>
+        <item name="met_iconPadding">0dp</item>
+        <item name="met_floatingLabel">highlight</item>
+        <item name="met_floatingLabelTextSize">18sp</item>
+        <item name="met_baseColor">@color/newAccent</item>
+        <item name="met_primaryColor">@color/newAccent</item>
+        <item name="met_textColor">@color/newFont</item>
+        <item name="met_textColorHint">@color/newFont</item>
+        <item name="met_underlineColor">@color/newFont</item>
+        <item name="met_floatingLabelTextColor">@color/BLACK</item>
+    </style>
+
+    <style name="driverInformationIcon">
+        <item name="android:scaleType">center</item>
+        <item name="android:layout_marginRight">9dp</item>
+        <item name="android:gravity">bottom|left</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="driverInformationLabel">
+        <item name="android:color">@color/newFont</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:gravity">bottom|left</item>
+        <item name="android:text">Label</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="driverInformationText">
+        <item name="android:color">@color/newFont</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:gravity">left|top</item>
+        <item name="android:text">EMPTY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="informationScreenLabel">
+        <item name="android:color">@color/newFont</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:gravity">left|bottom</item>
+        <item name="android:text">EMPTY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="informationScreenText">
+        <item name="android:color">@color/newFont</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:gravity">center_horizontal|top</item>
+        <item name="android:text">EMPTY</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 
