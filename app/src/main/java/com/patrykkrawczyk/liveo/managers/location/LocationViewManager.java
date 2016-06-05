@@ -2,9 +2,8 @@ package com.patrykkrawczyk.liveo.managers.location;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,28 +11,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.annotations.Icon;
-import com.mapbox.mapboxsdk.annotations.IconFactory;
-import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.SupportMapFragment;
-import com.mapbox.mapboxsdk.maps.UiSettings;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.activities.HubActivity;
-import com.patrykkrawczyk.liveo.managers.StateManager;
-
-import butterknife.OnClick;
 
 /**
  * Created by Patryk Krawczyk on 07.05.2016.
@@ -44,16 +32,38 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     private boolean enabled = false;
     private boolean locked = true;
     private MapView mapView;
+    SupportMapFragment mapFragment;
 
-    public LocationViewManager(FragmentActivity activity, Bundle savedInstanceState) {
+    public LocationViewManager(AppCompatActivity activity, Bundle savedInstanceState) {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             enabled = true;
         }
 
-        mapView = (MapView) activity.findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
+        if (savedInstanceState == null) {
+            // Create fragment
+            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+
+            // Build mapboxMap
+            MapboxMapOptions options = new MapboxMapOptions();
+            options.accessToken("pk.eyJ1IjoiY2FweWJhcmEiLCJhIjoiY2lueGo5MWgwMDBydncya2x4ZXh2M3I5dyJ9.ArNA_6puuM4UZ1J_3Xq-3Q");
+            options.styleUrl("mapbox://styles/mapbox/streets-v8");
+            options.logoEnabled(false);
+            options.rotateGesturesEnabled(false);
+            options.compassEnabled(false);
+            options.attributionEnabled(false);
+
+            // Create map fragment
+            mapFragment = SupportMapFragment.newInstance(options);
+
+            // Add map fragment to parent container
+            transaction.add(R.id.mapView, mapFragment, "com.mapbox.map");
+            transaction.commit();
+        } else {
+            mapFragment = (SupportMapFragment) activity.getSupportFragmentManager().findFragmentByTag("com.mapbox.map");
+        }
+
+        mapFragment.getMapAsync(this);
     }
 
     public boolean isEnabled() {
@@ -101,18 +111,4 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
         animateCamera(location);
     }
 
-    public void onLowMemory() {
-    }
-
-    public void onDestroy() {
-    }
-
-    public void onSaveInstanceState(Bundle outState) {
-    }
-
-    public void onPause() {
-    }
-
-    public void onResume() {
-    }
 }

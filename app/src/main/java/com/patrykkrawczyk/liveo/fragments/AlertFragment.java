@@ -1,10 +1,10 @@
-package com.patrykkrawczyk.liveo.activities;
+package com.patrykkrawczyk.liveo.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.CountDownTimer;
 import android.os.Looper;
 import android.os.Vibrator;
@@ -12,22 +12,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.services.commons.ServicesException;
 import com.mapbox.services.commons.models.Position;
-import com.mapbox.services.directions.v5.models.DirectionsResponse;
 import com.mapbox.services.geocoding.v5.GeocodingCriteria;
 import com.mapbox.services.geocoding.v5.MapboxGeocoding;
 import com.mapbox.services.geocoding.v5.models.GeocodingFeature;
 import com.mapbox.services.geocoding.v5.models.GeocodingResponse;
+import com.patrykkrawczyk.liveo.ChangeHubFragmentEvent;
 import com.patrykkrawczyk.liveo.Driver;
-import com.patrykkrawczyk.liveo.MonitorService;
+import com.patrykkrawczyk.liveo.HubFragmentsEnum;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerEvent;
+import com.patrykkrawczyk.liveo.activities.HubActivity;
+import com.patrykkrawczyk.liveo.activities.InformationActivity;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
 import com.patrykkrawczyk.liveo.managers.sap.SapEvent;
 import com.patrykkrawczyk.liveo.managers.sap.SapManager;
@@ -47,7 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class AlertActivity extends AppCompatActivity implements Callback<GeocodingResponse> {
+public class AlertFragment extends Fragment implements Callback<GeocodingResponse> {
 
     private final long FULL_TIME = 10000;
 
@@ -59,19 +60,17 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
     private SmsManager smsManager;
     private String message = "";
     private List<String> numbers = new ArrayList<>();
-    private SapManager sapManager;
     private EventBus eventBus;
+    private HubActivity activity;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert);
+    public void onStart() {
+        super.onStart();
+
+        activity = (HubActivity) getActivity();
         eventBus = EventBus.getDefault();
-        sapManager = new SapManager(this);
 
-        ButterKnife.bind(this);
-
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
         vibratorEnabled = true;
 
         smsManager = SmsManager.getDefault();
@@ -87,6 +86,13 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         };
 
         timer.start();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_alert, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     private void timerEnd() {
@@ -107,8 +113,8 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         if (Looper.myLooper() == Looper.getMainLooper()) Log.d("PATRYCZEK", "MAIN");
         else Log.d("PATRYCZEK", "SEP");
 
-        Driver driver = Driver.getLocalDriver(this);
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
+        Driver driver = Driver.getLocalDriver(activity);
+        SharedPreferences sharedPref = activity.getSharedPreferences(getString(R.string.LIVEO_INFORMATIONS), Context.MODE_PRIVATE);
 
         String icePhoneNumber1 = sharedPref.getString(getString(R.string.LIVEO_ICE_1_PHONE), "");
         String icePhoneNumber2 = sharedPref.getString(getString(R.string.LIVEO_ICE_2_PHONE), "");
@@ -119,7 +125,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
         if (!icePhoneNumber3.isEmpty()) numbers.add(icePhoneNumber3);
 
         message = "I had an accident. Please send help to my location: ";
-        Location location = MyLocationManager.getLastLocation(this);
+        Location location = MyLocationManager.getLastLocation(activity);
         message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLongitude()) + ")";
         message += ".\nFirst name: " + driver.getFirstName();
         message += ".\nLast name: " + driver.getLastName();
@@ -153,7 +159,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
     @Subscribe
     public void onSapEvent(SapEvent event) {
         if (event.action.equals("CONNECTED")) {
-            sapManager.send("ALERT");
+            activity.send("ALERT");
         } else if (event.action.equals("ALERT_CANCEL")) {
             safeButtonClick(null);
         }
@@ -161,10 +167,10 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
 
     @OnClick(R.id.safeButton)
     public void safeButtonClick(View view) {
-        runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                sapManager.send("ALERT_CANCEL");
+                activity.send("ALERT_CANCEL");
                 timer.cancel();
                 vibratorEnabled = false;
                 progressBar.setProgressValue(0);
@@ -173,9 +179,7 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
             }
         });
 
-        Intent intent = new Intent(this, HubActivity.class);
-        startActivity(intent);
-        finish();
+        eventBus.post(new ChangeHubFragmentEvent(HubFragmentsEnum.HUB));
     }
 
     private void sendSms(String message, List<String> numbers) {
@@ -191,39 +195,25 @@ public class AlertActivity extends AppCompatActivity implements Callback<Geocodi
     }
 
     private void moveToInformationScreen() {
-        Intent intent = new Intent(this, InformationActivity.class);
-        startActivity(intent);
-        finish();
+        activity.goToInformation();
     }
 
     @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         if (timer != null) timer.cancel();
         super.onDestroy();
     }
 
-
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         if (!eventBus.isRegistered(this)) eventBus.register(this);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         if (eventBus.isRegistered(this)) eventBus.unregister(this);
-    }
-
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

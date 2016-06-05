@@ -1,21 +1,16 @@
 package com.patrykkrawczyk.liveo.fragments;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.drawable.ColorDrawable;
-import android.location.GpsStatus;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.v4.app.ActivityCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -27,7 +22,6 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.joooonho.SelectableRoundedImageView;
-import com.patrykkrawczyk.liveo.ConnectionChangeReceiver;
 import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.GpsStatusEvent;
 import com.patrykkrawczyk.liveo.LiveoApplication;
@@ -40,7 +34,6 @@ import com.patrykkrawczyk.liveo.managers.GuideManager;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.events.ShowGuideEvent;
-import com.patrykkrawczyk.liveo.activities.HubActivity;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -356,7 +349,7 @@ public class MenuFragment extends AnimatedFragment {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (validateConnectivity()) {
                     if (AccelerometerViewManager.isCalibrated()) {
-                        Intent intent = new Intent(getContext(), HubActivity.class);
+                        Intent intent = new Intent(getContext(), HubFragment.class);
                         startActivity(intent);
                         getActivity().finish();
                     } else {

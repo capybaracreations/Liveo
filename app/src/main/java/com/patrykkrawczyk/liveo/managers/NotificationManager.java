@@ -8,7 +8,7 @@ import android.support.v4.app.NotificationCompat.Builder;
 
 import com.patrykkrawczyk.liveo.MonitorService;
 import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.activities.HubActivity;
+import com.patrykkrawczyk.liveo.fragments.HubFragment;
 
 /**
  * Created by Patryk Krawczyk on 24.04.2016.
@@ -36,7 +36,7 @@ public class NotificationManager {
     }
 
     private PendingIntent createPendingIntent(MonitorService service) {
-        Intent intent = new Intent(service, HubActivity.class);
+        Intent intent = new Intent(service, HubFragment.class);
 
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(

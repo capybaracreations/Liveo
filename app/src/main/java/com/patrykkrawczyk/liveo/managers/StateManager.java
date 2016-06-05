@@ -1,15 +1,5 @@
 package com.patrykkrawczyk.liveo.managers;
 
-import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v4.app.NotificationCompat.Builder;
-
-import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.activities.HubActivity;
-
 /**
  * Created by Patryk Krawczyk on 24.04.2016.
  */

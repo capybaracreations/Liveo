@@ -6,11 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.patrykkrawczyk.liveo.MonitorService;
-import com.patrykkrawczyk.liveo.R;
-import com.patrykkrawczyk.liveo.activities.HubActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

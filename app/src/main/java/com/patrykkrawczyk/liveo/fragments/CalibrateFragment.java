@@ -6,17 +6,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.activities.HubActivity;
-import com.patrykkrawczyk.liveo.activities.MainActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.events.ScrollStoppedEvent;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerViewManager;
@@ -27,9 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnTouch;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CalibrateFragment extends AnimatedFragment implements SensorEventListener {
 
