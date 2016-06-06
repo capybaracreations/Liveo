@@ -26,6 +26,7 @@ import com.patrykkrawczyk.liveo.Driver;
 import com.patrykkrawczyk.liveo.GpsStatusEvent;
 import com.patrykkrawczyk.liveo.LiveoApplication;
 import com.patrykkrawczyk.liveo.NetworkStateEvent;
+import com.patrykkrawczyk.liveo.activities.HubActivity;
 import com.patrykkrawczyk.liveo.events.BackKeyEvent;
 import com.patrykkrawczyk.liveo.events.SwitchPageEvent;
 import com.patrykkrawczyk.liveo.managers.IceContact;
@@ -349,7 +350,7 @@ public class MenuFragment extends AnimatedFragment {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (validateConnectivity()) {
                     if (AccelerometerViewManager.isCalibrated()) {
-                        Intent intent = new Intent(getContext(), HubFragment.class);
+                        Intent intent = new Intent(getContext(), HubActivity.class);
                         startActivity(intent);
                         getActivity().finish();
                     } else {
