@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -28,6 +29,7 @@ import com.patrykkrawczyk.liveo.R;
  */
 public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapClickListener, MapboxMap.OnScrollListener, MapboxMap.OnMyLocationChangeListener {
 
+    public static Location lastLocation;
     private MapboxMap mapboxMap;
     private boolean enabled = false;
     private boolean locked = true;
@@ -56,6 +58,11 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
             // Create map fragment
             mapFragment = SupportMapFragment.newInstance(options);
 
+            FrameLayout frameLayout = (FrameLayout) activity.findViewById(R.id.mapView);
+            if (frameLayout != null) {
+                ((FrameLayout) frameLayout.getParent()).removeView(frameLayout);
+                frameLayout = null;//.removeAllViews();
+            }
             // Add map fragment to parent container
             transaction.add(R.id.mapView, mapFragment, "com.mapbox.map");
             transaction.commit();
@@ -82,8 +89,8 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setMyLocationEnabled(true);
-        mapboxMap.setOnMyLocationChangeListener(this);
+        //mapboxMap.setMyLocationEnabled(true);
+        //mapboxMap.setOnMyLocationChangeListener(this);
     }
 
     public void animateCamera(Location location) {
@@ -108,7 +115,10 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
 
     @Override
     public void onMyLocationChange(@Nullable Location location) {
-        animateCamera(location);
+        if (location != null) {
+            lastLocation = location;
+            animateCamera(location);
+        }
     }
 
 }

@@ -125,6 +125,7 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
         if (!icePhoneNumber3.isEmpty()) numbers.add(icePhoneNumber3);
 
         message = "I had an accident. Please send help to my location: ";
+        //Location location = MyLocationManager.getLastLocation(activity);
         Location location = MyLocationManager.getLastLocation(activity);
         message += "(" + String.valueOf(location.getLatitude()) + "; " + String.valueOf(location.getLongitude()) + ")";
         message += ".\nFirst name: " + driver.getFirstName();
@@ -212,6 +213,7 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
 
     @Override
     public void onPause() {
+        kill();
         super.onPause();
         if (eventBus.isRegistered(this)) eventBus.unregister(this);
     }
@@ -234,5 +236,11 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
     @Override
     public void onFailure(Call<GeocodingResponse> call, Throwable t) {
         Log.e("PATRYCZEK", "Error: " + t.getMessage());
+    }
+
+    private void kill() {
+        vibratorEnabled = false;
+        timer.cancel();
+        if (eventBus.isRegistered(this)) eventBus.unregister(this);
     }
 }

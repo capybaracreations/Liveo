@@ -145,6 +145,12 @@ public class MenuFragment extends AnimatedFragment {
             menuDriverGender.setText("EMPTY");
     }
 
+    @Override
+    public void onDestroy() {
+        if (eventBus.isRegistered(this)) eventBus.unregister(this);
+        super.onDestroy();
+    }
+
     @Subscribe
     public void onShowGuideEvent(ShowGuideEvent event) {
         if (GuideManager.getShowGuide()) {

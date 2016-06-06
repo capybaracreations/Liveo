@@ -126,10 +126,10 @@ public class HubFragment extends Fragment {
 
     @OnClick(R.id.locationButton)
     public void onLocationButtonClick() {
-        activity.changeFragment(HubFragmentsEnum.ALERT);
+        //activity.changeFragment(HubFragmentsEnum.ALERT);
         //monitorService.connect();
         //monitorService.sendData("ALERT");
-        //locationManager.centerView();
+        locationManager.centerView();
         //Intent intent = new Intent(activity, AlertFragment.class);
         //startActivity(intent);
     }

@@ -85,9 +85,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.InformationActivity">
+        <activity android:name=".activities.InformationActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.HubActivity">
+        <activity android:name=".activities.HubActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

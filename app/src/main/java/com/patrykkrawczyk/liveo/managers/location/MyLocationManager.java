@@ -43,7 +43,9 @@ public class MyLocationManager implements LocationListener
     public static Location getLastLocation(Context context) {
         Location bestLocation = null;
 
-        if (enabled) {
+        bestLocation = LocationViewManager.lastLocation;
+
+        if (enabled && bestLocation != null) {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             List<String> providers = locationManager.getProviders(true);
 

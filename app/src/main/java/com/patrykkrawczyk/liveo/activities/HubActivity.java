@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.patrykkrawczyk.liveo.AlertEvent;
 import com.patrykkrawczyk.liveo.ChangeHubFragmentEvent;
 import com.patrykkrawczyk.liveo.HubFragmentsEnum;
 import com.patrykkrawczyk.liveo.MonitorService;
@@ -66,6 +67,11 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     @Subscribe
     public void onChangeHubFragmentEvent(ChangeHubFragmentEvent event) {
         changeFragment(event.page);
+    }
+
+    @Subscribe
+    public void onAlertEvent(AlertEvent event) {
+        changeFragment(HubFragmentsEnum.ALERT);
     }
 
     public void send(String message) {
