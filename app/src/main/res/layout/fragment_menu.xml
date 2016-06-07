@@ -229,6 +229,7 @@
             android:layout_below="@id/driverCard"
             android:id="@+id/iceCard"
             android:background="#ffffff"
+            android:layout_marginTop="11dp"
             android:layout_marginLeft="11dp"
             android:layout_marginRight="11dp"
             android:layout_width="wrap_content"
