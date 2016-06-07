@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="100"
+                    android:text=""
                     fontPath="fonts/Roboto-Bold.ttf"
                     tools:ignore="MissingPrefix"
                     android:textColor="@color/newFont"

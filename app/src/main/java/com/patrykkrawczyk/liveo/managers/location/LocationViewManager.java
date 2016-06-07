@@ -89,8 +89,8 @@ public class LocationViewManager implements OnMapReadyCallback, MapboxMap.OnMapC
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        //mapboxMap.setMyLocationEnabled(true);
-        //mapboxMap.setOnMyLocationChangeListener(this);
+        mapboxMap.setMyLocationEnabled(true);
+            mapboxMap.setOnMyLocationChangeListener(this);
     }
 
     public void animateCamera(Location location) {
