@@ -44,6 +44,7 @@ public class HeartRateViewManager {
         if (enabled) {
             if (value == 0) heartRateText.setText("Calibrating");
             else if (value == -3) heartRateText.setText("NO HR");
+            else if (value == -10) heartRateText.setText("...");
             else heartRateText.setText(String.valueOf(value));
         }
     }

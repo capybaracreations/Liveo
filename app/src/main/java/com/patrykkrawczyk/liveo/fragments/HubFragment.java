@@ -100,9 +100,7 @@ public class HubFragment extends Fragment {
                     return;
                 }
 
-                if (value != -10) {
-                    heartRateViewManager.set(value);
-                }
+                heartRateViewManager.set(value);
             }
         });
     }
