@@ -50,6 +50,10 @@ public class MonitorService extends Service {
         Log.d(getString(R.string.APP_TAG), "STARTTTT");
     }
 
+    public void setAlertInvokable() {
+        accelerometerManager.canInvokeAlert = true;
+    }
+
     public void sendData(String data) {
         sapManager.send(data);
     }

@@ -168,6 +168,7 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
 
     @OnClick(R.id.safeButton)
     public void safeButtonClick(View view) {
+        activity.setAlertInvokable();
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -179,7 +180,7 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
 
             }
         });
-
+        kill();
         eventBus.post(new ChangeHubFragmentEvent(HubFragmentsEnum.HUB));
     }
 
@@ -213,6 +214,7 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
 
     @Override
     public void onPause() {
+        activity.setAlertInvokable();
         kill();
         super.onPause();
         if (eventBus.isRegistered(this)) eventBus.unregister(this);

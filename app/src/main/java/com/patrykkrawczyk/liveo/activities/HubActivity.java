@@ -58,10 +58,16 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
 
         Fragment fragment;
         if (page == HubFragmentsEnum.ALERT) fragment = new AlertFragment();
-        else fragment = new HubFragment();
+        else {
+            fragment = new HubFragment();
+        }
 
         fragmentTransaction.add(R.id.hubFragment, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void setAlertInvokable() {
+        monitorService.setAlertInvokable();
     }
 
     @Subscribe

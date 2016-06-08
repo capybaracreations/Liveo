@@ -29,6 +29,7 @@ public class AccelerometerManager implements SensorEventListener {
     private float last_x = 0;
     private float last_y = 0;
     private float last_z = 0;
+    public boolean canInvokeAlert = true;
 
     public AccelerometerManager(MonitorService service) {
         eventBus = EventBus.getDefault();
@@ -45,7 +46,6 @@ public class AccelerometerManager implements SensorEventListener {
 
     public void setEnabled(boolean state) {
         enabled = state;
-
         if (isEnabled()) {
             sensorManager.registerListener(this, sensor , SensorManager.SENSOR_DELAY_FASTEST);
         } else {
@@ -84,7 +84,11 @@ public class AccelerometerManager implements SensorEventListener {
 
                 if (speed > SHAKE_THRESHOLD) {
                     Log.d("sensor", "shake detected w/ speed: " + speed);
-                    eventBus.post(new AlertEvent());
+                    if (canInvokeAlert) {
+                        Log.d("patryczek", "INVOKE");
+                        eventBus.post(new AlertEvent());
+                        canInvokeAlert = false;
+                    }
                     //Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
                 }
 

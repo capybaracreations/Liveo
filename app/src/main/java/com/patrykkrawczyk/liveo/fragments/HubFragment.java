@@ -66,6 +66,7 @@ public class HubFragment extends Fragment {
 
         heartRateViewManager = new HeartRateViewManager(heartRipple, heartText);
         accelerometerViewManager = new AccelerometerViewManager(activity, accelerometerGraph);
+
     }
 
     @Override

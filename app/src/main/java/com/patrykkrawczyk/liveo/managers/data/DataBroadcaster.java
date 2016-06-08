@@ -90,10 +90,14 @@ public class DataBroadcaster implements Callback<ResponseBody> {
                     accY = String.valueOf(sensorEvent.values[1]);
                     accZ = String.valueOf(sensorEvent.values[2]);
 
-                    trip = String.valueOf(Integer.parseInt(driver.getCurrentTrip())+1);
+                    try {
+                        trip = String.valueOf(Integer.parseInt(driver.getCurrentTrip()) + 1);
 
-                    Call<ResponseBody> call = data.data(id, latitude, longitude, heartRate, accX, accY, accZ, trip);
-                    call.enqueue(instance);
+                        Call<ResponseBody> call = data.data(id, latitude, longitude, heartRate, accX, accY, accZ, trip);
+                        call.enqueue(instance);
+                    } catch(Exception e) {
+
+                    }
                 }
             }
         });
