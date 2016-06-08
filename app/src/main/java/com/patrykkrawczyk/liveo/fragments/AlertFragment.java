@@ -86,6 +86,8 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
         };
 
         timer.start();
+
+        activity.send("ALERT");
     }
 
     @Override
@@ -159,9 +161,7 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
 
     @Subscribe
     public void onSapEvent(SapEvent event) {
-        if (event.action.equals("CONNECTED")) {
-            activity.send("ALERT");
-        } else if (event.action.equals("ALERT_CANCEL")) {
+        if (event.action.equals("ALERT_CANCEL")) {
             safeButtonClick(null);
         }
     }

@@ -26,7 +26,7 @@ import retrofit2.http.Field;
 /**
  * Created by Patryk Krawczyk on 26.05.2016.
  */
-public class DataBroadcaster implements Callback<ResponseBody> {
+public class DataBroadcaster {
 
 
     private static final int updateInterval = 5000;
@@ -34,31 +34,23 @@ public class DataBroadcaster implements Callback<ResponseBody> {
     private Runnable updateSender;
     private Retrofit retrofit;
     private MonitorService service;
-    private static DataBroadcaster instance;
 
-    public static DataBroadcaster getDefault(MonitorService service) {
-        if (instance == null) {
-            instance = new DataBroadcaster(service);
-        }
 
-        return instance;
-    }
-
-    public static void run() {
-        instance.updateSender  = new Runnable() {
+    public void run() {
+        updateSender  = new Runnable() {
             @Override
             public void run() {
                 try {
-                    instance.sendData();
+                    sendData();
                 } finally {
-                    instance.handler.postDelayed(instance.updateSender, updateInterval);
+                    handler.postDelayed(updateSender, updateInterval);
                 }
             }
         };
-        instance.updateSender.run();
+        updateSender.run();
     }
 
-    private DataBroadcaster(final MonitorService service) {
+    public DataBroadcaster(final MonitorService service) {
         this.service = service;
 
         retrofit = new Retrofit.Builder()
@@ -94,7 +86,21 @@ public class DataBroadcaster implements Callback<ResponseBody> {
                         trip = String.valueOf(Integer.parseInt(driver.getCurrentTrip()) + 1);
 
                         Call<ResponseBody> call = data.data(id, latitude, longitude, heartRate, accX, accY, accZ, trip);
-                        call.enqueue(instance);
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.code() == 200) {
+                                    Log.d("PATRYCZEK", "data broadcast success");
+                                } else {
+                                    Log.d("PATRYCZEK", "broadcast fail");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                Log.d("PATRYCZEK", "broadcast fail");
+                            }
+                        });
                     } catch(Exception e) {
 
                     }
@@ -109,17 +115,4 @@ public class DataBroadcaster implements Callback<ResponseBody> {
         handler.removeCallbacks(updateSender);
     }
 
-    @Override
-    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-        if (response.code() == 200) {
-            Log.d("PATRYCZEK", "data broadcast success");
-        } else {
-            Log.d("PATRYCZEK", "broadcast fail");
-        }
-    }
-
-    @Override
-    public void onFailure(Call<ResponseBody> call, Throwable t) {
-        Log.d("PATRYCZEK", "broadcast fail");
-    }
 }

@@ -7,6 +7,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.patrykkrawczyk.liveo.MonitorService;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -16,13 +18,13 @@ public class SapManager {
 
     private boolean mIsBound = false;
     private ConsumerService mConsumerService = null;
-    private Context context;
+    private MonitorService monitorService;
     private EventBus eventBus;
 
-    public SapManager(Context context) {
-        this.context = context;
+    public SapManager(MonitorService service) {
+        this.monitorService = service;
         eventBus = EventBus.getDefault();
-        mIsBound = context.bindService(new Intent(context, ConsumerService.class), mConnection, Context.BIND_AUTO_CREATE);
+        mIsBound = service.bindService(new Intent(service, ConsumerService.class), mConnection, Context.BIND_AUTO_CREATE);
         Log.d("PATRYCZEK", "x");
     }
 
@@ -34,7 +36,7 @@ public class SapManager {
         }
         // Un-bind service
         if (mIsBound) {
-            context.unbindService(mConnection);
+            monitorService.unbindService(mConnection);
             mIsBound = false;
         }
     }
@@ -49,6 +51,7 @@ public class SapManager {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             mConsumerService = ((ConsumerService.LocalBinder) service).getService();
+            monitorService.heartRateEnabled = true;
             //updateTextView("onServiceConnected");
             Log.d("PATRYCZEK", "connected");
         }
@@ -57,6 +60,7 @@ public class SapManager {
         public void onServiceDisconnected(ComponentName className) {
             mConsumerService = null;
             mIsBound = false;
+            monitorService.heartRateEnabled = false;
             //updateTextView("onServiceDisconnected");
             Log.d("PATRYCZEK", "disc");
         }

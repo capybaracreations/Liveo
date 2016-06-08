@@ -105,6 +105,7 @@ public class ConsumerService extends SAAgent {
         if (result == SAAgent.CONNECTION_SUCCESS) {
             this.mConnectionHandler = (ServiceConnection) socket;
             EventBus.getDefault().post(new SapEvent("CONNECTED"));
+
         } else if (result == SAAgent.CONNECTION_ALREADY_EXIST) {
             //Toast.makeText(getBaseContext(), "CONNECTION_ALREADY_EXIST", Toast.LENGTH_LONG).show();
         } else if (result == SAAgent.CONNECTION_DUPLICATE_REQUEST) {

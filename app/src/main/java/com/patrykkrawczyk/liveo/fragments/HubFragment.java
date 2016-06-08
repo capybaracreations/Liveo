@@ -66,7 +66,9 @@ public class HubFragment extends Fragment {
 
         heartRateViewManager = new HeartRateViewManager(heartRipple, heartText);
         accelerometerViewManager = new AccelerometerViewManager(activity, accelerometerGraph);
-
+        if (activity.monitorService != null) {
+            heartRateViewManager.setEnabled(activity.monitorService.heartRateEnabled);
+        }
     }
 
     @Override
@@ -93,8 +95,10 @@ public class HubFragment extends Fragment {
                     value = Integer.valueOf(action);
                 } catch (NumberFormatException e) {
                     if (action.equals("CONNECTED")) {
+                        activity.monitorService.heartRateEnabled = true;
                         heartRateViewManager.setEnabled(true);
-                    } else {
+                    } else if (action.equals("DISCONNECTED")){
+                        activity.monitorService.heartRateEnabled = false;
                         heartRateViewManager.setEnabled(false);
                     }
                     return;

@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     private FragmentManager fragmentManager;
     private EventBus eventBus;
     private long lastPress;
-    private MonitorService monitorService;
+    public MonitorService monitorService;
     private boolean isBound = false;
 
     @Override
@@ -54,6 +55,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
     }
 
     public void changeFragment(HubFragmentsEnum page) {
+        hubFragment.removeAllViews();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         Fragment fragment;
@@ -62,7 +64,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
             fragment = new HubFragment();
         }
 
-        fragmentTransaction.add(R.id.hubFragment, fragment);
+        fragmentTransaction.replace(R.id.hubFragment, fragment);
         fragmentTransaction.commit();
     }
 

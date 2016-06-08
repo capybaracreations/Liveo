@@ -23,18 +23,10 @@ public class SapBroadcaster{
     private static final int updateInterval = 5000;
     private Handler handler;
     private MonitorService service;
-    private static SapBroadcaster instance;
     private Runnable mStatusChecker;
 
-    public static SapBroadcaster getDefault(MonitorService service) {
-        if (instance == null) {
-            instance = new SapBroadcaster(service);
-        }
 
-        return instance;
-    }
-
-    private SapBroadcaster(final MonitorService service) {
+    public SapBroadcaster(final MonitorService service) {
         this.service = service;
         handler = new Handler();
 

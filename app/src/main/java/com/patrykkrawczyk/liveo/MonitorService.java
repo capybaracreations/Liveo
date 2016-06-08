@@ -31,6 +31,7 @@ public class MonitorService extends Service {
     private DataBroadcaster dataBroadcaster;
     private SapBroadcaster sapBroadcaster;
     private SapManager sapManager;
+    public boolean heartRateEnabled = false;
 
 
     @Override
@@ -41,9 +42,9 @@ public class MonitorService extends Service {
         accelerometerManager = new AccelerometerManager(this);
         locationManager      = new MyLocationManager(this);
         notificationManager  = new NotificationManager(this);
-        dataBroadcaster      = DataBroadcaster.getDefault(this);
+        dataBroadcaster      = new DataBroadcaster(this);
         sapManager           = new SapManager(this);
-        sapBroadcaster       = SapBroadcaster.getDefault(this);
+        sapBroadcaster       = new SapBroadcaster(this);
 
         dataBroadcaster.run();
 
