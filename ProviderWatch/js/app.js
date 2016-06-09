@@ -28,7 +28,7 @@ function receiveData(channelId, data) {
     	$("#bodyDiv").load("home.html");
     	isVibrateEnabled = false;
     } else {
-    	lasthr = Math.floor((Math.random() * 200) + 50);
+    	lasthr = Math.floor((Math.random() * 20) + 100);
     	SASocket.sendData(SAAgent.channelIds[0], lasthr);
     }
 }

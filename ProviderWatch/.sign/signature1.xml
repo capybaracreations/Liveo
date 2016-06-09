@@ -2,65 +2,205 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
+<Reference URI=".metadata%2F.lock">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.log">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Gbi7xCkTeXXumeyUS2cSmIZ+eY/Hpisa5paY0zNffbI=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.mylyn%2Frepositories.xml.zip">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>xagYAy3cb7uuQh+yElBTLA6aABQtr8XZFjakzM65hOo=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.cdt.core%2F.log">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>E916SZ7+T8i9XDb/dRnmSeeZo2Pd5p692Ffqc6YaFRk=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.cdt.make.core%2Fspecs.c">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.cdt.make.core%2Fspecs.cpp">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.resources%2F.root%2F.indexes%2Fhistory.version">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>28G0yQD/5I1XW12lxjgEASX2XbD+PiRJS3bqmGRX2YY=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.resources%2F.root%2F.indexes%2Fproperties.index">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>cNo4Qh8c6nd5zhYyjqfR5eS2ABVbk82UcLwNQjL6hEA=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.resources%2F.root%2F.indexes%2Fproperties.version">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>S/USLzRFVMU73i67jNK349FgCtYxw4Wl18ziPHeFRZo=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.resources%2F.root%2F2.tree">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>iOUsCDSwXfbDDAKm+XwfNDFTOGkGU/QZGxyKL5MjIrs=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.resources%2F.safetable%2Forg.eclipse.core.resources">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>YxRtLSUPWIM84M1YqH2sYdyVaPlRhwOg1nXA/WHdIoA=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.cdt.debug.core.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>buH9vfwIKXeWAuZB+GqmNA3EWY+Rz/sDfqz3wDwQHU4=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.cdt.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Imc0AMXOSL6T+ucTlOtDlAtf7wrSODeTdxZgtY8Ygas=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.core.resources.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>5noyhIEByinoEF0KH8ckr5GHvnrWo5Mp66Whm3MuQVY=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.debug.core.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>cVEQqjAVlZgHv3aYJatG2SMyCnAygF6b2cZu7bmhOpg=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.jdt.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>+M/k22nmajXgenIHR5ij5EBDgL2DXmZ0qmSWM7NManQ=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.mylyn.context.core.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>JpZUQaJy7h0ssIDYwKMgMLW+WhVT820nn6FeXuKTDds=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.mylyn.monitor.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>rHEshZEHOgny/59me9mrFwiFoFTfFBW9suqjINBhWPw=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.mylyn.tasks.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>V9zzEIjSrfxLb4i6IV7LCrZX7W8sC5SwDs+u4oEMS/s=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.team.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>nWlT+tSOMuz6KasToNgnmWE/9c9K9piD3IDFhlKtPhQ=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.ui.ide.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>ZSgjoM1hiD+Xq4H2EL1vaWoRjtv6Bmt6Kpq+aONdWCQ=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.eclipse.wst.jsdt.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>KL7jCmzd31ESVTdhiwKCoEJ2HyQc2Pk/6I1n+XJWFiQ=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.core.runtime%2F.settings%2Forg.tizen.common.ui.prefs">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>7lDChELAOhTEZdRAmszm2zPEQR+DdNj1x81pDQHHhyY=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.e4.workbench%2Fworkbench.xmi">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>57vfNmjMwuhxUTOLAEEOj6ZXF08VzPHlfF8TLw4veL0=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.jdt.core%2FinvalidArchivesCache">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>3z9hmASpL9tAVxktxD3XSOp3itxSvEmM6AUkwBS4ERk=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.jdt.core%2FnonChainingJarsCache">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>3z9hmASpL9tAVxktxD3XSOp3itxSvEmM6AUkwBS4ERk=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.jdt.core%2FvariablesAndContainers.dat">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Qt//b0pPM3ooykT+5CYq+8Lxd3QVBPfzs416mjE0v1o=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.jdt.ui%2FOpenTypeHistory.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Gp5IiP70MtbMV5EP6zRxmHYRcULf2/0T1tWAHtXvEWY=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.jdt.ui%2FQualifiedTypeNameHistory.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>tBu5/K7Np4pv2KSPxFKUGASzyWcnuYMwMqfPuv3JCF0=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.ui.ide%2Fdialog_settings.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>ACCA0F9dNdTm0OTtFWuUfLyCNzSsCSQIm1VdD8ZlyD0=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.ui.workbench%2Fdialog_settings.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>hLfjXOP8KGKV5ryLFmlCPgV2nFk5uPxEioxxCdfyCJM=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.wst.jsdt.core%2FvariablesAndContainers.dat">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Fj5/ZtWANsyx0LAFjY9G581jmBb1cOXrMoU+pzY05M0=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.wst.jsdt.ui%2FOpenTypeHistory.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>Gp5IiP70MtbMV5EP6zRxmHYRcULf2/0T1tWAHtXvEWY=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2F.plugins%2Forg.eclipse.wst.jsdt.ui%2FQualifiedTypeNameHistory.xml">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>tBu5/K7Np4pv2KSPxFKUGASzyWcnuYMwMqfPuv3JCF0=</DigestValue>
+</Reference>
+<Reference URI=".metadata%2Fversion.ini">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>fUvZEtpcKpTQsCx7eM5kraNZF/ZasUEaUFoqvODGKqg=</DigestValue>
+</Reference>
 <Reference URI="HelloAccessoryProvider.wgt">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>ZyMzVTpIxG/uratgNFSCS3pyiVqjIZz/8G7P9A/2ZXs=</DigestValue>
 </Reference>
 <Reference URI="alert.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ueXgfKwCbR/DARAiWqu8/6qmVNQ6ANEplQEeyiLSfA0=</DigestValue>
+<DigestValue>sTYxDzjO/aSN7paBxQl9AqXqdkuUMRX0IpC47LS8X0s=</DigestValue>
 </Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ASEAvFoxY+5cpQJTzVGvZ1NgdbqJh1YkTbGNbdCDV78=</DigestValue>
+<DigestValue>SePSWnoZyo7zu/7+DjqfEVdt7orLFluhAT078hVD00c=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>E4qlNqP5iJ7vuKDr6qEbrAD3erPB1Kgj7EYSQcghoRE=</DigestValue>
+<DigestValue>Mxfo122nGd6tXz53vR7NEmMa1DKiEEa7mdmFIuS6FMA=</DigestValue>
 </Reference>
 <Reference URI="css%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>JMle6is7cKnf4ic7I8YIbRQIrkHC+zUV/J9sFz/5Tb0=</DigestValue>
+<DigestValue>I7Atb0oVmlUFHkDrs+gVLg47sD+Tmzn10HRtN1ZXU44=</DigestValue>
 </Reference>
 <Reference URI="home.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>9NAmvr8cImyZ0ra9hCk42U+FRSTutaY/v5fbVl/Bk+g=</DigestValue>
+<DigestValue>zB8TH+dfhHyR1I3urc4mxio6s+kVUAl15AB72xxx0NM=</DigestValue>
 </Reference>
 <Reference URI="icon.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>vPjxjOppORd6hn9Bw4sh06gqtDoJzoFbV/8e9FyIdvk=</DigestValue>
+<DigestValue>zv0kM5/jpxiLeBt6M5oZ+KK9MdO3g2f/5jT065p7Bvo=</DigestValue>
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>xDLSq3RcqLEOyVbYR7jsG1hcOdYa2u8uBIH27d9M/6w=</DigestValue>
+<DigestValue>4PsFnxRB6PghWyjcH2XBze3q4J5+O1E7XPmmAM97KjQ=</DigestValue>
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>dyYksKjrtJZnb2E4U5xDzCfgoyOyl9tcJxhfXH3q8qo=</DigestValue>
+<DigestValue>J1+qmp2injN/PjOdkKtaJys4fst1OgNqYzh70EaD2gM=</DigestValue>
 </Reference>
 <Reference URI="js%2Fcircle-helper.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>diL+Ji326kvzKMlDyvY/XnaJX6Fx6Wr4Hinze1GLbow=</DigestValue>
+<DigestValue>BKx7DerWfWYNi8CA/22SN9NdJ1Fv2o2H7JSlgt2GHEY=</DigestValue>
 </Reference>
 <Reference URI="js%2Fjquery-1.12.4.min.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=</DigestValue>
+<DigestValue>J9khMMAyHa1aA3YP1ayYo9BO1MlNiEGP5tUNoff8XL4=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2FLICENSE.MIT">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>14fucy5gYJ1lsYcJfDU9XDOWOebQFojuP6iXYdY6Csk=</DigestValue>
+<DigestValue>Y1T7o1YX8O1NYRTslkZ9eYiGL/PDhTcP3EgW1PekLkI=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2FVERSION">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>yUasBgQh0uYDT0NHhVdYMjm+Nj+lehKcJZJkqUgT5AI=</DigestValue>
+<DigestValue>mPEWYAv4vcFv1kCMsVk6Nc/zYmGbjCMF4BgtNeesWWk=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Fjs%2Ftau.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>NM7cNuVlq9yvlwm/t1R98wltX0iIQB4rgpJRJ2ASTPA=</DigestValue>
+<DigestValue>Mat74WGwt4fHpnqmmD5rXsz51fUkFsb9YNzadGDRmOM=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Fjs%2Ftau.min.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>IqXCh+5skzs6OqcRhlO7zPr6mK61yN3IcGdoNBPAtnw=</DigestValue>
+<DigestValue>xVwiHWYuPBoJ0Xo/VAitR49tCz7Ctcg+TQE1DFjr/Vg=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fblue%2Fimages%2FActionbar%2Ftw_ic_menu_moreoverflow_holo_dark.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -264,11 +404,11 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fblue%2Ftau.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>h6MAxXm5G5Rdc7vF112dbpSEFtkZCPbXsv9wUTFeu9s=</DigestValue>
+<DigestValue>4l3kmNr18qzZJWd5s++VtrvQfXwNOEUabQcboNLe8jM=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fblue%2Ftau.min.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>P6/bi0jYM2iXDmT6d5OGVBhvBaxU02OKVjVi75Y70TY=</DigestValue>
+<DigestValue>2RhofGI7st00t9whiIWO6KHigiJuWdGY2LpnIo+WCGE=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fbrown%2Fimages%2FActionbar%2Ftw_ic_menu_moreoverflow_holo_dark.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -472,11 +612,11 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fbrown%2Ftau.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>NeYTrMAFl5+9YRN/tLsPzKadLQUJVNtnJcegiHpAkPY=</DigestValue>
+<DigestValue>uxwil0Suz9MdyttRpbmJxjHtXuviQqxDZciFRqYtp20=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fbrown%2Ftau.min.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ptUvrOU117Nkp0OdMKO9MudYIKGbfTeIF79lQngOjMo=</DigestValue>
+<DigestValue>/HdMdOoYZYJ6Yns2Sowf73cZdm818aKvHMAlQsVIOEE=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Fimages%2FActionbar%2Ftw_ic_menu_moreoverflow_holo_dark.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -680,7 +820,7 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.circle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>DJiv/dPxoi1d2bS8oL5ueLL5e/FZubOps9d6HDtssJQ=</DigestValue>
+<DigestValue>GNEwYm6s9qiOchbgxK+NkAPvDH2kZPdBb/+0sl53guI=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.circle.min.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -692,15 +832,15 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.circle.template">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>2YZMZkNX8cP1hr1kDMxLdUbJxgA0yodv6eR6ztKszQc=</DigestValue>
+<DigestValue>5o9hLauNkGDjjDSIARcM8UTexX4K6HM7eLzAP6ssraU=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>h6MAxXm5G5Rdc7vF112dbpSEFtkZCPbXsv9wUTFeu9s=</DigestValue>
+<DigestValue>4l3kmNr18qzZJWd5s++VtrvQfXwNOEUabQcboNLe8jM=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.min.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>P6/bi0jYM2iXDmT6d5OGVBhvBaxU02OKVjVi75Y70TY=</DigestValue>
+<DigestValue>2RhofGI7st00t9whiIWO6KHigiJuWdGY2LpnIo+WCGE=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.min.template">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -708,7 +848,7 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fchangeable%2Ftau.template">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ti/e2w3WYfw8ExV/PPCTjykkg/TQSDThA4qXNWyWTV4=</DigestValue>
+<DigestValue>460LMZvsIjIupkm64gpkKC76hZifwhJb9h2vogGs3Mc=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Fimages%2FActionbar%2Ftw_ic_menu_moreoverflow_holo_dark.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -912,7 +1052,7 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.circle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>DJiv/dPxoi1d2bS8oL5ueLL5e/FZubOps9d6HDtssJQ=</DigestValue>
+<DigestValue>GNEwYm6s9qiOchbgxK+NkAPvDH2kZPdBb/+0sl53guI=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.circle.min.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -924,15 +1064,15 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.circle.template">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>2YZMZkNX8cP1hr1kDMxLdUbJxgA0yodv6eR6ztKszQc=</DigestValue>
+<DigestValue>5o9hLauNkGDjjDSIARcM8UTexX4K6HM7eLzAP6ssraU=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>h6MAxXm5G5Rdc7vF112dbpSEFtkZCPbXsv9wUTFeu9s=</DigestValue>
+<DigestValue>4l3kmNr18qzZJWd5s++VtrvQfXwNOEUabQcboNLe8jM=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.min.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>P6/bi0jYM2iXDmT6d5OGVBhvBaxU02OKVjVi75Y70TY=</DigestValue>
+<DigestValue>2RhofGI7st00t9whiIWO6KHigiJuWdGY2LpnIo+WCGE=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.min.template">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -940,15 +1080,15 @@
 </Reference>
 <Reference URI="lib%2Ftau%2Fwearable%2Ftheme%2Fdefault%2Ftau.template">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ti/e2w3WYfw8ExV/PPCTjykkg/TQSDThA4qXNWyWTV4=</DigestValue>
+<DigestValue>460LMZvsIjIupkm64gpkKC76hZifwhJb9h2vogGs3Mc=</DigestValue>
 </Reference>
 <Reference URI="res%2Fxml%2Faccessoryservices.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>gPFyT1/08+KCrtg++Y8+mdPF/W96eQWY1ZN57srXQAc=</DigestValue>
+<DigestValue>0QrTb0ksvJ/sORQSVkTF2RZzOBTNgaw2zRt4omDYc0Y=</DigestValue>
 </Reference>
 <Reference URI="version.txt">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>FL+w65K60shd+DvuQcM22UnZMltR453vTF4kc0ZQIMQ=</DigestValue>
+<DigestValue>+g+itCzNHAfAXptB3DKpkZKeq64MOsIAZmWBbpHhWaA=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -959,11 +1099,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-TNSNszzdX0t6QOwASpA7Dso8hiLGesc+d9ZjV12iLUoVtZE1coE/m3AHnd4b1NVCZuxGxyzTvpic
-N81wq1Tuj+vGyZt9TSwRikl1gD/tEadyCL3r4HpbYin2rNf2O+dZdxZXkGN9BYhA6BdD0m7XAC+/
-LCc+iKJJ1MQP+RFsE7icG/e8FExLrkjVwxjPxCNzmIMIiysbqRjCgUNRGgz7CBskIY39hTrCkQ7l
-nHeAUISx8Hpl/K6hHgKL9tOxF6XZPwsGzMKHAEaFM+D0MY1/B3uV2ugNF6mwNbMepN9GcaUrO7/8
-KfetV22aO8fZe9hWKVvXNviSv9Y2M69qYdQKfw==
+gp6AZyJSWrU9uwxZ3+w6mvc7WbURNJGZDN57phtE5vt/NCrBsQfdtOT4+PBQt/ALvsSN5B+KCBBR
+PMva5G2ZwchI6zzmudOIjX9HVstEhJdoIPe9oky7mgrF5W7bSXQC9OkmUAoP9Q3U/ERW9kYIJcoX
+hcswo3drE+AyBVtL+n88GFwEKuyTW9htVJh9P0768h6GBovMwa1e6RJnaHJu3K/4lWpw+5SIkJFX
+nwy1OEau38rztgjy0U+TmOxgu6mccK6+JRHBXri3ALYxP76/BFMsWdjvdnqbIv+oZRSEWDFHL016
+sMy7R8zXpZOqkAzVCjgAO4LJ9y8kLglByBZY7A==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
@@ -971,20 +1111,20 @@ KfetV22aO8fZe9hWKVvXNviSv9Y2M69qYdQKfw==
 MIIDojCCAoqgAwIBAgIBZjANBgkqhkiG9w0BAQsFADCBnzELMAkGA1UEBhMCS1IxFDASBgNVBAgM
 C1NvdXRoIEtvcmVhMQ4wDAYDVQQHDAVTdXdvbjEmMCQGA1UECgwdU2Ftc3VuZyBFbGVjdHJvbmlj
 cyBDby4sIEx0ZC4xDzANBgNVBAsMBk1vYmlsZTExMC8GA1UEAwwoU2Ftc3VuZyBUaXplbiBERVZF
-TE9QRVIgUGFydG5lciBDQSBDbGFzczAeFw0xNjA1MjkxNTA4MjFaFw0xNzA1MjkxNTA4MjFaMG0x
+TE9QRVIgUGFydG5lciBDQSBDbGFzczAeFw0xNjA2MDkxMTA5MjlaFw0xNzA2MDkxMTA5MjlaMG0x
 ETAPBgNVBAMMCFRpemVuU0RLMQkwBwYDVQQLDAAxCTAHBgNVBAoMADEJMAcGA1UEBwwAMQkwBwYD
 VQQIDAAxCTAHBgNVBAYTADEhMB8GCSqGSIb3DQEJARYSaXR6YXRoaXNAZ21haWwuY29tMIIBIjAN
-BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr+dWQsevgK6jIdKUfnDhXbiR+trugEGB6r8Cm4rh
-eIdu54Ht8F2oeK6l8PcgVi1VVhucr+lW3Mf80hqtRoU8Dax9RWxJOKCOb4p9GkC5IsmqDYrEcK9+
-8LyYPcxLjbau01bAVO9DYQbJvQtuytr8x7LxQk2mOwmtF6mZtmXfzm4h0hnOSZqo1A1swZKTMPTI
-LAfjNUv41iZ6nsE2h2/UBQYoEkLlqhBcoxZbpuokFl1XqaDsht2XL2ZCw64Y1OtqkTuk89dapb9E
-c0fQbM39evBQ0W0U+K7OIJ5L8nKZjksCwAsUqs6hcwU6UwyJ0xoAXKrFPOVyKKzZPwdTKmCNjQID
-AQABoxowGDAJBgNVHRMEAjAAMAsGA1UdDwQEAwIHgDANBgkqhkiG9w0BAQsFAAOCAQEAhOrTcuro
-U69LRbse2r+njtXHEHn0swQu6NkN2/GPe03x9vZAunefBwuqZqCqjKRJwR8jMB6Wsl1R/V+hwFOB
-SUNsCa3p00FoM8mmchFITmmBqaDlU/6HCge+KTQxoLwtY9x4lWnd7NfUo30ZkzjOue0CVu9FG3Fe
-/SVCBxE8WkYqbB7+BbDk+sKGw+qo/RP9zNfzb8iDmumeMdB/0hlhcaMyqa4vKFpcg+63WFANTpGN
-1C0vjRMnJv80fxvCvLKFAI69NNFc0wzQ7IxIGNgnpCTPIKMCiEniMzn00Ojy0o1TOV+4ujJmgNCB
-V6GzkxQ0SkYdVxQZIkydp1NvgVOaOA==
+BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAj9RhMpyee4rk1e6fERZtxxL1wi1bqK87/CS46LPp
+nCiBId+tyor98Z3m+5mCPJYYoS358tjMkGMgtzGQ++3Va8k2rJCwFFNg/4v2dcnN0zdb6u8sQqHk
+oBDrrR4Z8GTRgTOLldxDq27KeqG0i87qluD+mjR5Lp1NS830CKccv6AZdZOgkTYy+ZZP4GVOcjiZ
+HdNoDkvknvvcKlDXfTldZrxgMu3UGiZA/VSR20VXpvMDXRocpKKxEoSC1a3s9UsDL6SRdt5pbDhD
+8HBYeIJZpgqLEH/6ijmxiX+Qaz8Bb+K4jOorAiupF/04wAxpJWfAgt8DC0AT85KSlxHSCKHr+QID
+AQABoxowGDAJBgNVHRMEAjAAMAsGA1UdDwQEAwIHgDANBgkqhkiG9w0BAQsFAAOCAQEASEZo8lEO
+dQzypwd9nqsDtEjWatacxL2ODbUMFBfjvLqTvp738JkzXr8rvUfoIHdXk1zHUE8MuhO7bjIp326M
+w9O5yiOsFMEhTSgQajD/0x6Eb9H8+8hq2p35XSht2kNqxoiRCIkmVZ2ZfgVJJk+dR1VdNj700dJB
+nB/c/UdJz4iXLoKKqyvcZodNAqBK1GMiK/COfiqXARtmQvZqBlgdbshyPinHBcTEI/RRYheMLT7S
+rc53Ce+xdaQbVvxi00f7VYkGHGtwKencmU5L0npesoosDj2Iy7O+qKlJ2JghY7hJfrXrRyrEByWY
+epOc2gsHitWPf2C3vBIbkuqX6C+LZw==
 </X509Certificate>
 <X509Certificate>
 MIIDvTCCAqWgAwIBAgICfoQwDQYJKoZIhvcNAQELBQAwgZAxCzAJBgNVBAYTAktSMRQwEgYDVQQI
