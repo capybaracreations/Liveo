@@ -12,6 +12,7 @@ import com.patrykkrawczyk.liveo.INetwork;
 import com.patrykkrawczyk.liveo.MonitorService;
 import com.patrykkrawczyk.liveo.R;
 import com.patrykkrawczyk.liveo.managers.accelerometer.AccelerometerManager;
+import com.patrykkrawczyk.liveo.managers.heartrate.HeartRateViewManager;
 import com.patrykkrawczyk.liveo.managers.location.MyLocationManager;
 
 import java.util.Random;
@@ -76,7 +77,7 @@ public class DataBroadcaster {
 
                     latitude = String.valueOf(location.getLatitude());
                     longitude = String.valueOf(location.getLongitude());
-                    heartRate = String.valueOf(new Random().nextInt(100));
+                    heartRate = String.valueOf(HeartRateViewManager.lastValue);
 
                     accX = String.valueOf(sensorEvent.values[0]);
                     accY = String.valueOf(sensorEvent.values[1]);
@@ -85,6 +86,7 @@ public class DataBroadcaster {
                     try {
                         trip = String.valueOf(Integer.parseInt(driver.getCurrentTrip()) + 1);
 
+                        Log.d("PATRYCZEK", "data broadcast: " + id + " " + latitude + " " + longitude + " " + heartRate + " " + accX + " " + accY + " " + " " + accZ + " " + " " + trip);
                         Call<ResponseBody> call = data.data(id, latitude, longitude, heartRate, accX, accY, accZ, trip);
                         call.enqueue(new Callback<ResponseBody>() {
                             @Override

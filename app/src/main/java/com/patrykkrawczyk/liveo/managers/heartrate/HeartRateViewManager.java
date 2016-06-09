@@ -19,6 +19,7 @@ public class HeartRateViewManager {
     private TextView heartRateText;
     private RippleBackground heartRateRipple;
     private boolean enabled = false;
+    public static int lastValue = 0;
 
     public HeartRateViewManager(RippleBackground ripple, TextView text) {
         this.heartRateRipple = ripple;
@@ -45,7 +46,10 @@ public class HeartRateViewManager {
             if (value == 0) heartRateText.setText("Calibrating");
             else if (value == -3) heartRateText.setText("NO HR");
             else if (value == -10) heartRateText.setText("...");
-            else heartRateText.setText(String.valueOf(value));
+            else {
+                heartRateText.setText(String.valueOf(value));
+                lastValue = value;
+            }
         }
     }
 
