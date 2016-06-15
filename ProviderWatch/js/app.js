@@ -1,5 +1,5 @@
 
-var lasthr = -5;
+var lasthr = 105;
 var isVibrateEnabled = false;
 var SAAgent,
     SASocket,
@@ -28,11 +28,20 @@ function receiveData(channelId, data) {
     	$("#bodyDiv").load("home.html");
     	isVibrateEnabled = false;
     } else {
-    	lasthr = Math.floor((Math.random() * 20) + 100);
+    	generateHr();
     	SASocket.sendData(SAAgent.channelIds[0], lasthr);
     }
 }
 
+function generateHr() 
+{
+	var value = Math.floor((Math.random() * 3) + 1);
+	if (lasthr <= 105) {
+		lasthr += value;
+	} else {
+		lasthr -= value;
+	}
+}
 
 function onchangedCB(hrmInfo) 
 {
