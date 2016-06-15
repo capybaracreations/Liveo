@@ -153,4 +153,7 @@ public class HubActivity extends AppCompatActivity implements ServiceConnection 
         monitorService = null;
     }
 
+    public void invokeAlert() {
+        monitorService.invokeAlert();
+    }
 }

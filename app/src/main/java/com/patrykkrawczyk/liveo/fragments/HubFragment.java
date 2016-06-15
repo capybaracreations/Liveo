@@ -137,6 +137,11 @@ public class HubFragment extends Fragment {
         //startActivity(intent);
     }
 
+    @OnClick(R.id.heartRipple)
+    public void onAccelerometerGraphClick() {
+        activity.invokeAlert();
+    }
+
     @Override
     public void onResume() {
         super.onResume();

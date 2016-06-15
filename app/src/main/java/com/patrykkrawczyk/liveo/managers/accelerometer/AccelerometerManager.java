@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class AccelerometerManager implements SensorEventListener {
 
-    private static final int SHAKE_THRESHOLD = 5000;
+    private static final int SHAKE_THRESHOLD = 4000;
     private final int UPDATE_THRESHOLD = 100;
     private long lastUpdateTime;
     private SensorManager sensorManager;
@@ -84,11 +84,7 @@ public class AccelerometerManager implements SensorEventListener {
 
                 if (speed > SHAKE_THRESHOLD) {
                     Log.d("sensor", "shake detected w/ speed: " + speed);
-                    if (canInvokeAlert) {
-                        Log.d("patryczek", "INVOKE");
-                        eventBus.post(new AlertEvent());
-                        canInvokeAlert = false;
-                    }
+                    invokeAlert();
                     //Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
                 }
 
@@ -96,6 +92,14 @@ public class AccelerometerManager implements SensorEventListener {
                 last_y = y;
                 last_z = z;
             }
+        }
+    }
+
+    public void invokeAlert() {
+        if (canInvokeAlert) {
+            Log.d("patryczek", "INVOKE");
+            eventBus.post(new AlertEvent());
+            canInvokeAlert = false;
         }
     }
 

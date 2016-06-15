@@ -75,6 +75,10 @@ public class MonitorService extends Service {
         return binder;
     }
 
+    public void invokeAlert() {
+        accelerometerManager.invokeAlert();
+    }
+
 
     public class LocalBinder extends Binder {
         public MonitorService getService() {

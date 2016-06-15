@@ -162,7 +162,19 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
     @Subscribe
     public void onSapEvent(SapEvent event) {
         if (event.action.equals("ALERT_CANCEL")) {
-            safeButtonClick(null);
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    activity.setAlertInvokable();
+                    activity.send("ALERT_CANCEL");
+                    timer.cancel();
+                    vibratorEnabled = false;
+                    progressBar.setProgressValue(0);
+                    progressBar.setCenterTitle("...");
+                    eventBus.post(new ChangeHubFragmentEvent(HubFragmentsEnum.HUB));
+                    if (eventBus.isRegistered(this)) eventBus.unregister(this);
+                }
+            });
         }
     }
 
@@ -197,6 +209,8 @@ public class AlertFragment extends Fragment implements Callback<GeocodingRespons
     }
 
     private void moveToInformationScreen() {
+        activity.setAlertInvokable();
+        activity.send("ALERT_CANCEL");
         activity.goToInformation();
     }
 
